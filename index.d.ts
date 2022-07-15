@@ -11,4 +11,9 @@ declare namespace Graph {
     toId: string;
     discription: string;
   }
+
+  type PageContextProps = {
+    page: number;
+    setPage: React.SetStateAction<React.Dispatch<number>>
+  }
 }
