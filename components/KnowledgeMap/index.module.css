@@ -1,0 +1,38 @@
+.canvas-container {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #000;
+}
+
+.node {
+  border-radius: 50%;
+  background-color: #1890ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.node:hover {
+  box-shadow: 0px 0px 3px 5px #188fff64;
+}
+
+.node-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.node-center {
+  position: absolute;
+}
+
+.text-ellipse {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
