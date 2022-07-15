@@ -1,7 +1,16 @@
 import * as d3 from 'd3'
+import React from 'react'
 import { nodeRadius } from './defaultConfig'
 import { calcBasicDistence } from './utils/calcBasicDistance'
 
+
+const calcMode = (nodes: Graph.Node[], page: number, mode?: number,) => {
+  if (mode === 1 || !mode) {
+    return nodes
+  } else {
+    return nodes.slice(page, 5 * page)
+  }
+}
 
 /**
  * 描述 拖拽开始事件
@@ -65,7 +74,18 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[]) 
  * @param {any} y:number  根节点y偏移
  * @returns {any}
  */
-export const drawNodeArea = (container: SVGGElement, nodes: Graph.Node[], edges: Graph.Edge[], x: number, y: number) => {
+export const drawNodeArea = (
+  container: SVGGElement,
+  nodes: Graph.Node[],
+  edges: Graph.Edge[],
+  x: number,
+  y: number,
+  page: number,
+  setPage: React.SetStateAction<React.Dispatch<number>>,
+  mode?: number
+) => {
+  // rerender时先清除画布
+  d3.select(container).selectChildren().remove
   /** 处理节点数据 */
   // 根节点
   const mainNode = nodes.find(node => node.mode === 0)
@@ -123,7 +143,8 @@ export const drawNodeArea = (container: SVGGElement, nodes: Graph.Node[], edges:
 
 
   // 创建入边节点
-  insideTypeNodes.forEach((nodes, index) => {
+  insideTypeNodes.forEach((originNodes, index) => {
+    const nodes = calcMode(originNodes, page, mode)
     const insideContainer = d3.select(container)
       .append('g')
       .selectAll('g')
@@ -176,8 +197,9 @@ export const drawNodeArea = (container: SVGGElement, nodes: Graph.Node[], edges:
       .text(node => node.type)
   })
 
-  // 创建入边节点
-  outsideTypeNodes.forEach((nodes, index) => {
+  // 创建出边节点
+  outsideTypeNodes.forEach((originNodes, index) => {
+    const nodes = calcMode(originNodes, page, mode)
     const outsideContainer = d3.select(container)
       .append('g')
       .selectAll('g')
