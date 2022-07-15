@@ -3,14 +3,39 @@ import { nodeRadius } from './defaultConfig'
 import { calcBasicDistence } from './utils/calcBasicDistance'
 
 
+/**
+ * 描述 拖拽开始事件
+ * @date 2022-07-15
+ * @param {any} this:any
+ * @param {any} event:any
+ * @param {any} node:Graph.Node
+ * @returns {any}
+ */
 function dragStart(this: any, event: any, node: Graph.Node) {
   d3.select(this).style('cursor', 'grabbing')
 }
 
+/**
+ * 描述 拖拽结束事件
+ * @date 2022-07-15
+ * @param {any} this:any
+ * @param {any} event:any
+ * @param {any} node:Graph.Node
+ * @returns {any}
+ */
 function dragEnd(this: any, event: any, node: Graph.Node) {
   d3.select(this).style('cursor', 'pointer')
 }
 
+/**
+ * 描述 拖拽进行事件
+ * @date 2022-07-15
+ * @param {any} that:any
+ * @param {any} event:any
+ * @param {any} node:Graph.Node
+ * @param {any} edges:Graph.Edge[]
+ * @returns {any}
+ */
 function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[]) {
   requestAnimationFrame(() => {
     d3.select(`#${node.id}`).attr('cx', event.x).attr('cy', event.y)
@@ -30,6 +55,7 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[]) 
     })
   })
 }
+
 /**
  * 描述 绘制节点
  * @date 2022-07-15
