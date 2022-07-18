@@ -1,10 +1,13 @@
+import { Layout } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
+import useScreenSize from '../hooks/useScreenSize'
 
 const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = ({ data }) => {
+  const { height } = useScreenSize()
   return (
     <>
       <Head>
@@ -14,7 +17,15 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
       </Head>
 
       <main>
-        <Canvas nodes={data.nodes} edges={data.edges} />
+        <Layout>
+          <Layout.Header></Layout.Header>
+          <Layout>
+            <Layout.Sider theme={'light'}></Layout.Sider>
+            <Layout.Content style={{ height: height - 70 }}>
+              <Canvas nodes={data.nodes} edges={data.edges} />
+            </Layout.Content>
+          </Layout>
+        </Layout>
       </main>
     </>
   )

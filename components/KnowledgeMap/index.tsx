@@ -8,7 +8,6 @@ import style from './index.module.css'
 import NodeArea from './NodeArea';
 
 function Canvas({ nodes, edges }: { nodes: Graph.Node[]; edges: Graph.Edge[] }) {
-  const { width, height } = useScreenSize()
   const [scaleSize, setScaleSize] = useState<number>(1)
   const canvasRef = useRef<SVGSVGElement>(null!)
   const dragRef = useRef<SVGGElement>(null!)
@@ -20,7 +19,7 @@ function Canvas({ nodes, edges }: { nodes: Graph.Node[]; edges: Graph.Edge[] }) 
 
   return (
     <PageContext.Provider value={{ page, setPage }}>
-      <div style={{ width: width, height: height - 5 }}>
+      <div style={{ width: '100%', height: '100%' }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className={style['canvas-container']}
