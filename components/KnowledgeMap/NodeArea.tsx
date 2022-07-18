@@ -8,7 +8,7 @@ function NodeArea({ nodes, edges, mode }: { nodes: Graph.Node[]; edges: Graph.Ed
   const { page, setPage } = useContext(PageContext)!
 
   useEffect(() => {
-    drawNodeArea(nodesContainerRef.current, nodes, edges, 700, 400, page, setPage, mode)
+    drawNodeArea(nodesContainerRef.current, nodes, edges, 700, 400, mode)
   }, [edges, mode, nodes, page, setPage])
 
   return (
