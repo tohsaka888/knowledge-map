@@ -1,13 +1,14 @@
-import { Layout } from 'antd'
+import { Form, Layout, Select } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
+import { useState } from 'react'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
 import useScreenSize from '../hooks/useScreenSize'
 
 const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = ({ data }) => {
   const { height } = useScreenSize()
+  const [mode, setMode] = useState<number>(1)
   return (
     <>
       <Head>
@@ -18,11 +19,34 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
 
       <main>
         <Layout>
-          <Layout.Header></Layout.Header>
+          <Layout.Header>
+
+          </Layout.Header>
           <Layout>
-            <Layout.Sider theme={'light'}></Layout.Sider>
+            <Layout.Sider theme={'light'}>
+              <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
+                <Form.Item label={'显示模式'}>
+                  <Select
+                    defaultValue={1}
+                    onSelect={(value: any) => {
+                      setMode(value)
+                    }}
+                    value={mode}
+                    options={[
+                      {
+                        label: '延长半径',
+                        value: 1
+                      },
+                      {
+                        label: '分页',
+                        value: 2
+                      }
+                    ]} />
+                </Form.Item>
+              </Form>
+            </Layout.Sider>
             <Layout.Content style={{ height: height - 70 }}>
-              <Canvas nodes={data.nodes} edges={data.edges} />
+              <Canvas nodes={data.nodes} edges={data.edges} mode={mode} />
             </Layout.Content>
           </Layout>
         </Layout>

@@ -7,7 +7,7 @@ import style from './index.module.css'
 // import LineArea from './LineArea';
 import NodeArea from './NodeArea';
 
-function Canvas({ nodes, edges }: { nodes: Graph.Node[]; edges: Graph.Edge[] }) {
+function Canvas({ nodes, edges, mode }: { nodes: Graph.Node[]; edges: Graph.Edge[]; mode: number }) {
   const [scaleSize, setScaleSize] = useState<number>(1)
   const canvasRef = useRef<SVGSVGElement>(null!)
   const dragRef = useRef<SVGGElement>(null!)
@@ -16,7 +16,6 @@ function Canvas({ nodes, edges }: { nodes: Graph.Node[]; edges: Graph.Edge[] }) 
   useEffect(() => {
     canvasDrag(canvasRef.current, dragRef.current)
   }, [])
-
   return (
     <PageContext.Provider value={{ page, setPage }}>
       <div style={{ width: '100%', height: '100%' }}>
@@ -32,8 +31,8 @@ function Canvas({ nodes, edges }: { nodes: Graph.Node[]; edges: Graph.Edge[] }) 
           <g transform={`scale(${scaleSize})`}>
             {/* 画布移动 */}
             <g ref={dragRef} transform={`translate(0, 0)`}>
-              <EdgeArea edges={edges} mode={2}>
-                <NodeArea nodes={nodes} edges={edges} mode={2} />
+              <EdgeArea edges={edges} mode={mode}>
+                <NodeArea nodes={nodes} edges={edges} mode={mode} />
               </EdgeArea>
               {/* <LineArea line={edge} /> */}
             </g>

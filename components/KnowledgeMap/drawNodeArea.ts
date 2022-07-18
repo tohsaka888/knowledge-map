@@ -293,7 +293,7 @@ export const drawNodeArea = (
   mode?: number
 ) => {
   // rerender时先清除画布
-  d3.select(container).selectChildren().remove
+  // d3.select(container).selectAll().remove
   /** 处理节点数据 */
   // 根节点
   const mainNode = nodes.find(node => node.mode === 0)
