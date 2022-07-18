@@ -5,11 +5,11 @@ function EdgeArea({ children, edges, mode }: { children: ReactNode; edges: Graph
   const edgeAreaContainer = useRef<SVGGElement>(null!)
 
   useEffect(() => {
-    drawEdgeArea(edgeAreaContainer.current, edges, mode)
+    drawEdgeArea(edges, mode)
   }, [edges, mode])
 
   return (
-    <g ref={edgeAreaContainer}>
+    <g ref={edgeAreaContainer} id="edge-area">
       {children}
     </g>
   )

@@ -8,17 +8,21 @@ import * as d3 from 'd3'
 //   }
 // }
 
-export const drawEdgeArea = (container: SVGGElement, edges: Graph.Edge[], mode: number | undefined) => {
-  d3.select(container)
+export const drawEdgeArea = (edges: Graph.Edge[], mode: number | undefined) => {
+  const edgeArea = d3.select('#edge-area')
     .insert('g', ':first-child')
+  edgeArea
     .selectAll('g')
     .data(edges)
     .join('g')
+    .classed('edge', true)
     .append('path')
     .attr('d', function (edge) {
       const fromNode = d3.select(`#${edge.fromId}`)
       const toNode = d3.select(`#${edge.toId}`)
-      return fromNode.nodes().length !== 0 && toNode.nodes().length !== 0 && `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${toNode.attr('cx')} ${toNode.attr('cy')}`
+      return fromNode.nodes().length !== 0 && toNode.nodes().length !== 0
+        ? `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${toNode.attr('cx')} ${toNode.attr('cy')}`
+        : `M 0 0`
     })
     .attr('stroke-width', 1)
     .attr('stroke', '#cecece')
