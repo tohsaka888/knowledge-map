@@ -33,8 +33,8 @@ function Canvas({ nodes, edges }: { nodes: Graph.Node[]; edges: Graph.Edge[] }) 
           <g transform={`scale(${scaleSize})`}>
             {/* 画布移动 */}
             <g ref={dragRef} transform={`translate(0, 0)`}>
-              <EdgeArea edges={edges} mode={1}>
-                <NodeArea nodes={nodes} edges={edges} mode={1} />
+              <EdgeArea edges={edges} mode={2}>
+                <NodeArea nodes={nodes} edges={edges} mode={2} />
               </EdgeArea>
               {/* <LineArea line={edge} /> */}
             </g>
