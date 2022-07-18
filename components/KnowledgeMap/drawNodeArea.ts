@@ -60,7 +60,6 @@ const insideNextPage = (
     .append('circle')
     .attr('r', nodeRadius)
     .attr('cx', (_, idx) => {
-      console.log(index, insideMaxAngle)
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
       return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
