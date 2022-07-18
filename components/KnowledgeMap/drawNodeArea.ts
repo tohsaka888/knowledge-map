@@ -114,7 +114,7 @@ const insideNextPage = (
     .attr('text-anchor', 'middle')
     .style('font-size', 10)
     .text(item => item.name)
-    .attr('id', item =>`${item.id}name`)
+    .attr('id', item => `${item.id}name`)
   d3.selectAll('.edge').remove()
   drawEdgeArea(edges, mode)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
@@ -211,7 +211,7 @@ const outsideNextPage = (
     .attr('text-anchor', 'middle')
     .style('font-size', 10)
     .text(item => item.name)
-    .attr('id', item =>`${item.id}name`)
+    .attr('id', item => `${item.id}name`)
   d3.selectAll('.edge').remove()
   drawEdgeArea(edges, mode)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
@@ -328,9 +328,13 @@ export const drawNodeArea = (
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
           dragging(this, event, mainNode as Graph.Node, edges, mode)
-          const paths = d3.selectAll('.arc').attr('d').split('\n')
-          paths[0] = `M ${event.x} ${event.y}`
-          d3.selectAll('.arc').attr('d', paths.join('\n')).attr('transform-origin', `${event.x} ${event.y}`)
+          const paths = d3.selectAll('.arc')
+          paths.nodes().forEach(path => {
+            const d = d3.select(path).attr('d').split('\n')
+            d[0] = `M ${event.x} ${event.y}`
+            d3.select(path).attr('d', d.join('\n')).attr('transform-origin', `${event.x} ${event.y}`)
+          })
+
           d3.selectAll('.arc-text').attr('transform', `translate(${event.x}, ${event.y - arcAreaDistence + arcAreaLength / 4})`)
         })
     )
@@ -470,7 +474,7 @@ export const drawNodeArea = (
       .attr('text-anchor', 'middle')
       .style('font-size', 10)
       .text(item => item.name)
-      .attr('id', item =>`${item.id}name`)
+      .attr('id', item => `${item.id}name`)
   })
 
   // 创建出边节点
@@ -579,6 +583,6 @@ export const drawNodeArea = (
       .attr('text-anchor', 'middle')
       .style('font-size', 10)
       .text(item => item.name)
-      .attr('id', item =>`${item.id}name`)
+      .attr('id', item => `${item.id}name`)
   })
 }
