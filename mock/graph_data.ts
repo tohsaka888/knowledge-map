@@ -27,7 +27,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type2 fake_data
-  for (let i = 0; i < 23; i++) {
+  for (let i = 0; i < 13; i++) {
     const nodeId = uniqueId('type2-')
     let edgeData = { fromId: nodeId, toId: fakeNodeData[0].id, discription: '描述' }
     let nodeData = {
@@ -41,7 +41,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type3 fake_data
-  for (let i = 0; i < 33; i++) {
+  for (let i = 0; i < 11; i++) {
     const nodeId = uniqueId('type3-')
     let edgeData = { fromId: nodeId, toId: fakeNodeData[0].id, discription: '描述' }
     let nodeData = {
