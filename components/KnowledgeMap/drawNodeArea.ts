@@ -1,6 +1,7 @@
 import * as d3 from 'd3'
 import React from 'react'
-import { nodeRadius } from './defaultConfig'
+import { arcAreaDistence, arcAreaLength, nodeRadius } from './defaultConfig'
+import { calcArcX, calcArcY } from './utils/calcArc'
 import { calcBasicDistence } from './utils/calcBasicDistance'
 
 
@@ -8,7 +9,7 @@ const calcMode = (nodes: Graph.Node[], page: number, mode?: number,) => {
   if (mode === 1 || !mode) {
     return nodes
   } else {
-    return nodes.slice(page, 5 * page)
+    return nodes.length < 5 ? nodes : nodes.slice((page - 1) * 5, 5 * page - 1)
   }
 }
 
@@ -51,16 +52,19 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[]) 
     d3.select(`#${node.id}text`).attr('x', event.x).attr('y', event.y)
     const fromEdges = edges.filter(edge => edge.fromId === node.id)
     const toEdges = edges.filter(edge => edge.toId === node.id)
-    console.log(fromEdges)
     fromEdges.forEach(edge => {
       const toNode = d3.select(`#${edge.toId}`)
-      d3.select(`#${edge.fromId}${edge.toId}`)
-        .attr('d', `M ${event.x} ${event.y} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+      const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
+      if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
+        curEdge.attr('d', `M ${event.x} ${event.y} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+      }
     })
     toEdges.forEach(edge => {
       const fromNode = d3.select(`#${edge.fromId}`)
-      d3.select(`#${edge.fromId}${edge.toId}`)
-        .attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${event.x} ${event.y}`)
+      const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
+      if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
+        curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${event.x} ${event.y}`)
+      }
     })
   })
 }
@@ -80,8 +84,6 @@ export const drawNodeArea = (
   edges: Graph.Edge[],
   x: number,
   y: number,
-  page: number,
-  setPage: React.SetStateAction<React.Dispatch<number>>,
   mode?: number
 ) => {
   // rerender时先清除画布
@@ -144,7 +146,26 @@ export const drawNodeArea = (
 
   // 创建入边节点
   insideTypeNodes.forEach((originNodes, index) => {
-    const nodes = calcMode(originNodes, page, mode)
+    const nodes = calcMode(originNodes, (index + 1) / 5 + 1, mode)
+    if (mode === 2 && nodes.length >= 5) {
+      d3.select(container)
+        .append('path')
+        .attr('d', `M ${x} ${y} m ${arcAreaDistence} 0 a ${arcAreaDistence} ${arcAreaDistence} 0 0 1 ${calcArcX(arcAreaDistence, insideMaxAngle)} ${calcArcY(arcAreaDistence, insideMaxAngle)}"`)
+        .attr('fill', 'none')
+        .attr('stroke', 'rgba(24, 144, 255, 0.1)')
+        .attr('stroke-width', arcAreaLength)
+        .attr('transform', `rotate(${-90 - (index + 1) * insideMaxAngle})`)
+        .attr('transform-origin', `${x} ${y}`);
+      d3.select(container)
+        .append('g')
+        .attr('transform', `translate(${x}, ${y - arcAreaDistence + arcAreaLength / 4})`)
+        .append('g')
+        .attr('transform', `rotate(${-0.5 * insideMaxAngle - index * insideMaxAngle})`)
+        .attr('transform-origin', `${0} ${arcAreaDistence - arcAreaLength / 4}`)
+        .append('text')
+        .text(`1/${originNodes.length % 5 === 0 ? (originNodes.length / 5).toFixed(0) : +(originNodes.length / 5).toFixed(0) + 1}`)
+        .attr('text-anchor', 'middle');
+    }
     const insideContainer = d3.select(container)
       .append('g')
       .selectAll('g')
@@ -199,7 +220,26 @@ export const drawNodeArea = (
 
   // 创建出边节点
   outsideTypeNodes.forEach((originNodes, index) => {
-    const nodes = calcMode(originNodes, page, mode)
+    const nodes = calcMode(originNodes, (index + 1) / 5 + 1, mode)
+    if (mode === 2 && nodes.length >= 5) {
+      d3.select(container)
+        .append('path')
+        .attr('d', `M ${x} ${y} m ${arcAreaDistence} 0 a ${arcAreaDistence} ${arcAreaDistence} 0 0 1 ${calcArcX(arcAreaDistence, outSideMaxAngle)} ${calcArcY(arcAreaDistence, outSideMaxAngle)}"`)
+        .attr('fill', 'none')
+        .attr('stroke', 'rgba(24, 144, 255, 0.1)')
+        .attr('stroke-width', arcAreaLength)
+        .attr('transform', `rotate(${-90 + index * outSideMaxAngle})`)
+        .attr('transform-origin', `${x} ${y}`);
+      d3.select(container)
+        .append('g')
+        .attr('transform', `translate(${x}, ${y - arcAreaDistence + arcAreaLength / 4})`)
+        .append('g')
+        .attr('transform', `rotate(${0.5 * outSideMaxAngle + index * outSideMaxAngle})`)
+        .attr('transform-origin', `${0} ${arcAreaDistence - arcAreaLength / 4}`)
+        .append('text')
+        .text(`1/${originNodes.length % 5 === 0 ? (originNodes.length / 5).toFixed(0) : +(originNodes.length / 5).toFixed(0) + 1}`)
+        .attr('text-anchor', 'middle');
+    }
     const outsideContainer = d3.select(container)
       .append('g')
       .selectAll('g')
