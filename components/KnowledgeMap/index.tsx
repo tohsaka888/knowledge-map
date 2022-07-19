@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import useScreenSize from '../../hooks/useScreenSize'
 import { canvasDrag } from './canvasDrag';
 import { PageContext } from './context';
+import { createArrow } from './createArrow';
 import EdgeArea from './EdgeArea';
 import style from './index.module.css'
 // import LineArea from './LineArea';
@@ -14,6 +15,7 @@ function Canvas({ nodes, edges, mode }: { nodes: Graph.Node[]; edges: Graph.Edge
   const [page, setPage] = useState<number>(1)
 
   useEffect(() => {
+    createArrow(dragRef.current)
     canvasDrag(canvasRef.current, dragRef.current)
   }, [])
   return (
