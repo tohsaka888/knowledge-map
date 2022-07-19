@@ -12,5 +12,8 @@ with `pnpm`
 pnpm install & pnpm dev
 ```
 
+## Demo
+[click me to see the demo](https://knowledge-map.vercel.app/)
+
 ## License
 MIT
