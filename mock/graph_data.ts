@@ -69,6 +69,34 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
     fakeEdgeData.push(edgeData)
   }
 
+  // 生成type5 fake_data
+  for (let i = 0; i < Math.random() * 100; i++) {
+    const nodeId = uniqueId('type5-')
+    let edgeData = { toId: nodeId, fromId: fakeNodeData[0].id, discription: '描述' }
+    let nodeData = {
+      name: `类型5节点${i}`,
+      id: nodeId,
+      type: 'type5',
+      mode: 2
+    }
+    fakeNodeData.push(nodeData)
+    fakeEdgeData.push(edgeData)
+  }
+
+  // 生成type6 fake_data
+  for (let i = 0; i < Math.random() * 100; i++) {
+    const nodeId = uniqueId('type6-')
+    let edgeData = { toId: nodeId, fromId: fakeNodeData[0].id, discription: '描述' }
+    let nodeData = {
+      name: `类型6节点${i}`,
+      id: nodeId,
+      type: 'type6',
+      mode: 2
+    }
+    fakeNodeData.push(nodeData)
+    fakeEdgeData.push(edgeData)
+  }
+
   return {
     nodes: fakeNodeData,
     edges: fakeEdgeData
