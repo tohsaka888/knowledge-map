@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { Graph } from '../..'
 
 /**
  * 描述 绘制edgeArea
@@ -7,7 +8,7 @@ import * as d3 from 'd3'
  * @param {any} mode:number|undefined
  * @returns {any}
  */
-export const drawEdgeArea = (edges: Graph.Edge[], mode: number | undefined) => {
+export const drawEdgeArea = (edges: Graph.Edge[]) => {
   const edgeArea = d3.select('#edge-area')
     .insert('g', ':first-child')
   edgeArea

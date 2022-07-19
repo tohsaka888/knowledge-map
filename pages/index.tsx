@@ -1,14 +1,40 @@
-import { Form, Layout, Select } from 'antd'
+import { Form, Input, Layout, Select } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useState } from 'react'
+import { useReducer } from 'react'
+import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
 import useScreenSize from '../hooks/useScreenSize'
+import { nodeRadius, basicDistence, arcAreaLength, arcAreaDistence, mode } from '../components/KnowledgeMap/defaultConfig'
+import { ConfigContext } from '../context'
+
+const initState = {
+  nodeRadius,
+  basicDistence,
+  arcAreaDistence,
+  arcAreaLength,
+  mode
+}
+
+const reducer = (state: typeof initState, action: Graph.ActionType) => {
+  switch (action.type) {
+    case 'setMode':
+      return { ...state, mode: action.payload }
+    case 'setAreaLength':
+      return { ...state, arcAreaLength: action.payload }
+    case 'setAreaDistence':
+      return { ...state, arcAreaDistence: action.payload }
+    case 'setNodeRadius':
+      return { ...state, nodeRadius: action.payload }
+    case 'setBasicDistence':
+      return { ...state, basicDistence: action.payload }
+  }
+}
 
 const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = ({ data }) => {
   const { height } = useScreenSize()
-  const [mode, setMode] = useState<number>(1)
+  const [config, dispatch] = useReducer(reducer, initState)
   return (
     <>
       <Head>
@@ -23,31 +49,70 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
 
           </Layout.Header>
           <Layout>
-            <Layout.Sider theme={'light'}>
-              <Form labelCol={{ span: 8 }} wrapperCol={{ span: 16 }}>
-                <Form.Item label={'显示模式'}>
-                  <Select
-                    defaultValue={1}
-                    onSelect={(value: any) => {
-                      setMode(value)
-                    }}
-                    value={mode}
-                    options={[
-                      {
-                        label: '延长半径',
-                        value: 1
-                      },
-                      {
-                        label: '分页',
-                        value: 2
-                      }
-                    ]} />
-                </Form.Item>
-              </Form>
-            </Layout.Sider>
-            <Layout.Content style={{ height: height - 70 }}>
-              <Canvas nodes={data.nodes} edges={data.edges} mode={mode} />
-            </Layout.Content>
+            <ConfigContext.Provider value={{ config, dispatch }}>
+              <Layout.Sider theme={'light'}>
+                <Form
+                  style={{ marginTop: '16px', padding: '0px 8px' }}
+                  labelCol={{ span: 8 }}
+                  wrapperCol={{ span: 16 }}>
+                  <Form.Item label={'显示模式'}>
+                    <Select
+                      defaultValue={1}
+                      onSelect={(value: number) => {
+                        dispatch({ type: 'setMode', payload: value })
+                      }}
+                      value={config.mode}
+                      options={[
+                        {
+                          label: '延长半径',
+                          value: 1
+                        },
+                        {
+                          label: '分页',
+                          value: 2
+                        }
+                      ]} />
+                  </Form.Item>
+                  <Form.Item label={"节点半径"}>
+                    <Input
+                      type='number'
+                      placeholder='请输入半径'
+                      value={config.nodeRadius}
+                      onChange={(e) => dispatch({ type: 'setNodeRadius', payload: +e.target.value })}
+                    />
+                  </Form.Item>
+                  <Form.Item label={"基础半径"}>
+                    <Input
+                      type='number'
+                      placeholder='请输入基础半径'
+                      value={config.basicDistence}
+                      onChange={(e) => dispatch({ type: 'setBasicDistence', payload: +e.target.value })}
+                    />
+                  </Form.Item>
+                  {config.mode === 2 && <>
+                    <Form.Item label={"弧线距离"}>
+                      <Input
+                        type='number'
+                        placeholder='请弧线距离'
+                        value={config.arcAreaDistence}
+                        onChange={(e) => dispatch({ type: 'setAreaDistence', payload: +e.target.value })}
+                      />
+                    </Form.Item>
+                    <Form.Item label={"弧线宽度"}>
+                      <Input
+                        type='number'
+                        placeholder='请弧线宽度'
+                        value={config.arcAreaLength}
+                        onChange={(e) => dispatch({ type: 'setAreaLength', payload: +e.target.value })}
+                      />
+                    </Form.Item>
+                  </>}
+                </Form>
+              </Layout.Sider>
+              <Layout.Content style={{ height: height - 70 }}>
+                <Canvas nodes={data.nodes} edges={data.edges} config={config} />
+              </Layout.Content>
+            </ConfigContext.Provider>
           </Layout>
         </Layout>
       </main>

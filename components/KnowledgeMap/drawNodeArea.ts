@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 import React from 'react'
-import { arcAreaDistence, arcAreaLength, nodeRadius } from './defaultConfig'
+import { Graph } from '../..'
 import { drawEdgeArea } from './drawEdgeArea'
 import { calcArcX, calcArcY } from './utils/calcArc'
 import { calcBasicDistence } from './utils/calcBasicDistance'
@@ -46,8 +46,9 @@ const insideNextPage = (
   x: number,
   y: number,
   edges: Graph.Edge[],
-  mode: number | undefined
+  config: Graph.ConfigProps
 ) => {
+  const { mode, nodeRadius, basicDistence } = config
   pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
   const nodes = calcMode(originNodes, pagination.page, mode)
   d3.select(`#${nodes[0].type}`).selectChildren().remove()
@@ -61,11 +62,11 @@ const insideNextPage = (
     .attr('r', nodeRadius)
     .attr('cx', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('cy', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
     .attr('fill', '#1890ff')
     .attr('id', (node) => node.id)
@@ -74,18 +75,18 @@ const insideNextPage = (
         .on('start', dragStart)
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, mode)
+          dragging(this, event, node, edges, config)
         })
     )
   insideContainer
     .append('text')
     .attr('x', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
     .attr('id', node => node.id + 'text')
     .style('cursor', 'pointer')
@@ -94,7 +95,7 @@ const insideNextPage = (
         .on('start', dragStart)
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, mode)
+          dragging(this, event, node, edges, config)
         })
     )
     .attr('text-anchor', 'middle')
@@ -105,18 +106,18 @@ const insideNextPage = (
     .append('text')
     .attr('x', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
     })
     .attr('text-anchor', 'middle')
     .style('font-size', 10)
     .text(item => item.name)
     .attr('id', item => `${item.id}name`)
   d3.selectAll('.edge').remove()
-  drawEdgeArea(edges, mode)
+  drawEdgeArea(edges)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
 
@@ -144,8 +145,9 @@ const outsideNextPage = (
   x: number,
   y: number,
   edges: Graph.Edge[],
-  mode: number | undefined
+  config: Graph.ConfigProps
 ) => {
+  const { mode, nodeRadius, basicDistence } = config
   pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
   const nodes = calcMode(originNodes, pagination.page, mode)
   d3.select(`#${nodes[0].type}`).selectChildren().remove()
@@ -158,11 +160,11 @@ const outsideNextPage = (
     .attr('r', nodeRadius)
     .attr('cx', (_, idx) => {
       const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return x + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('cy', (_, idx) => {
       const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+      return y + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
     .attr('fill', '#1890ff')
     .attr('id', (node) => node.id)
@@ -171,18 +173,18 @@ const outsideNextPage = (
         .on('start', dragStart)
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, mode)
+          dragging(this, event, node, edges, config)
         })
     )
   outsideContainer
     .append('text')
     .attr('x', (_, idx) => {
       const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return x + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
       const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+      return y + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
     .attr('id', node => node.id + 'text')
     .style('cursor', 'pointer')
@@ -191,7 +193,7 @@ const outsideNextPage = (
         .on('start', dragStart)
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, mode)
+          dragging(this, event, node, edges, config)
         })
     )
     .attr('text-anchor', 'middle')
@@ -202,18 +204,18 @@ const outsideNextPage = (
     .append('text')
     .attr('x', (_, idx) => {
       const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return x + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
       const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+      return y + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
     })
     .attr('text-anchor', 'middle')
     .style('font-size', 10)
     .text(item => item.name)
     .attr('id', item => `${item.id}name`)
   d3.selectAll('.edge').remove()
-  drawEdgeArea(edges, mode)
+  drawEdgeArea(edges)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
 
@@ -251,7 +253,8 @@ function dragEnd(this: any, event: any, node: Graph.Node) {
  * @param {any} edges:Graph.Edge[]
  * @returns {any}
  */
-function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], mode: number | undefined) {
+function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], config: Graph.ConfigProps) {
+  const { nodeRadius } = config
   requestAnimationFrame(() => {
     d3.select(`#${node.id}`).attr('cx', event.x).attr('cy', event.y)
     d3.select(`#${node.id}text`).attr('x', event.x).attr('y', event.y)
@@ -296,12 +299,13 @@ export const drawNodeArea = (
   edges: Graph.Edge[],
   x: number,
   y: number,
-  mode?: number
-) => {
+  config: Graph.ConfigProps
+): any => {
   // rerender时先清除画布
   // d3.select(container).selectAll().remove
   /** 处理节点数据 */
   // 根节点
+  const { nodeRadius, basicDistence, arcAreaDistence, arcAreaLength, mode } = config
   const mainNode = nodes.find(node => node.mode === 0)
   // 入边节点
   const insideNodes = nodes.filter(node => node.mode === 1)
@@ -333,7 +337,7 @@ export const drawNodeArea = (
         .on('start', dragStart)
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, mainNode as Graph.Node, edges, mode)
+          dragging(this, event, mainNode as Graph.Node, edges, config)
           const paths = d3.selectAll('.arc')
           paths.nodes().forEach(path => {
             const d = d3.select(path).attr('d').split('\n')
@@ -355,7 +359,7 @@ export const drawNodeArea = (
         .on('start', dragStart)
         .on('end', dragEnd)
         .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, mainNode as Graph.Node, edges, mode)
+          dragging(this, event, mainNode as Graph.Node, edges, config)
           const paths = d3.selectAll('.arc')
           paths.nodes().forEach(path => {
             const d = d3.select(path).attr('d').split('\n')
@@ -418,7 +422,7 @@ export const drawNodeArea = (
             x,
             y,
             edges,
-            mode
+            config
           )
         })
     }
@@ -433,11 +437,11 @@ export const drawNodeArea = (
       .attr('r', nodeRadius)
       .attr('cx', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
       .attr('cy', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
       .attr('fill', '#1890ff')
       .attr('id', (node) => node.id)
@@ -446,18 +450,18 @@ export const drawNodeArea = (
           .on('start', dragStart)
           .on('end', dragEnd)
           .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, mode)
+            dragging(this, event, node, edges, config)
           })
       )
     insideContainer
       .append('text')
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
       .attr('y', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
       .attr('id', node => node.id + 'text')
       .style('cursor', 'pointer')
@@ -466,7 +470,7 @@ export const drawNodeArea = (
           .on('start', dragStart)
           .on('end', dragEnd)
           .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, mode)
+            dragging(this, event, node, edges, config)
           })
       )
       .attr('text-anchor', 'middle')
@@ -477,11 +481,11 @@ export const drawNodeArea = (
       .append('text')
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
       .attr('y', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
       })
       .attr('text-anchor', 'middle')
       .style('font-size', 10)
@@ -527,7 +531,7 @@ export const drawNodeArea = (
             x,
             y,
             edges,
-            mode
+            config
           )
         })
     }
@@ -542,11 +546,11 @@ export const drawNodeArea = (
       .attr('r', nodeRadius)
       .attr('cx', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-        return x + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return x + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
       .attr('cy', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-        return y + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+        return y + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
       .attr('fill', '#1890ff')
       .attr('id', (node) => node.id)
@@ -555,18 +559,18 @@ export const drawNodeArea = (
           .on('start', dragStart)
           .on('end', dragEnd)
           .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, mode)
+            dragging(this, event, node, edges, config)
           })
       )
     outsideContainer
       .append('text')
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-        return x + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return x + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
       .attr('y', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-        return y + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI)
+        return y + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
       .attr('id', node => node.id + 'text')
       .style('cursor', 'pointer')
@@ -575,7 +579,7 @@ export const drawNodeArea = (
           .on('start', dragStart)
           .on('end', dragEnd)
           .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, mode)
+            dragging(this, event, node, edges, config)
           })
       )
       .attr('text-anchor', 'middle')
@@ -586,11 +590,11 @@ export const drawNodeArea = (
       .append('text')
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-        return x + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return x + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
       .attr('y', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-        return y + calcBasicDistence(nodes.length, outSideMaxAngle) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+        return y + calcBasicDistence(nodes.length, outSideMaxAngle,basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
       })
       .attr('text-anchor', 'middle')
       .style('font-size', 10)

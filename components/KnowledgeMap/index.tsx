@@ -1,25 +1,22 @@
-import React, { useEffect, useRef, useState } from 'react'
-import useScreenSize from '../../hooks/useScreenSize'
+import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { canvasDrag } from './canvasDrag';
-import { PageContext } from './context';
 import { createArrow } from './createArrow';
 import EdgeArea from './EdgeArea';
 import style from './index.module.css'
-// import LineArea from './LineArea';
 import NodeArea from './NodeArea';
+import { Graph } from '../..';
 
-function Canvas({ nodes, edges, mode }: { nodes: Graph.Node[]; edges: Graph.Edge[]; mode: number }) {
+function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Edge[]; config: Graph.ConfigProps }) {
   const [scaleSize, setScaleSize] = useState<number>(1)
   const canvasRef = useRef<SVGSVGElement>(null!)
   const dragRef = useRef<SVGGElement>(null!)
-  const [page, setPage] = useState<number>(1)
+  
 
   useEffect(() => {
     createArrow(dragRef.current)
     canvasDrag(canvasRef.current, dragRef.current)
   }, [])
   return (
-    <PageContext.Provider value={{ page, setPage }}>
       <div style={{ width: '100%', height: '100%' }}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -33,15 +30,14 @@ function Canvas({ nodes, edges, mode }: { nodes: Graph.Node[]; edges: Graph.Edge
           <g transform={`scale(${scaleSize})`}>
             {/* 画布移动 */}
             <g ref={dragRef} transform={`translate(0, 0)`}>
-              <EdgeArea edges={edges} mode={mode}>
-                <NodeArea nodes={nodes} edges={edges} mode={mode} />
+              <EdgeArea edges={edges} config={config}>
+                <NodeArea nodes={nodes} edges={edges} config={config} />
               </EdgeArea>
               {/* <LineArea line={edge} /> */}
             </g>
           </g>
         </svg>
       </div>
-    </PageContext.Provider>
   )
 }
 

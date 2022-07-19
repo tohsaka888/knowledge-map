@@ -1,3 +1,5 @@
+import { Dispatch } from "react";
+
 declare namespace Graph {
   type Node = {
     id: string;
@@ -12,8 +14,23 @@ declare namespace Graph {
     discription: string;
   }
 
-  type PageContextProps = {
-    page: number;
-    setPage: React.SetStateAction<React.Dispatch<number>>
+  type ConfigProps = {
+    nodeRadius: number;
+    basicDistence: number;
+    arcAreaDistence: number;
+    arcAreaLength: number;
+    mode: number;
+  }
+
+  type ActionType =
+    | { type: 'setMode', payload: number }
+    | { type: 'setNodeRadius', payload: number }
+    | { type: 'setBasicDistence', payload: number }
+    | { type: 'setAreaLength', payload: number }
+    | { type: 'setAreaDistence', payload: number }
+
+  type ConfigContextProps = {
+    config: ConfigProps;
+    dispatch: Dispatch<ActionType>
   }
 }
