@@ -15,7 +15,7 @@ export const canvasDrag = (canvas: SVGSVGElement, dragElement: SVGGElement) => {
         // 当前坐标加上拖拽的相对坐标
         // 即新坐标相比原坐标的偏移量
         currentElement.attr(
-          "transform",
+          "transform", 
           `translate(${x + event.dx}, ${y + event.dy})`
         );
       })

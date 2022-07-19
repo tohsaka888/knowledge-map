@@ -262,14 +262,20 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       const toNode = d3.select(`#${edge.toId}`)
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
       if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
-        curEdge.attr('d', `M ${event.x} ${event.y} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+        const middlePointX = (event.x + +toNode.attr('cx')) / 2
+        const middlePointY = (event.y + +toNode.attr('cy')) / 2
+        curEdge
+          .attr('d', `M ${event.x} ${event.y} L ${middlePointX} ${middlePointY} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+          .style('marker-mid', 'url(#arrow)')
       }
     })
     toEdges.forEach(edge => {
       const fromNode = d3.select(`#${edge.fromId}`)
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
       if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
-        curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${event.x} ${event.y}`)
+        const middlePointX = (event.x + +fromNode.attr('cx')) / 2
+        const middlePointY = (event.y + +fromNode.attr('cy')) / 2
+        curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${middlePointX} ${middlePointY} L ${event.x} ${event.y}`)
       }
     })
   })
@@ -373,6 +379,7 @@ export const drawNodeArea = (
     // drawArcArea(mode, container, originNodes, x, y, insideMaxAngle, index)
     if (mode === 2 && originNodes.length >= 5) {
       d3.select(container)
+        .append('g')
         .append('path')
         .classed('arc', true)
         .attr('d',
@@ -385,6 +392,11 @@ export const drawNodeArea = (
         .attr('stroke-width', arcAreaLength)
         .attr('transform', `rotate(${-90 - (index + 1) * insideMaxAngle})`)
         .attr('transform-origin', `${x} ${y}`);
+      // d3.select(container)
+      //   .append('g')
+      //   .attr('transform', `translate(${x} ${y})`)
+      //   .append('path')
+      //   .attr('d', 'm0,13.9664l8.5,-13.9664l8.5,13.9664l-4.25,0l0,14.0336l-8.5,0l0,-14.0336l-4.25,0z')
       d3.select(container)
         .append('g')
         .classed('arc-text', true)
