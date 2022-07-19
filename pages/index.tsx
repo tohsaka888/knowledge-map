@@ -46,7 +46,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
       <main>
         <Layout>
           <Layout.Header>
-
+            <h1 style={{ color: '#fff' }}>知识地图Demo</h1>
           </Layout.Header>
           <Layout>
             <ConfigContext.Provider value={{ config, dispatch }}>
