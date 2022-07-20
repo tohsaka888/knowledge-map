@@ -138,7 +138,11 @@ const insideNextPage = (
       return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
     })
     .style('opacity', 1);
-  d3.selectAll('.edge').remove()
+  d3.selectAll('.edge')
+    .filter((item: any) => {
+      return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
+    })
+    .remove()
   drawEdgeArea(edges)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
@@ -258,7 +262,11 @@ const outsideNextPage = (
       return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
     })
     .style('opacity', 1)
-  d3.selectAll('.edge').remove()
+  d3.selectAll('.edge')
+    .filter((item: any) => {
+      return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
+    })
+    .remove()
   drawEdgeArea(edges)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
