@@ -9,8 +9,6 @@ import { Graph } from '../..';
 function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Edge[]; config: Graph.ConfigProps }) {
   const canvasRef = useRef<SVGSVGElement>(null!)
 
-  console.log('rerender')
-
   useEffect(() => {
     createArrow(canvasRef.current)
     canvasDrag(canvasRef.current)
