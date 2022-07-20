@@ -4,7 +4,7 @@ import { Graph } from '..';
 export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => {
   const fakeNodeData: Graph.Node[] = [
     {
-      id: uniqueId('main-'),
+      id: 'main',
       name: '主节点',
       type: 'main',
       mode: 0
