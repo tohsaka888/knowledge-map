@@ -52,10 +52,10 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
             <ConfigContext.Provider value={{ config, dispatch }}>
               <Layout.Sider theme={'light'}>
                 <Form
-                  style={{ marginTop: '16px', padding: '0px 8px' }}
-                  labelCol={{ span: 8 }}
-                  wrapperCol={{ span: 16 }}>
-                  <Form.Item label={'显示模式'}>
+                  style={{ marginTop: '16px', padding: '0px 8px'}}
+                  labelCol={{ span: 10 }}
+                  wrapperCol={{ span: 14 }}>
+                  <Form.Item label={'显示模式'} required>
                     <Select
                       defaultValue={1}
                       onSelect={(value: number) => {
@@ -73,7 +73,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
                         }
                       ]} />
                   </Form.Item>
-                  <Form.Item label={"节点半径"}>
+                  <Form.Item label={"节点半径"} required>
                     <Input
                       type='number'
                       placeholder='请输入半径'
@@ -81,7 +81,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
                       onChange={(e) => dispatch({ type: 'setNodeRadius', payload: +e.target.value })}
                     />
                   </Form.Item>
-                  <Form.Item label={"基础半径"}>
+                  <Form.Item label={"基础半径"} required>
                     <Input
                       type='number'
                       placeholder='请输入基础半径'
@@ -90,7 +90,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
                     />
                   </Form.Item>
                   {config.mode === 2 && <>
-                    <Form.Item label={"弧线距离"}>
+                    <Form.Item label={"弧线距离"} required>
                       <Input
                         type='number'
                         placeholder='请弧线距离'
@@ -98,7 +98,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
                         onChange={(e) => dispatch({ type: 'setAreaDistence', payload: +e.target.value })}
                       />
                     </Form.Item>
-                    <Form.Item label={"弧线宽度"}>
+                    <Form.Item label={"弧线宽度"} required>
                       <Input
                         type='number'
                         placeholder='请弧线宽度'
