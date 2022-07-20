@@ -10,7 +10,6 @@ import { Graph } from '../..'
  */
 export const drawEdgeArea = (edges: Graph.Edge[], centerPointId?: string) => {
   const mainPoint = d3.select(centerPointId ? `#${centerPointId}` : '#main')
-  console.log(mainPoint.attr('x'))
   const edgeArea = d3.select('#edge-area')
     .insert('g', ':first-child')
   edgeArea
