@@ -52,7 +52,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
           </Layout.Header>
           <Layout style={{minHeight: height - 70}}>
             <ConfigContext.Provider value={{ config, dispatch }}>
-              <Layout.Sider theme={'light'} style={{minHeight: height - 70}}>
+              <Layout.Sider theme={'light'} style={{minHeight: '90vh'}}>
                 <Form
                   style={{ marginTop: '16px', padding: '0px 8px' }}
                   labelCol={{ span: 10 }}
