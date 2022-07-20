@@ -329,6 +329,8 @@ export const drawNodeArea = (
     .attr('r', nodeRadius)
     .attr('cx', x)
     .attr('cy', y)
+    .attr('x', x)
+    .attr('y', y)
     .attr('fill', '#1890ff')
     .style('cursor', 'pointer')
     .attr('id', mainNode?.id || '')
@@ -444,17 +446,6 @@ export const drawNodeArea = (
       .join('g')
     insideContainer
       .append('circle')
-      .attr('r', nodeRadius)
-      .attr('cx', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-      })
-      .attr('cy', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-      })
-      .attr('fill', '#1890ff')
-      .attr('id', (node) => node.id)
       .call(
         d3.drag<SVGCircleElement, any, Graph.Node>()
           .on('start', dragStart)
@@ -463,8 +454,11 @@ export const drawNodeArea = (
             dragging(this, event, node, edges, config)
           })
       )
-    insideContainer
-      .append('text')
+      .attr('r', nodeRadius)
+      .attr('fill', '#1890ff')
+      .attr('id', (node) => node.id)
+      .attr('cx', x)
+      .attr('cy', y)
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
         return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
@@ -473,6 +467,19 @@ export const drawNodeArea = (
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
         return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
+      .transition()
+      .duration(1000)
+      .attr('cx', (_, idx) => {
+        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
+        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('cy', (_, idx) => {
+        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
+        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      })
+
+    insideContainer
+      .append('text')
       .attr('id', node => node.id + 'text')
       .style('cursor', 'pointer')
       .call(
@@ -486,9 +493,30 @@ export const drawNodeArea = (
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('fill', '#fff')
+      .attr('x', x)
+      .attr('y', y)
+      .transition()
+      .duration(1000)
+      .attr('x', (_, idx) => {
+        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
+        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('y', (_, idx) => {
+        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
+        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      })
       .text(node => node.type)
     insideContainer
       .append('text')
+      .attr('x', x)
+      .attr('y', y + nodeRadius + 10)
+      .attr('text-anchor', 'middle')
+      .style('font-size', 10)
+      .text(item => item.name)
+      .attr('id', item => `${item.id}name`)
+      .style('opacity', 0)
+      .transition()
+      .duration(1000)
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
         return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
@@ -497,10 +525,7 @@ export const drawNodeArea = (
         const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
         return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
       })
-      .attr('text-anchor', 'middle')
-      .style('font-size', 10)
-      .text(item => item.name)
-      .attr('id', item => `${item.id}name`)
+      .style('opacity', 1)
   })
 
   // 创建出边节点
@@ -571,11 +596,13 @@ export const drawNodeArea = (
     outsideContainer
       .append('circle')
       .attr('r', nodeRadius)
-      .attr('cx', (_, idx) => {
+      .attr('cx', x)
+      .attr('cy', y)
+      .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
         return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
-      .attr('cy', (_, idx) => {
+      .attr('y', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
         return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
@@ -589,16 +616,20 @@ export const drawNodeArea = (
             dragging(this, event, node, edges, config)
           })
       )
-    outsideContainer
-      .append('text')
-      .attr('x', (_, idx) => {
+      .transition()
+      .duration(1000)
+      .attr('cx', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
         return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
       })
-      .attr('y', (_, idx) => {
+      .attr('cy', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
         return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
       })
+    outsideContainer
+      .append('text')
+      .attr('x', x)
+      .attr('y', y)
       .attr('id', node => node.id + 'text')
       .style('cursor', 'pointer')
       .call(
@@ -613,8 +644,27 @@ export const drawNodeArea = (
       .attr('dominant-baseline', 'middle')
       .attr('fill', '#fff')
       .text(node => node.type)
+      .transition()
+      .duration(1000)
+      .attr('x', (_, idx) => {
+        const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
+        return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('y', (_, idx) => {
+        const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
+        return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      })
     outsideContainer
       .append('text')
+      .attr('x', x)
+      .attr('y', y + nodeRadius + 10)
+      .style('opacity', 0)
+      .attr('text-anchor', 'middle')
+      .style('font-size', 10)
+      .text(item => item.name)
+      .attr('id', item => `${item.id}name`)
+      .transition()
+      .duration(1000)
       .attr('x', (_, idx) => {
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
         return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
@@ -623,9 +673,6 @@ export const drawNodeArea = (
         const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
         return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
       })
-      .attr('text-anchor', 'middle')
-      .style('font-size', 10)
-      .text(item => item.name)
-      .attr('id', item => `${item.id}name`)
+      .style('opacity', 1)
   })
 }
