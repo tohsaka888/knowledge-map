@@ -1,6 +1,6 @@
 import * as d3 from 'd3'
 
-export const createArrow = (container: SVGGElement) => {
+export const createArrow = (container: SVGSVGElement) => {
   d3.select(container)
     .insert('defs', ':first-child')
     .append('marker')
