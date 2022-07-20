@@ -1,13 +1,15 @@
-import { Form, Input, Layout, Select } from 'antd'
+import { Button, Form, Input, Layout, message, Select } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useReducer } from 'react'
+import { useReducer, useRef } from 'react'
 import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
 import useScreenSize from '../hooks/useScreenSize'
 import { nodeRadius, basicDistence, arcAreaLength, arcAreaDistence, mode } from '../components/KnowledgeMap/defaultConfig'
 import { ConfigContext } from '../context'
+import style from '../styles/home.module.css'
+import { resetCanvas } from '../components/KnowledgeMap/resetCanvas'
 
 const initState = {
   nodeRadius,
@@ -52,13 +54,14 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
             <ConfigContext.Provider value={{ config, dispatch }}>
               <Layout.Sider theme={'light'}>
                 <Form
-                  style={{ marginTop: '16px', padding: '0px 8px'}}
+                  style={{ marginTop: '16px', padding: '0px 8px' }}
                   labelCol={{ span: 10 }}
                   wrapperCol={{ span: 14 }}>
                   <Form.Item label={'显示模式'} required>
                     <Select
                       defaultValue={1}
                       onSelect={(value: number) => {
+                        resetCanvas()
                         dispatch({ type: 'setMode', payload: value })
                       }}
                       value={config.mode}
@@ -108,6 +111,18 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
                     </Form.Item>
                   </>}
                 </Form>
+                <div className={style['flex-center']}>
+                  <Button type='primary'
+                    onClick={() => {
+                      resetCanvas()
+                      window.setTimeout(() => {
+                        message.success('已复位画布')
+                      }, 1000)
+                    }}
+                  >
+                    画布复位
+                  </Button>
+                </div>
               </Layout.Sider>
               <Layout.Content style={{ height: height - 70 }}>
                 <Canvas nodes={data.nodes} edges={data.edges} config={config} />
