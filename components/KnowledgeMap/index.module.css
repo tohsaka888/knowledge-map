@@ -35,3 +35,9 @@
   overflow: hidden;
   white-space: nowrap;
 }
+
+.discription {
+  font-size: 12px;
+  dominant-baseline: text-after-edge;
+  fill: #999999;
+}
