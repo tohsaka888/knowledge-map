@@ -16,6 +16,7 @@ export const drawEdgeArea = (edges: Graph.Edge[], centerPointId?: string) => {
     .selectAll('g')
     .data(edges)
     .join('g')
+    .filter((item) => d3.select(`#${item.fromId}${item.toId}`).nodes().length === 0)
     .classed('edge', true)
     .append('path')
     .attr('d', `m ${mainPoint.attr('x')} 400 l ${mainPoint.attr('x')} 400 l ${mainPoint.attr('x')} 400`)
