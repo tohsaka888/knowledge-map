@@ -2,6 +2,10 @@ import * as d3 from 'd3'
 
 let size = 1
 
+export const resetSize = () => {
+  size = 1
+}
+
 export const canvasDrag = (canvas: SVGSVGElement) => {
   d3.select(canvas).call(
     d3.drag<SVGSVGElement, unknown>()
