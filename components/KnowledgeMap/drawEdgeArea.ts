@@ -29,9 +29,11 @@ export const drawEdgeArea = (edges: Graph.Edge[], centerPointId?: string) => {
     .attr('stroke-width', 1)
     .attr('stroke', '#cecece')
     .attr('id', item => item.fromId + item.toId)
-    .style('marker-mid', 'url(#arrow)')
+    .style('opacity', 0)
     .transition()
     .duration(1000)
+    .style('opacity', 1)
+    .style('marker-mid', 'url(#arrow)')
     .attr('d', function (edge) {
       const fromNode = d3.select(`#${edge.fromId}`)
       const toNode = d3.select(`#${edge.toId}`)
