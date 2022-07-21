@@ -15,7 +15,7 @@ export const createArrow = (container: SVGSVGElement) => {
   arrowContainer
     .transition()
     .duration(1000)
-    .attr('refX', -80)
+    .attr('refX', 20)
   arrowContainer
     .append('path')
     .attr('d', 'M 0 0 L 8 3 L 0 6 z')
