@@ -43,12 +43,14 @@ const insideNextPage = (
   total: number,
   index: number,
   insideMaxAngle: number,
-  x: number,
-  y: number,
   edges: Graph.Edge[],
   config: Graph.ConfigProps,
+  centerPointId?: string
 ) => {
   const { mode, nodeRadius, basicDistence } = config
+  const mainPoint = d3.select(`#${centerPointId || 'main'}`)
+  const x = +mainPoint.attr('cx')
+  const y = +mainPoint.attr('cy')!
   pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
   const nodes = calcMode(originNodes, pagination.page, mode)
   d3.select(`#${nodes[0].type}`).selectChildren().remove()
@@ -160,12 +162,14 @@ const outsideNextPage = (
   total: number,
   index: number,
   outSideMaxAngle: number,
-  x: number,
-  y: number,
   edges: Graph.Edge[],
-  config: Graph.ConfigProps
+  config: Graph.ConfigProps,
+  centerPointId?: string
 ) => {
   const { mode, nodeRadius, basicDistence } = config
+  const mainPoint = d3.select(`#${centerPointId || 'main'}`)
+  const x = +mainPoint.attr('cx')
+  const y = +mainPoint.attr('cy')!
   pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
   const nodes = calcMode(originNodes, pagination.page, mode)
   d3.select(`#${nodes[0].type}`).selectChildren().remove()
@@ -292,9 +296,17 @@ function dragEnd(this: any, event: any, node: Graph.Node) {
 function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], config: Graph.ConfigProps) {
   const { nodeRadius } = config
   requestAnimationFrame(() => {
-    d3.select(`#${node.id}`).attr('cx', event.x).attr('cy', event.y)
-    d3.select(`#${node.id}text`).attr('x', event.x).attr('y', event.y)
-    d3.select(`#${node.id}name`).attr('x', event.x).attr('y', event.y + nodeRadius + 10)
+    d3.select(`#${node.id}`)
+      .attr('cx', event.x)
+      .attr('cy', event.y)
+      .attr('x', event.x)
+      .attr('y', event.y)
+    d3.select(`#${node.id}text`)
+      .attr('x', event.x)
+      .attr('y', event.y)
+    d3.select(`#${node.id}name`)
+      .attr('x', event.x)
+      .attr('y', event.y + nodeRadius + 10)
     const fromEdges = edges.filter(edge => edge.fromId === node.id)
     const toEdges = edges.filter(edge => edge.toId === node.id)
     fromEdges.forEach(edge => {
@@ -397,7 +409,6 @@ export const drawNodeArea = (
   insideTypeNodes.forEach((originNodes, index) => {
     const nodes = calcMode(originNodes, 1, mode)
     const pagination = { page: 1, pageSize: 5 }
-    // drawArcArea(mode, container, originNodes, x, y, insideMaxAngle, index)
     if (mode === 2 && originNodes.length > 5) {
       const arc = d3.select(container)
         .append('g')
@@ -435,8 +446,6 @@ export const drawNodeArea = (
             originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
             index,
             insideMaxAngle,
-            x,
-            y,
             edges,
             config
           )
@@ -577,8 +586,6 @@ export const drawNodeArea = (
             originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
             index,
             outSideMaxAngle,
-            x,
-            y,
             edges,
             config
           )
