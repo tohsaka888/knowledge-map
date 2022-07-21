@@ -194,6 +194,7 @@ function dragEnd(this: any, event: any, node: Graph.Node) {
 function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], config: Graph.ConfigProps) {
   const { nodeRadius } = config
   requestAnimationFrame(() => {
+    // 更改相关节点的位置
     d3.select(`#${node.id}`)
       .attr('cx', event.x)
       .attr('cy', event.y)
@@ -205,8 +206,10 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
     d3.select(`#${node.id}name`)
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
+    // 筛选出和当前节点有关的边
     const fromEdges = edges.filter(edge => edge.fromId === node.id)
     const toEdges = edges.filter(edge => edge.toId === node.id)
+    // 更改入边相关的位置
     fromEdges.forEach(edge => {
       const toNode = d3.select(`#${edge.toId}`)
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
@@ -218,6 +221,7 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
           .style('marker-mid', 'url(#arrow)')
       }
     })
+    // 更改出边相关的位置
     toEdges.forEach(edge => {
       const fromNode = d3.select(`#${edge.fromId}`)
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
@@ -227,6 +231,158 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
         curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${middlePointX} ${middlePointY} L ${event.x} ${event.y}`)
       }
     })
+  })
+}
+
+const drawSideNodes = (
+  typeNodes: Graph.Node[][],
+  config: Graph.ConfigProps,
+  container: SVGGElement,
+  maxAngle: number,
+  x: number,
+  y: number,
+  edges: Graph.Edge[],
+  isInside: boolean,
+) => {
+  const { nodeRadius, arcAreaDistence, arcAreaLength, mode, basicDistence } = config
+  typeNodes.forEach((originNodes, index) => {
+    const nodes = calcMode(originNodes, 1, mode)
+    const pagination = { page: 1, pageSize: 5 }
+    if (mode === 2 && originNodes.length > 5) {
+      const arc = d3.select(container)
+        .append('g')
+        .classed('arc', true)
+        .append('g')
+        .attr('transform', `rotate(${-90 - (index + 1) * maxAngle})`)
+        .attr('transform-origin', `${x} ${y}`)
+      arc
+        .append('path')
+        .attr('d',
+          `M ${x} ${y} 
+            m ${arcAreaDistence} 0 
+            a ${arcAreaDistence} ${arcAreaDistence} 0 0 1 ${calcArcX(arcAreaDistence, maxAngle)} ${calcArcY(arcAreaDistence, maxAngle)}`
+        )
+        .attr('fill', 'none')
+        .attr('stroke', 'rgba(24, 144, 255, 0.1)')
+        .attr('stroke-width', arcAreaLength)
+      arc
+        .append('g')
+        .attr('transform', `translate(${x + arcAreaDistence - arcAreaLength / 4} ${y})`)
+        .append('path')
+        .attr('d', 'm0,10.4772l5.5,-9.4772l5.5,9.4772l-2.75,0l0,9.5228l-5.5,0l0,-9.5228l-2.75,0z')
+        .attr('fill', '#1890ff')
+        .style('cursor', 'pointer')
+        .on('mouseover', function () {
+          d3.select(this).attr('fill', 'blue')
+        })
+        .on('mouseleave', function () {
+          d3.select(this).attr('fill', '#1890ff')
+        })
+        .on('click', () => {
+          nextPage(
+            pagination,
+            originNodes,
+            originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
+            index,
+            maxAngle,
+            edges,
+            config,
+            true
+          )
+        })
+      arc
+        .append('g')
+        .classed('arc-text', true)
+        .attr('transform', `translate(${x + arcAreaDistence - arcAreaLength / 5}, ${y})`)
+        .append('g')
+        .attr('transform-origin', `${-arcAreaDistence + arcAreaLength / 5} ${0}`)
+        .attr('transform', `rotate(${maxAngle / 2})`)
+        .append('text')
+        .attr('transform', `rotate(${90})`)
+        .text(`1/${originNodes.length % 5 === 0 ? (originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1}`)
+        .attr('id', `${nodes[0].type}-text`)
+        .attr('text-anchor', 'right')
+    }
+    const insideContainer = d3.select(container)
+      .append('g')
+      .attr('id', nodes[0].type)
+      .selectAll('g')
+      .data(nodes)
+      .join('g')
+      .call(
+        d3.drag<any, any, Graph.Node>()
+          .on('start', dragStart)
+          .on('end', dragEnd)
+          .on('drag', function (event: any, node: Graph.Node) {
+            dragging(this, event, node, edges, config)
+          })
+      )
+    insideContainer
+      .append('circle')
+      .attr('r', nodeRadius)
+      .attr('fill', '#1890ff')
+      .attr('id', (node) => node.id)
+      .attr('cx', x)
+      .attr('cy', y)
+      .attr('x', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('y', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      })
+      .transition()
+      .duration(1000)
+      .attr('cx', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('cy', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      })
+
+    insideContainer
+      .append('text')
+      .attr('id', node => node.id + 'text')
+      .style('cursor', 'pointer')
+      .attr('text-anchor', 'middle')
+      .attr('dominant-baseline', 'middle')
+      .attr('fill', '#fff')
+      .attr('x', x)
+      .attr('y', y)
+      .transition()
+      .duration(1000)
+      .attr('x', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('y', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      })
+      .text(node => node.type)
+    insideContainer
+      .append('text')
+      .attr('x', x)
+      .attr('y', y + nodeRadius + 10)
+      .attr('text-anchor', 'middle')
+      .style('font-size', 10)
+      .text(item => item.name)
+      .attr('id', item => `${item.id}name`)
+      .style('opacity', 0)
+      .transition()
+      .duration(1000)
+      .attr('x', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      })
+      .attr('y', (_, idx) => {
+        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        return y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+      })
+      .style('opacity', 1)
   })
 }
 
@@ -303,146 +459,16 @@ export const drawNodeArea = (
     .text(mainNode?.type || '')
 
 
-  // 创建入边节点
-  insideTypeNodes.forEach((originNodes, index) => {
-    const nodes = calcMode(originNodes, 1, mode)
-    const pagination = { page: 1, pageSize: 5 }
-    if (mode === 2 && originNodes.length > 5) {
-      const arc = d3.select(container)
-        .append('g')
-        .classed('arc', true)
-        .append('g')
-        .attr('transform', `rotate(${-90 - (index + 1) * insideMaxAngle})`)
-        .attr('transform-origin', `${x} ${y}`)
-      arc
-        .append('path')
-        .attr('d',
-          `M ${x} ${y} 
-            m ${arcAreaDistence} 0 
-            a ${arcAreaDistence} ${arcAreaDistence} 0 0 1 ${calcArcX(arcAreaDistence, insideMaxAngle)} ${calcArcY(arcAreaDistence, insideMaxAngle)}`
-        )
-        .attr('fill', 'none')
-        .attr('stroke', 'rgba(24, 144, 255, 0.1)')
-        .attr('stroke-width', arcAreaLength)
-      arc
-        .append('g')
-        .attr('transform', `translate(${x + arcAreaDistence - arcAreaLength / 4} ${y})`)
-        .append('path')
-        .attr('d', 'm0,10.4772l5.5,-9.4772l5.5,9.4772l-2.75,0l0,9.5228l-5.5,0l0,-9.5228l-2.75,0z')
-        .attr('fill', '#1890ff')
-        .style('cursor', 'pointer')
-        .on('mouseover', function () {
-          d3.select(this).attr('fill', 'blue')
-        })
-        .on('mouseleave', function () {
-          d3.select(this).attr('fill', '#1890ff')
-        })
-        .on('click', () => {
-          nextPage(
-            pagination,
-            originNodes,
-            originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
-            index,
-            insideMaxAngle,
-            edges,
-            config,
-            true
-          )
-        })
-      arc
-        .append('g')
-        .classed('arc-text', true)
-        .attr('transform', `translate(${x + arcAreaDistence - arcAreaLength / 5}, ${y})`)
-        .append('g')
-        .attr('transform-origin', `${-arcAreaDistence + arcAreaLength / 5} ${0}`)
-        .attr('transform', `rotate(${insideMaxAngle / 2})`)
-        .append('text')
-        .attr('transform', `rotate(${90})`)
-        .text(`1/${originNodes.length % 5 === 0 ? (originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1}`)
-        .attr('id', `${nodes[0].type}-text`)
-        .attr('text-anchor', 'right')
-    }
-    const insideContainer = d3.select(container)
-      .append('g')
-      .attr('id', nodes[0].type)
-      .selectAll('g')
-      .data(nodes)
-      .join('g')
-      .call(
-        d3.drag<any, any, Graph.Node>()
-          .on('start', dragStart)
-          .on('end', dragEnd)
-          .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, config)
-          })
-      )
-    insideContainer
-      .append('circle')
-      .attr('r', nodeRadius)
-      .attr('fill', '#1890ff')
-      .attr('id', (node) => node.id)
-      .attr('cx', x)
-      .attr('cy', y)
-      .attr('x', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-      })
-      .attr('y', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-      })
-      .transition()
-      .duration(1000)
-      .attr('cx', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-      })
-      .attr('cy', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-      })
-
-    insideContainer
-      .append('text')
-      .attr('id', node => node.id + 'text')
-      .style('cursor', 'pointer')
-      .attr('text-anchor', 'middle')
-      .attr('dominant-baseline', 'middle')
-      .attr('fill', '#fff')
-      .attr('x', x)
-      .attr('y', y)
-      .transition()
-      .duration(1000)
-      .attr('x', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-      })
-      .attr('y', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-      })
-      .text(node => node.type)
-    insideContainer
-      .append('text')
-      .attr('x', x)
-      .attr('y', y + nodeRadius + 10)
-      .attr('text-anchor', 'middle')
-      .style('font-size', 10)
-      .text(item => item.name)
-      .attr('id', item => `${item.id}name`)
-      .style('opacity', 0)
-      .transition()
-      .duration(1000)
-      .attr('x', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-      })
-      .attr('y', (_, idx) => {
-        const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-        return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
-      })
-      .style('opacity', 1)
-  })
+  drawSideNodes(
+    insideTypeNodes,
+    config,
+    container,
+    insideMaxAngle,
+    x,
+    y,
+    edges,
+    true
+  )
 
   // 创建出边节点
   outsideTypeNodes.forEach((originNodes, index) => {
