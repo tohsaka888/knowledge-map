@@ -57,19 +57,19 @@ const insideNextPage = (
       .selectAll('g')
       .data(nodes)
       .join('g')
+      .call(
+        d3.drag<any, any, Graph.Node>()
+          .on('start', dragStart)
+          .on('end', dragEnd)
+          .on('drag', function (event: any, node: Graph.Node) {
+            dragging(this, event, node, edges, config)
+          })
+      )
   insideContainer
     .append('circle')
     .attr('r', nodeRadius)
     .attr('fill', '#1890ff')
     .attr('id', (node) => node.id)
-    .call(
-      d3.drag<SVGCircleElement, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, config)
-        })
-    )
     .attr('x', (_, idx) => {
       const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
       return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
@@ -96,14 +96,6 @@ const insideNextPage = (
     .attr('y', y)
     .attr('id', node => node.id + 'text')
     .style('cursor', 'pointer')
-    .call(
-      d3.drag<SVGTextElement, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, config)
-        })
-    )
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#fff')
@@ -181,6 +173,14 @@ const outsideNextPage = (
     .selectAll('g')
     .data(nodes)
     .join('g')
+    .call(
+      d3.drag<any, any, Graph.Node>()
+        .on('start', dragStart)
+        .on('end', dragEnd)
+        .on('drag', function (event: any, node: Graph.Node) {
+          dragging(this, event, node, edges, config)
+        })
+    )
   outsideContainer
     .append('circle')
     .attr('r', nodeRadius)
@@ -194,14 +194,6 @@ const outsideNextPage = (
     })
     .attr('fill', '#1890ff')
     .attr('id', (node) => node.id)
-    .call(
-      d3.drag<SVGCircleElement, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, config)
-        })
-    )
     .attr('cx', x)
     .attr('cy', y)
     .transition()
@@ -220,14 +212,6 @@ const outsideNextPage = (
     .attr('y', y)
     .attr('id', node => node.id + 'text')
     .style('cursor', 'pointer')
-    .call(
-      d3.drag<SVGTextElement, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, config)
-        })
-    )
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#fff')
@@ -496,16 +480,16 @@ export const drawNodeArea = (
       .selectAll('g')
       .data(nodes)
       .join('g')
-    insideContainer
-      .append('circle')
       .call(
-        d3.drag<SVGCircleElement, any, Graph.Node>()
+        d3.drag<any, any, Graph.Node>()
           .on('start', dragStart)
           .on('end', dragEnd)
           .on('drag', function (event: any, node: Graph.Node) {
             dragging(this, event, node, edges, config)
           })
       )
+    insideContainer
+      .append('circle')
       .attr('r', nodeRadius)
       .attr('fill', '#1890ff')
       .attr('id', (node) => node.id)
@@ -534,14 +518,6 @@ export const drawNodeArea = (
       .append('text')
       .attr('id', node => node.id + 'text')
       .style('cursor', 'pointer')
-      .call(
-        d3.drag<SVGTextElement, any, Graph.Node>()
-          .on('start', dragStart)
-          .on('end', dragEnd)
-          .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, config)
-          })
-      )
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('fill', '#fff')
@@ -645,6 +621,14 @@ export const drawNodeArea = (
       .selectAll('g')
       .data(nodes)
       .join('g')
+      .call(
+        d3.drag<any, any, Graph.Node>()
+          .on('start', dragStart)
+          .on('end', dragEnd)
+          .on('drag', function (event: any, node: Graph.Node) {
+            dragging(this, event, node, edges, config)
+          })
+      )
     outsideContainer
       .append('circle')
       .attr('r', nodeRadius)
@@ -660,14 +644,6 @@ export const drawNodeArea = (
       })
       .attr('fill', '#1890ff')
       .attr('id', (node) => node.id)
-      .call(
-        d3.drag<SVGCircleElement, any, Graph.Node>()
-          .on('start', dragStart)
-          .on('end', dragEnd)
-          .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, config)
-          })
-      )
       .transition()
       .duration(1000)
       .attr('cx', (_, idx) => {
@@ -684,14 +660,6 @@ export const drawNodeArea = (
       .attr('y', y)
       .attr('id', node => node.id + 'text')
       .style('cursor', 'pointer')
-      .call(
-        d3.drag<SVGTextElement, any, Graph.Node>()
-          .on('start', dragStart)
-          .on('end', dragEnd)
-          .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, config)
-          })
-      )
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('fill', '#fff')
