@@ -393,7 +393,7 @@ const drawSideNodes = (
       .attr('text-anchor', 'middle')
       .style('font-size', 10)
       .text(item => item.name)
-      .attr('id', item => `${item.id} name`)
+      .attr('id', item => `${item.id}name`)
       .style('opacity', 0)
       .transition()
       .duration(1000)
