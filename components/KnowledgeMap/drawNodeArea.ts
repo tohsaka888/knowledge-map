@@ -37,15 +37,16 @@ const calcMode = (nodes: Graph.Node[], page: number, mode?: number,) => {
  * @param {any} mode:number|undefined
  * @returns {any}
  */
-const insideNextPage = (
+const nextPage = (
   pagination: { page: number, pageSize: number },
   originNodes: Graph.Node[],
   total: number,
   index: number,
-  insideMaxAngle: number,
+  maxAngle: number,
   edges: Graph.Edge[],
   config: Graph.ConfigProps,
-  centerPointId?: string
+  isInside: boolean,
+  centerPointId?: string,
 ) => {
   const { mode, nodeRadius, basicDistence } = config
   const mainPoint = d3.select(`#${centerPointId || 'main'}`)
@@ -54,7 +55,7 @@ const insideNextPage = (
   pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
   const nodes = calcMode(originNodes, pagination.page, mode)
   d3.select(`#${nodes[0].type}`).selectChildren().remove()
-  const insideContainer =
+  const container =
     d3.select(`#${nodes[0].type}`)
       .selectAll('g')
       .data(nodes)
@@ -67,32 +68,40 @@ const insideNextPage = (
             dragging(this, event, node, edges, config)
           })
       )
-  insideContainer
+  container
     .append('circle')
     .attr('r', nodeRadius)
     .attr('fill', '#1890ff')
     .attr('id', (node) => node.id)
     .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
     .attr('cx', x)
     .attr('cy', y)
     .transition()
     .duration(1000)
     .attr('cx', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('cy', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
-  insideContainer
+  container
     .append('text')
     .attr('x', x)
     .attr('y', y)
@@ -105,14 +114,18 @@ const insideNextPage = (
     .transition()
     .duration(1000)
     .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
     })
-  insideContainer
+  container
     .append('text')
     .attr('x', x)
     .attr('y', y)
@@ -124,12 +137,16 @@ const insideNextPage = (
     .transition()
     .duration(1000)
     .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return x - calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
     })
     .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * insideMaxAngle / (nodes.length + 1) + index * insideMaxAngle
-      return y + calcBasicDistence(nodes.length, insideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      return isInside
+        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
     })
     .style('opacity', 1);
   d3.selectAll('.edge')
@@ -140,125 +157,6 @@ const insideNextPage = (
   drawEdgeArea(edges)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
-
-/**
- * 描述 出边下一页事件
- * @date 2022-07-18
- * @param {any} pagination:{page:number
- * @param {any} pageSize:number}
- * @param {any} originNodes:Graph.Node[]
- * @param {any} total:number
- * @param {any} index:number
- * @param {any} insideMaxAngle:number
- * @param {any} x:number
- * @param {any} y:number
- * @param {any} edges:Graph.Edge[]
- * @param {any} mode:number|undefined
- * @returns {any}
- */
-const outsideNextPage = (
-  pagination: { page: number, pageSize: number },
-  originNodes: Graph.Node[],
-  total: number,
-  index: number,
-  outSideMaxAngle: number,
-  edges: Graph.Edge[],
-  config: Graph.ConfigProps,
-  centerPointId?: string
-) => {
-  const { mode, nodeRadius, basicDistence } = config
-  const mainPoint = d3.select(`#${centerPointId || 'main'}`)
-  const x = +mainPoint.attr('cx')
-  const y = +mainPoint.attr('cy')!
-  pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
-  const nodes = calcMode(originNodes, pagination.page, mode)
-  d3.select(`#${nodes[0].type}`).selectChildren().remove()
-  const outsideContainer = d3.select(`#${nodes[0].type}`)
-    .selectAll('g')
-    .data(nodes)
-    .join('g')
-    .call(
-      d3.drag<any, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, node, edges, config)
-        })
-    )
-  outsideContainer
-    .append('circle')
-    .attr('r', nodeRadius)
-    .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-    })
-    .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-    })
-    .attr('fill', '#1890ff')
-    .attr('id', (node) => node.id)
-    .attr('cx', x)
-    .attr('cy', y)
-    .transition()
-    .duration(1000)
-    .attr('cx', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-    })
-    .attr('cy', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-    })
-  outsideContainer
-    .append('text')
-    .attr('x', x)
-    .attr('y', y)
-    .attr('id', node => node.id + 'text')
-    .style('cursor', 'pointer')
-    .attr('text-anchor', 'middle')
-    .attr('dominant-baseline', 'middle')
-    .attr('fill', '#fff')
-    .text(node => node.type)
-    .transition()
-    .duration(1000)
-    .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-    })
-    .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-    })
-  outsideContainer
-    .append('text')
-    .attr('x', x)
-    .attr('y', y)
-    .attr('text-anchor', 'middle')
-    .style('font-size', 10)
-    .text(item => item.name)
-    .attr('id', item => `${item.id}name`)
-    .style('opacity', 0)
-    .transition()
-    .duration(1000)
-    .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return x + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-    })
-    .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * outSideMaxAngle / (nodes.length + 1) + index * outSideMaxAngle
-      return y + calcBasicDistence(nodes.length, outSideMaxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
-    })
-    .style('opacity', 1)
-  d3.selectAll('.edge')
-    .filter((item: any) => {
-      return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
-    })
-    .remove()
-  drawEdgeArea(edges)
-  d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
-}
-
 
 /**
  * 描述 拖拽开始事件
@@ -440,14 +338,15 @@ export const drawNodeArea = (
           d3.select(this).attr('fill', '#1890ff')
         })
         .on('click', () => {
-          insideNextPage(
+          nextPage(
             pagination,
             originNodes,
             originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
             index,
             insideMaxAngle,
             edges,
-            config
+            config,
+            true
           )
         })
       arc
@@ -580,14 +479,15 @@ export const drawNodeArea = (
           d3.select(this).attr('fill', '#1890ff')
         })
         .on('click', () => {
-          outsideNextPage(
+          nextPage(
             pagination,
             originNodes,
             originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
             index,
             outSideMaxAngle,
             edges,
-            config
+            config,
+            false
           )
         })
       arc
