@@ -360,6 +360,17 @@ export const drawNodeArea = (
     .append('g')
     .attr('x', x)
     .attr('y', y)
+    .call(
+      d3.drag<any, any, Graph.Node>()
+        .on('start', dragStart)
+        .on('end', dragEnd)
+        .on('drag', function (event: any, node: Graph.Node) {
+          dragging(this, event, mainNode as Graph.Node, edges, config)
+          d3.selectAll('.arc')
+            .attr('transform', `translate(${event.x - x}, ${event.y - y})`)
+            .attr('transform-origin', '0 0')
+        })
+    )
   mainNodeContainer
     .append('circle')
     .attr('r', nodeRadius)
@@ -370,44 +381,12 @@ export const drawNodeArea = (
     .attr('fill', '#1890ff')
     .style('cursor', 'pointer')
     .attr('id', mainNode?.id || '')
-    .call(
-      d3.drag<SVGCircleElement, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, mainNode as Graph.Node, edges, config)
-          const paths = d3.selectAll('.arc')
-          paths.nodes().forEach(path => {
-            const d = d3.select(path).attr('d').split('\n')
-            d[0] = `M ${event.x} ${event.y}`
-            d3.select(path).attr('d', d.join('\n')).attr('transform-origin', `${event.x} ${event.y}`)
-          })
-
-          d3.selectAll('.arc-text').attr('transform', `translate(${event.x}, ${event.y - arcAreaDistence + arcAreaLength / 4})`)
-        })
-    )
   mainNodeContainer
     .append('text')
     .attr('x', x)
     .attr('y', y)
     .attr('id', mainNode?.id + 'text')
     .style('cursor', 'pointer')
-    .call(
-      d3.drag<SVGTextElement, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
-        .on('drag', function (event: any, node: Graph.Node) {
-          dragging(this, event, mainNode as Graph.Node, edges, config)
-          const paths = d3.selectAll('.arc')
-          paths.nodes().forEach(path => {
-            const d = d3.select(path).attr('d').split('\n')
-            d[0] = `M ${event.x} ${event.y}`
-            d3.select(path).attr('d', d.join('\n')).attr('transform-origin', `${event.x} ${event.y}`)
-          })
-
-          d3.selectAll('.arc-text').attr('transform', `translate(${event.x}, ${event.y - arcAreaDistence + arcAreaLength / 4})`)
-        })
-    )
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#fff')
@@ -422,11 +401,12 @@ export const drawNodeArea = (
     if (mode === 2 && originNodes.length > 5) {
       const arc = d3.select(container)
         .append('g')
+        .classed('arc', true)
+        .append('g')
         .attr('transform', `rotate(${-90 - (index + 1) * insideMaxAngle})`)
-        .attr('transform-origin', `${x} ${y}`);
+        .attr('transform-origin', `${x} ${y}`)
       arc
         .append('path')
-        .classed('arc', true)
         .attr('d',
           `M ${x} ${y} 
             m ${arcAreaDistence} 0 
@@ -563,11 +543,12 @@ export const drawNodeArea = (
     if (mode === 2 && originNodes.length > 5) {
       const arc = d3.select(container)
         .append('g')
+        .classed('arc', true)
+        .append('g')
         .attr('transform', `rotate(${-90 + index * outSideMaxAngle})`)
         .attr('transform-origin', `${x} ${y}`);
       arc
         .append('path')
-        .classed('arc', true)
         .attr('d',
           `M ${x} ${y} 
             m ${arcAreaDistence} 0 
