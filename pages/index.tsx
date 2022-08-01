@@ -19,7 +19,8 @@ const initState: Graph.ConfigProps = {
   mode,
   showDisctription: true,
   isStraight: true,
-  besselRate: 2.2
+  besselRate: 5,
+  lineWidth: 1
 }
 
 const reducer = (state: typeof initState, action: Graph.ActionType) => {
@@ -40,6 +41,8 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
       return { ...state, isStraight: action.payload }
     case 'setBesselRate':
       return { ...state, besselRate: action.payload }
+    case 'setLineWidth':
+      return {...state, lineWidth: action.payload }
   }
 }
 

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-01 15:28:24
+ * @LastEditTime: 2022-08-01 16:08:13
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -53,6 +53,16 @@ function ControllerPannel() {
             options={[{ label: '直线', value: true }, { label: '曲线', value: false }]}
             onChange={(value) => {
               dispatch({ type: 'setIsStraight', payload: value })
+            }}
+          />
+        </Form.Item>
+        <Form.Item label={"线条粗细"} required>
+          <Input
+            placeholder="请输入"
+            value={config.lineWidth}
+            type='number'
+            onChange={(e) => {
+              dispatch({ type: 'setLineWidth', payload: +e.target.value });
             }}
           />
         </Form.Item>
