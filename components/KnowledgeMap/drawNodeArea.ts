@@ -82,10 +82,10 @@ const nextPage = (
           .attr('height', 300)
           .attr('x', x)
           .attr('y', +y - 10)
-        setVisible(true)
+        setVisible && setVisible(true)
       })
       .on('mouseleave', () => {
-        setVisible(false)
+        setVisible && setVisible(false)
       })
   container
     .append('circle')
@@ -231,7 +231,7 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       .attr('height', 300)
       .attr('x', event.x)
       .attr('y', +event.y - 10)
-    setVisible(true)
+    setVisible && setVisible(true)
 
     const currentNode = d3.select(`#${node?.id || 'main'}`)
     const x = currentNode.attr('cx')
@@ -373,10 +373,10 @@ const drawSideNodes = (
           .attr('height', 300)
           .attr('x', x)
           .attr('y', +y - 10)
-        setVisible(true)
+        setVisible && setVisible(true)
       })
       .on('mouseleave', () => {
-        setVisible(false)
+        setVisible && setVisible(false)
       })
       .call(
         d3.drag<any, any, Graph.Node>()
@@ -520,10 +520,10 @@ export const drawNodeArea = (
         .attr('height', 300)
         .attr('x', x)
         .attr('y', +y - 10)
-      setVisible(true)
+      setVisible && setVisible(true)
     })
     .on('mouseleave', () => {
-      setVisible(false)
+      setVisible && setVisible(false)
     })
     .call(
       d3.drag<any, any, Graph.Node>()
