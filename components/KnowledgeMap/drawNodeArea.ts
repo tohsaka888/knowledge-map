@@ -48,7 +48,7 @@ const nextPage = (
   isInside: boolean,
   centerPointId?: string,
 ) => {
-  const { mode, nodeRadius, basicDistence } = config
+  const { mode, nodeRadius, basicDistence, setVisible } = config
   const mainPoint = d3.select(`#${centerPointId || 'main'}`)
   const x = +mainPoint.attr('cx')
   const y = +mainPoint.attr('cy')!
@@ -67,7 +67,26 @@ const nextPage = (
           .on('drag', function (event: any, node: Graph.Node) {
             dragging(this, event, node, edges, config)
           })
-      )
+      ).on('mouseover', function (event, d) {
+        event.stopPropagation();
+        const node = d3.select(`#${d.id}`)
+        const x = +node.attr('cx')
+        const y = +node.attr('cy')
+        d3.select('#border')
+          .attr('transform', `translate(${x}, ${y})`)
+          .select('circle')
+          .attr('stroke-width', 8)
+          .attr('r', nodeRadius + 4)
+        d3.select('#popover-container')
+          .attr('width', 1000)
+          .attr('height', 300)
+          .attr('x', x)
+          .attr('y', +y - 10)
+        setVisible(true)
+      })
+      .on('mouseleave', () => {
+        setVisible(false)
+      })
   container
     .append('circle')
     .attr('r', nodeRadius)
@@ -192,7 +211,7 @@ function dragEnd(this: any, event: any, node: Graph.Node) {
  * @returns {any}
  */
 function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], config: Graph.ConfigProps) {
-  const { nodeRadius } = config
+  const { nodeRadius, setVisible } = config
   requestAnimationFrame(() => {
     // 更改相关节点的位置
     d3.select(`#${node.id}`)
@@ -206,6 +225,14 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
     d3.select(`#${node.id}name`)
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
+
+    d3.select('#popover-container')
+      .attr('width', 1000)
+      .attr('height', 300)
+      .attr('x', event.x)
+      .attr('y', +event.y - 10)
+    setVisible(true)
+
     const currentNode = d3.select(`#${node?.id || 'main'}`)
     const x = currentNode.attr('cx')
     const y = currentNode.attr('cy')
@@ -265,7 +292,7 @@ const drawSideNodes = (
   edges: Graph.Edge[],
   isInside: boolean,
 ) => {
-  const { nodeRadius, arcAreaDistence, arcAreaLength, mode, basicDistence } = config
+  const { nodeRadius, arcAreaDistence, arcAreaLength, mode, basicDistence, setVisible } = config
   typeNodes.forEach((originNodes, index) => {
     const nodes = calcMode(originNodes, 1, mode)
     const pagination = { page: 1, pageSize: 5 }
@@ -341,6 +368,15 @@ const drawSideNodes = (
           .select('circle')
           .attr('stroke-width', 8)
           .attr('r', nodeRadius + 4)
+        d3.select('#popover-container')
+          .attr('width', 1000)
+          .attr('height', 300)
+          .attr('x', x)
+          .attr('y', +y - 10)
+        setVisible(true)
+      })
+      .on('mouseleave', () => {
+        setVisible(false)
       })
       .call(
         d3.drag<any, any, Graph.Node>()
@@ -449,10 +485,9 @@ export const drawNodeArea = (
   x: number,
   y: number,
   config: Graph.ConfigProps,
-  setVisible: Dispatch<SetStateAction<boolean>>
 ): any => {
   // 根节点
-  const { nodeRadius } = config
+  const { nodeRadius, setVisible } = config
   const mainNode = nodes.find(node => node.mode === 0)
   // 入边节点
   const insideNodes = nodes.filter(node => node.mode === 1)
@@ -548,7 +583,7 @@ export const drawNodeArea = (
 
   // 创建悬停边框
   d3.select(container)
-    .append('g')
+    .insert('g', ':first-child')
     .attr('id', 'border')
     .append('circle')
     .attr('fill', 'transparent')

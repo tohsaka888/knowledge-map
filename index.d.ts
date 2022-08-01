@@ -1,4 +1,4 @@
-import { Dispatch } from "react";
+import React, { Dispatch } from "react";
 
 declare namespace Graph {
   type Node = {
@@ -20,6 +20,7 @@ declare namespace Graph {
     arcAreaDistence: number;
     arcAreaLength: number;
     mode: number;
+    setVisible: React.Dispatch<React.SetStateAction<boolean>>
   }
 
   type ActionType =

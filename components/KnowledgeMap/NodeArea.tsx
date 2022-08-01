@@ -11,7 +11,7 @@ function NodeArea({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.
 
   useEffect(() => {
     const container = nodesContainerRef.current
-    drawNodeArea(container, nodes, edges, 700, 400, config, setVisible)
+    drawNodeArea(container, nodes, edges, 700, 400, {...config, setVisible})
     return () => {
       d3.select(container).selectAll('*').remove()
     }
