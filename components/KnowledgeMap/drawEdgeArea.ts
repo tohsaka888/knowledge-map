@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-01 15:49:24
+ * @LastEditTime: 2022-08-01 16:22:32
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -19,7 +19,8 @@ import { Graph } from '../..'
  */
 const drawStraightLine = (
   edge: d3.Selection<d3.BaseType | SVGGElement, Graph.Edge, SVGGElement, unknown>,
-  mainPoint: d3.Selection<d3.BaseType, unknown, HTMLElement, any>
+  mainPoint: d3.Selection<d3.BaseType, unknown, HTMLElement, any>,
+  config: Graph.ConfigProps
 ) => {
   edge
     .append('path')
@@ -28,7 +29,7 @@ const drawStraightLine = (
        l ${mainPoint.attr('x')} ${mainPoint.attr('y')} 
        l ${mainPoint.attr('x')} ${mainPoint.attr('y')}`
     )
-    .attr('stroke-width', 1)
+    .attr('stroke-width', config.lineWidth)
     .attr('stroke', '#cecece')
     .attr('id', item => item.fromId + item.toId)
     .style('opacity', 0)
@@ -73,7 +74,7 @@ const drawBesselLine = (
        l ${mainPoint.attr('x')} ${mainPoint.attr('y')}
       `
     )
-    .attr('stroke-width', 1)
+    .attr('stroke-width', config.lineWidth)
     .attr('stroke', '#cecece')
     .attr('fill', 'transparent')
     .attr('id', item => item.fromId + item.toId)
@@ -133,7 +134,7 @@ export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, cen
 
   // 画线
   if (config.isStraight) {
-    drawStraightLine(edge, mainPoint)
+    drawStraightLine(edge, mainPoint, config)
   } else {
     drawBesselLine(edge, mainPoint, config)
   }

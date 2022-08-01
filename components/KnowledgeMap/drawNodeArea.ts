@@ -197,7 +197,7 @@ function dragStart(this: any, event: any, node: Graph.Node) {
  * @param {any} node:Graph.Node
  * @returns {any}
  */
-function dragEnd(this: any, event: any, node: Graph.Node) {
+function dragEnd(this: any, event: any) {
   d3.select(this).style('cursor', 'pointer')
 }
 
