@@ -226,12 +226,7 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
 
-    d3.select('#popover-container')
-      .attr('width', 1000)
-      .attr('height', 300)
-      .attr('x', event.x)
-      .attr('y', +event.y - 10)
-    setVisible && setVisible(true)
+    setVisible && setVisible(false)
 
     const currentNode = d3.select(`#${node?.id || 'main'}`)
     const x = currentNode.attr('cx')
