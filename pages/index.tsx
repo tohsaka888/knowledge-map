@@ -17,7 +17,9 @@ const initState: Graph.ConfigProps = {
   arcAreaDistence,
   arcAreaLength,
   mode,
-  showDisctription: true
+  showDisctription: true,
+  isStraight: true,
+  besselRate: 2.2
 }
 
 const reducer = (state: typeof initState, action: Graph.ActionType) => {
@@ -34,6 +36,10 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
       return { ...state, basicDistence: action.payload }
     case 'setShowDiscription':
       return { ...state, showDisctription: action.payload }
+    case 'setIsStraight':
+      return { ...state, isStraight: action.payload }
+    case 'setBesselRate':
+      return { ...state, besselRate: action.payload }
   }
 }
 

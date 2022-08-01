@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-01 13:40:50
+ * @LastEditTime: 2022-08-01 15:24:36
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -28,6 +28,8 @@ declare namespace Graph {
     arcAreaLength: number;
     mode: number;
     showDisctription: boolean;
+    isStraight: boolean;
+    besselRate: number;
     setVisible?: React.Dispatch<React.SetStateAction<boolean>>
   }
 
@@ -38,6 +40,8 @@ declare namespace Graph {
     | { type: 'setAreaLength', payload: number }
     | { type: 'setAreaDistence', payload: number }
     | { type: 'setShowDiscription', payload: boolean }
+    | { type: 'setIsStraight', payload: boolean }
+    | { type:'setBesselRate', payload: number }
 
   type ConfigContextProps = {
     config: ConfigProps;

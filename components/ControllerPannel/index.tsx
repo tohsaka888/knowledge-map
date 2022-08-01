@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-01 13:45:38
+ * @LastEditTime: 2022-08-01 15:28:24
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -47,6 +47,27 @@ function ControllerPannel() {
             }}
           />
         </Form.Item>
+        <Form.Item label={"线条样式"} required>
+          <Select
+            value={config.isStraight}
+            options={[{ label: '直线', value: true }, { label: '曲线', value: false }]}
+            onChange={(value) => {
+              dispatch({ type: 'setIsStraight', payload: value })
+            }}
+          />
+        </Form.Item>
+        {!config.isStraight && <>
+          <Form.Item label={"弯曲程度"} required>
+            <Input
+              placeholder="请输入"
+              value={config.besselRate}
+              type='number'
+              onChange={(e) => {
+                dispatch({ type: 'setBesselRate', payload: +e.target.value });
+              }}
+            />
+          </Form.Item>
+        </>}
         <Form.Item label={"节点半径"} required>
           <Input
             type='number'
