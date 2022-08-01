@@ -1,7 +1,7 @@
 import { Button, Form, Input, Layout, message, Select } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useReducer, useRef } from 'react'
+import { useReducer, useRef, useState } from 'react'
 import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
@@ -10,6 +10,8 @@ import { nodeRadius, basicDistence, arcAreaLength, arcAreaDistence, mode } from 
 import { ConfigContext } from '../context'
 import style from '../styles/home.module.css'
 import { resetCanvas } from '../components/KnowledgeMap/resetCanvas'
+import { VisibleContext } from '../components/context'
+import CustomPopover from '../components/CustomPopover'
 
 const initState = {
   nodeRadius,
@@ -37,6 +39,7 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
 const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = ({ data }) => {
   const { height } = useScreenSize()
   const [config, dispatch] = useReducer(reducer, initState)
+  const [visible, setVisible] = useState<boolean>(false)
   return (
     <>
       <Head>
@@ -50,9 +53,9 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
           <Layout.Header>
             <h1 style={{ color: '#fff' }}>知识图谱Demo</h1>
           </Layout.Header>
-          <Layout style={{minHeight: height - 70}}>
+          <Layout style={{ minHeight: height - 70 }}>
             <ConfigContext.Provider value={{ config, dispatch }}>
-              <Layout.Sider theme={'light'} style={{minHeight: '90vh'}}>
+              <Layout.Sider theme={'light'} style={{ minHeight: '90vh' }}>
                 <Form
                   style={{ marginTop: '16px', padding: '0px 8px' }}
                   labelCol={{ span: 10 }}
@@ -125,7 +128,9 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
                 </div>
               </Layout.Sider>
               <Layout.Content style={{ height: height - 70 }}>
-                <Canvas nodes={data.nodes} edges={data.edges} config={config} />
+                <VisibleContext.Provider value={{ visible, setVisible }}>
+                  <Canvas nodes={data.nodes} edges={data.edges} config={config} />
+                </VisibleContext.Provider>
               </Layout.Content>
             </ConfigContext.Provider>
           </Layout>

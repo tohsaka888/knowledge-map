@@ -1,6 +1,12 @@
 import * as d3 from 'd3'
 
 export const createArrow = (container: SVGSVGElement) => {
+  d3.select(container).on('mouseover', () => {
+    d3.select('#border')
+      .select('circle')
+      .attr('stroke-width', 0)
+      .attr('r', 0)
+  })
   const arrowContainer = d3.select(container)
     .insert('defs', ':first-child')
     .append('marker')

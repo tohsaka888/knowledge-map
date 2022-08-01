@@ -13,6 +13,12 @@ export const drawEdgeArea = (edges: Graph.Edge[], centerPointId?: string) => {
   const mainPoint = d3.select(`#${centerPointId || 'main'}`)
   const edgeArea = d3.select('#edge-area')
     .insert('g', ':first-child')
+    .on('mouseover', () => {
+      d3.select('#border')
+        .select('circle')
+        .attr('stroke-width', 0)
+        .attr('r', 0)
+    })
   const edge = edgeArea
     .selectAll('g')
     .data(edges)

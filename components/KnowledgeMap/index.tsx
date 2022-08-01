@@ -5,6 +5,7 @@ import EdgeArea from './EdgeArea';
 import style from './index.module.css'
 import NodeArea from './NodeArea';
 import { Graph } from '../..';
+import CustomPopover from '../CustomPopover';
 
 function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Edge[]; config: Graph.ConfigProps }) {
   const canvasRef = useRef<SVGSVGElement>(null!)
@@ -24,6 +25,7 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
         <g id="scale">
           {/* 画布移动 */}
           <g transform={`translate(0, 0)`} id="drag">
+            <CustomPopover />
             <EdgeArea edges={edges} config={config}>
               <NodeArea nodes={nodes} edges={edges} config={config} />
             </EdgeArea>

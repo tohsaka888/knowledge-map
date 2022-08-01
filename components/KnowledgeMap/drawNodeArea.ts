@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import { Dispatch, SetStateAction } from 'react'
 import { Graph } from '../..'
 import { drawEdgeArea } from './drawEdgeArea'
 import { calcArcX, calcArcY } from './utils/calcArc'
@@ -205,6 +206,14 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
     d3.select(`#${node.id}name`)
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
+    const currentNode = d3.select(`#${node?.id || 'main'}`)
+    const x = currentNode.attr('cx')
+    const y = currentNode.attr('cy')
+    d3.select('#border')
+      .attr('transform', `translate(${x}, ${y})`)
+      .select('circle')
+      .attr('stroke-width', 8)
+      .attr('r', nodeRadius + 4)
     // 筛选出和当前节点有关的边
     const fromEdges = edges.filter(edge => edge.fromId === node.id)
     const toEdges = edges.filter(edge => edge.toId === node.id)
@@ -322,6 +331,17 @@ const drawSideNodes = (
       .selectAll('g')
       .data(nodes)
       .join('g')
+      .on('mouseover', function (event, d) {
+        event.stopPropagation();
+        const node = d3.select(`#${d.id}`)
+        const x = +node.attr('cx')
+        const y = +node.attr('cy')
+        d3.select('#border')
+          .attr('transform', `translate(${x}, ${y})`)
+          .select('circle')
+          .attr('stroke-width', 8)
+          .attr('r', nodeRadius + 4)
+      })
       .call(
         d3.drag<any, any, Graph.Node>()
           .on('start', dragStart)
@@ -428,10 +448,11 @@ export const drawNodeArea = (
   edges: Graph.Edge[],
   x: number,
   y: number,
-  config: Graph.ConfigProps
+  config: Graph.ConfigProps,
+  setVisible: Dispatch<SetStateAction<boolean>>
 ): any => {
   // 根节点
-  const { nodeRadius, basicDistence, arcAreaDistence, arcAreaLength, mode } = config
+  const { nodeRadius } = config
   const mainNode = nodes.find(node => node.mode === 0)
   // 入边节点
   const insideNodes = nodes.filter(node => node.mode === 1)
@@ -450,6 +471,25 @@ export const drawNodeArea = (
     .append('g')
     .attr('x', x)
     .attr('y', y)
+    .on('mouseover', function (event) {
+      const node = d3.select(`#${mainNode?.id || 'main'}`)
+      const x = node.attr('cx')
+      const y = node.attr('cy')
+      d3.select('#border')
+        .attr('transform', `translate(${x}, ${y})`)
+        .select('circle')
+        .attr('stroke-width', 8)
+        .attr('r', nodeRadius + 4)
+      d3.select('#popover-container')
+        .attr('width', 1000)
+        .attr('height', 300)
+        .attr('x', x)
+        .attr('y', +y - 10)
+      setVisible(true)
+    })
+    .on('mouseleave', () => {
+      setVisible(false)
+    })
     .call(
       d3.drag<any, any, Graph.Node>()
         .on('start', dragStart)
@@ -505,4 +545,21 @@ export const drawNodeArea = (
     edges,
     false
   )
+
+  // 创建悬停边框
+  d3.select(container)
+    .append('g')
+    .attr('id', 'border')
+    .append('circle')
+    .attr('fill', 'transparent')
+    .attr('stroke', 'rgba(24,144,255, .3)')
+    .attr('stroke-width', 0)
+    .attr('r', nodeRadius)
+    .attr('stroke-linecap', 'round')
+    .on('mouseleave', () => {
+      d3.select('#border')
+        .select('circle')
+        .attr('stroke-width', 0)
+        .attr('r', 0)
+    })
 }
