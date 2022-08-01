@@ -1,3 +1,10 @@
+/*
+ * @Author: tohsaka888
+ * @Date: 2022-08-01 11:31:01
+ * @LastEditors: tohsaka888
+ * @LastEditTime: 2022-08-01 13:53:05
+ * @Description: 请填写简介
+ */
 import * as d3 from 'd3'
 import style from './index.module.css'
 import { Graph } from '../..'
@@ -9,7 +16,7 @@ import { Graph } from '../..'
  * @param {any} mode:number|undefined
  * @returns {any}
  */
-export const drawEdgeArea = (edges: Graph.Edge[], centerPointId?: string) => {
+export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, centerPointId?: string,) => {
   const mainPoint = d3.select(`#${centerPointId || 'main'}`)
   const edgeArea = d3.select('#edge-area')
     .insert('g', ':first-child')
@@ -56,17 +63,19 @@ export const drawEdgeArea = (edges: Graph.Edge[], centerPointId?: string) => {
           `
         : `M 0 0`
     })
-  edge
-    .append('text')
-    .append('textPath')
-    .style('opacity', 0)
-    .attr('text-anchor', 'center')
-    .attr('href', item => `#${item.fromId + item.toId}`)
-    .classed(style['discription'], true)
-    .attr('startOffset', '50%')
-    .attr('dy', 20)
-    .text(item => item.discription)
-    .transition()
-    .duration(1000)
-    .style('opacity', 1)
+  if (config.showDisctription) {
+    edge
+      .append('text')
+      .append('textPath')
+      .style('opacity', 0)
+      .attr('text-anchor', 'center')
+      .attr('href', item => `#${item.fromId + item.toId}`)
+      .classed(style['discription'], true)
+      .attr('startOffset', '50%')
+      .attr('dy', 20)
+      .text(item => item.discription)
+      .transition()
+      .duration(1000)
+      .style('opacity', 1)
+  }
 }

@@ -173,7 +173,7 @@ const nextPage = (
       return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
     })
     .remove()
-  drawEdgeArea(edges)
+  drawEdgeArea(edges, config)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
 
