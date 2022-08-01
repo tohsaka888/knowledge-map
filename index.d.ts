@@ -20,7 +20,7 @@ declare namespace Graph {
     arcAreaDistence: number;
     arcAreaLength: number;
     mode: number;
-    setVisible: React.Dispatch<React.SetStateAction<boolean>>
+    setVisible?: React.Dispatch<React.SetStateAction<boolean>>
   }
 
   type ActionType =
