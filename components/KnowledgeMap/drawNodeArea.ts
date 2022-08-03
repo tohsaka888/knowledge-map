@@ -381,7 +381,9 @@ const drawSideNodes = (
       .selectAll('g')
       .data(nodes)
       .join('g')
-      .on('mouseover', function (event, d) {
+    
+    window.setTimeout(() => {
+      sideContainer.on('mouseover', function (event, d) {
         event.stopPropagation();
         const node = d3.select(`#${d.id}`)
         const x = +node.attr('cx')
@@ -392,11 +394,9 @@ const drawSideNodes = (
           .attr('stroke-width', 8)
           .attr('r', nodeRadius + 4)
         d3.select('#popover-container')
-          .transition()
-          .duration(500)
           .attr('width', 1000)
           .attr('height', 300)
-          .attr('x', x)
+          .attr('x', +x)
           .attr('y', +y - 10)
         setVisible && setVisible(true)
       })
@@ -411,6 +411,8 @@ const drawSideNodes = (
             dragging(this, event, node, edges, config)
           })
       )
+    }, 1000)
+
     sideContainer
       .append('circle')
       .attr('r', nodeRadius)
@@ -541,11 +543,9 @@ export const drawNodeArea = (
         .attr('stroke-width', 8)
         .attr('r', nodeRadius + 4)
       d3.select('#popover-container')
-        .transition()
-        .duration(500)
         .attr('width', 1000)
         .attr('height', 300)
-        .attr('x', x)
+        .attr('x', +x)
         .attr('y', +y - 10)
       setVisible && setVisible(true)
     })
