@@ -147,8 +147,12 @@ const nextPage = (
   window.setTimeout(() => {
     container.call(
       d3.drag<any, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
+        .on('start', function (event: any, node: Graph.Node) {
+          dragStart(this, event, config)
+        })
+        .on('end', function (event: any, node: Graph.Node) {
+          dragEnd(this, event, config)
+        })
         .on('drag', function (event: any, node: Graph.Node) {
           dragging(this, event, node, edges, config)
         })
@@ -184,14 +188,19 @@ const nextPage = (
 }
 
 /**
- * 描述 拖拽开始事件
- * @date 2022-07-15
+ *  拖拽开始事件
+ * @date 2022-08-03
  * @param {any} this:any
  * @param {any} event:any
  * @param {any} node:Graph.Node
+ * @param {any} config:Graph.ConfigProps
  * @returns {any}
  */
-function dragStart(this: any, event: any, node: Graph.Node) {
+function dragStart(this: any, event: any, node: Graph.Node, config: Graph.ConfigProps) {
+  const { setVisible } = config
+  if (setVisible) {
+    setVisible(false)
+  }
   d3.select(this).style('cursor', 'grabbing')
 }
 
@@ -201,9 +210,14 @@ function dragStart(this: any, event: any, node: Graph.Node) {
  * @param {any} this:any
  * @param {any} event:any
  * @param {any} node:Graph.Node
+ * @param {any} config:Graph.ConfigProps
  * @returns {any}
  */
-function dragEnd(this: any, event: any) {
+function dragEnd(this: any, event: any, node: Graph.Node, config: Graph.ConfigProps) {
+  const { setVisible } = config
+  if (setVisible) {
+    setVisible(false)
+  }
   d3.select(this).style('cursor', 'pointer')
 }
 
@@ -218,6 +232,10 @@ function dragEnd(this: any, event: any) {
  */
 function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], config: Graph.ConfigProps) {
   const { nodeRadius, setVisible } = config
+  if (setVisible) {
+    setVisible(false)
+  }
+
   requestAnimationFrame(() => {
     // 更改相关节点的位置
     d3.select(`#${node.id}`)
@@ -231,8 +249,6 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
     d3.select(`#${node.id}name`)
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
-
-    setVisible && setVisible(false)
 
     const currentNode = d3.select(`#${node?.id || 'main'}`)
     const x = currentNode.attr('cx')
@@ -381,7 +397,7 @@ const drawSideNodes = (
       .selectAll('g')
       .data(nodes)
       .join('g')
-    
+
     window.setTimeout(() => {
       sideContainer.on('mouseover', function (event, d) {
         event.stopPropagation();
@@ -400,17 +416,21 @@ const drawSideNodes = (
           .attr('y', +y - 10)
         setVisible && setVisible(true)
       })
-      .on('mouseleave', () => {
-        setVisible && setVisible(false)
-      })
-      .call(
-        d3.drag<any, any, Graph.Node>()
-          .on('start', dragStart)
-          .on('end', dragEnd)
-          .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, config)
-          })
-      )
+        .on('mouseleave', () => {
+          setVisible && setVisible(false)
+        })
+        .call(
+          d3.drag<any, any, Graph.Node>()
+            .on('start', function (event: any, node: Graph.Node) {
+              dragStart(this, event, config)
+            })
+            .on('end', function (event: any, node: Graph.Node) {
+              dragEnd(this, event, config)
+            })
+            .on('drag', function (event: any, node: Graph.Node) {
+              dragging(this, event, node, edges, config)
+            })
+        )
     }, 1000)
 
     sideContainer
@@ -554,8 +574,12 @@ export const drawNodeArea = (
     })
     .call(
       d3.drag<any, any, Graph.Node>()
-        .on('start', dragStart)
-        .on('end', dragEnd)
+        .on('start', function (event: any, node: Graph.Node) {
+          dragStart(this, event, config)
+        })
+        .on('end', function (event: any, node: Graph.Node) {
+          dragEnd(this, event, config)
+        })
         .on('drag', function (event: any, node: Graph.Node) {
           dragging(this, event, mainNode as Graph.Node, edges, config)
           d3.selectAll('.arc')
