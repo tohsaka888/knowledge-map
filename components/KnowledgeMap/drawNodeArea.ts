@@ -599,6 +599,16 @@ export const drawNodeArea = (
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#fff')
     .text(mainNode?.type || '')
+  mainNodeContainer
+    .append('text')
+    .attr('x', x)
+    .attr('y', y + nodeRadius + 10)
+    .attr('id', mainNode?.id + 'name')
+    .style('cursor', 'pointer')
+    .attr('text-anchor', 'middle')
+    .attr('dominant-baseline', 'middle')
+    .style('font-size', 10)
+    .text(mainNode?.name || '')
 
   // 创建入边节点
   drawSideNodes(

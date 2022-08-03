@@ -8,7 +8,80 @@ export const resetSize = () => {
   size = 1
 }
 
-export const canvasDrag = (canvas: SVGSVGElement, nodes: Graph.Node[], setVisible: React.Dispatch<React.SetStateAction<boolean>>, config: Graph.ConfigProps) => {
+const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, config: Graph.ConfigProps) => {
+  nodes.forEach((node) => {
+    const item = d3.select(`#${node.id}`)
+    item
+      .attr('cx', +item.attr('cx') + event.dx)
+      .attr('cy', +item.attr('cy') + event.dy)
+
+    const itemText = d3.select(`#${node.id}text`)
+    itemText
+      .attr('x', +itemText.attr('x') + event.dx)
+      .attr('y', +itemText.attr('y') + event.dy)
+
+    const itemName = d3.select(`#${node.id}name`)
+    itemName
+      .attr('x', +itemName.attr('x') + event.dx)
+      .attr('y', +itemName.attr('y') + event.dy)
+
+    // 筛选出和当前节点有关的边
+    const fromEdges = edges.filter(edge => edge.fromId === node.id)
+    const toEdges = edges.filter(edge => edge.toId === node.id)
+    // 更改入边相关的位置
+    fromEdges.forEach(edge => {
+      const toNode = d3.select(`#${edge.toId}`)
+      const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
+      if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
+        if (config.isStraight) {
+          curEdge
+            .attr('d', `M ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+        } else {
+          let perX = 0
+          if (toNode.nodes().length !== 0) {
+            perX = (+toNode.attr('x') - +item.attr('cx') + event.dx) / config.besselRate
+          }
+          curEdge.attr('d', `
+             M ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy},
+             C ${+item.attr('cx') + event.dx + perX} ${+item.attr('cy') + event.dy},
+             ${+toNode.attr('cx') - perX} ${toNode.attr('cy')},
+             ${toNode.attr('cx')} ${toNode.attr('cy')}
+         `)
+        }
+      }
+    })
+    // 更改出边相关的位置
+    toEdges.forEach(edge => {
+      const fromNode = d3.select(`#${edge.fromId}`)
+      const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
+      if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
+        if (config.isStraight) {
+
+          curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy}`)
+        } else {
+          let perX = 0
+          if (fromNode.nodes().length !== 0) {
+            perX = (+fromNode.attr('x') - +item.attr('cx') + event.dx) / config.besselRate
+          }
+          curEdge.attr('d', `
+           M ${fromNode.attr('x')} ${fromNode.attr('y')},
+           C ${+fromNode.attr('x') - perX} ${fromNode.attr('y')},
+           ${+item.attr('cx') + event.dx + perX} ${+item.attr('cy') + event.dy},
+           ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy}
+       `)
+        }
+      }
+    })
+  })
+}
+
+export const canvasDrag = (
+  canvas: SVGSVGElement,
+  nodes: Graph.Node[],
+  edges: Graph.Edge[],
+  setVisible: React.Dispatch<React.SetStateAction<boolean>>,
+  config: Graph.ConfigProps
+) => {
   const mainCanvas = d3.select(canvas)
     .on('mouseover', () => {
       if (setVisible) {
@@ -117,11 +190,55 @@ export const canvasDrag = (canvas: SVGSVGElement, nodes: Graph.Node[], setVisibl
           .attr('stroke', '#1890ff')
           .attr('stroke-width', 1)
           .attr('id', 'selector-result')
+          .attr('transform', 'translate(0, 0)')
           .attr('d',
             `M ${minX - config.nodeRadius - 10} ${minY - config.nodeRadius - 10},
              L ${maxX + config.nodeRadius + 10} ${minY - config.nodeRadius - 10}, 
              L ${maxX + config.nodeRadius + 10} ${maxY + config.nodeRadius + 10},
              L ${minX - config.nodeRadius - 10} ${maxY + config.nodeRadius + 10} Z`
+          )
+          .call(
+            d3.drag<SVGPathElement, unknown, null>()
+              .on('start', function () {
+                d3.select(this).style('cursor', 'move')
+              })
+              .on('drag', function (event: any) {
+                requestAnimationFrame(() => {
+                  const currentElement = d3.select(this)
+                  const tempArr = currentElement.attr("transform").split(",");
+                  // 获取当前的x和y坐标
+                  const x = +(tempArr?.[0]?.split("(")[1] || 0);
+                  const y = +(tempArr?.[1]?.split(")")[0] || 0);
+                  // 当前坐标加上拖拽的相对坐标
+                  // 即新坐标相比原坐标的偏移量
+                  currentElement
+                    .attr(
+                      "transform",
+                      `translate(${x + event.dx / size}, ${y + event.dy / size})`
+                    )
+                    .style('cursor', 'move')
+                  draggingEvent(areaNodes, edges, event, config)
+                })
+              })
+              .on('end', function (event: any) {
+                requestAnimationFrame(() => {
+                  const currentElement = d3.select(this)
+                  const tempArr = currentElement.attr("transform").split(",");
+                  // 获取当前的x和y坐标
+                  const x = +(tempArr?.[0]?.split("(")[1] || 0);
+                  const y = +(tempArr?.[1]?.split(")")[0] || 0);
+                  // 当前坐标加上拖拽的相对坐标
+                  // 即新坐标相比原坐标的偏移量
+                  currentElement
+                    .attr(
+                      "transform",
+                      `translate(${x + event.dx / size}, ${y + event.dy / size})`
+                    )
+                    .style('cursor', 'move')
+                  draggingEvent(areaNodes, edges, event, config)
+                })
+                d3.select(this).style('cursor', 'default')
+              })
           )
       })
     )
