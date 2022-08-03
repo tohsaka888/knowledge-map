@@ -14,6 +14,8 @@ const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, con
     item
       .attr('cx', +item.attr('cx') + event.dx)
       .attr('cy', +item.attr('cy') + event.dy)
+      .attr('x', +item.attr('cx') + event.dx)
+      .attr('y', +item.attr('cy') + event.dy)
 
     const itemText = d3.select(`#${node.id}text`)
     itemText
