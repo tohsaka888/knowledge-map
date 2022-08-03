@@ -14,6 +14,10 @@ export const canvasDrag = (canvas: SVGSVGElement, setVisible: React.Dispatch<Rea
       if (setVisible) {
         setVisible(false)
       }
+      d3.select('#border')
+        .select('circle')
+        .attr('stroke-width', 0)
+        .attr('r', 0)
     })
     .call(
       d3.drag<SVGSVGElement, unknown>()
