@@ -1,3 +1,10 @@
+/*
+ * @Author: tohsaka888
+ * @Date: 2022-08-01 11:31:01
+ * @LastEditors: tohsaka888
+ * @LastEditTime: 2022-08-03 09:13:26
+ * @Description: 请填写简介
+ */
 import { Layout } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
@@ -20,7 +27,8 @@ const initState: Graph.ConfigProps = {
   showDisctription: true,
   isStraight: true,
   besselRate: 5,
-  lineWidth: 1
+  lineWidth: 1,
+  arrowPosition: 50,
 }
 
 const reducer = (state: typeof initState, action: Graph.ActionType) => {
@@ -42,7 +50,9 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
     case 'setBesselRate':
       return { ...state, besselRate: action.payload }
     case 'setLineWidth':
-      return {...state, lineWidth: action.payload }
+      return { ...state, lineWidth: action.payload }
+    case 'setArrowPosition':
+      return { ...state, arrowPosition: action.payload }
   }
 }
 

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-01 16:08:13
+ * @LastEditTime: 2022-08-03 09:14:15
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -63,6 +63,16 @@ function ControllerPannel() {
             type='number'
             onChange={(e) => {
               dispatch({ type: 'setLineWidth', payload: +e.target.value });
+            }}
+          />
+        </Form.Item>
+        <Form.Item label={"箭头位置"} required>
+          <Input
+            placeholder="请输入"
+            value={config.arrowPosition}
+            type='number'
+            onChange={(e) => {
+              dispatch({ type: 'setArrowPosition', payload: +e.target.value });
             }}
           />
         </Form.Item>
