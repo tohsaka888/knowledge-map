@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 09:12:57
+ * @LastEditTime: 2022-08-03 13:28:16
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -32,6 +32,7 @@ declare namespace Graph {
     besselRate: number;
     lineWidth: number;
     arrowPosition: number;
+    isSelect: boolean;
     setVisible?: React.Dispatch<React.SetStateAction<boolean>>
   }
 
@@ -46,6 +47,7 @@ declare namespace Graph {
     | { type: 'setBesselRate', payload: number }
     | { type: 'setLineWidth', payload: number }
     | { type: 'setArrowPosition', payload: number }
+    | { type: 'setIsSelect', payload: boolean }
 
   type ConfigContextProps = {
     config: ConfigProps;

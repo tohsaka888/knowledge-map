@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 11:13:59
+ * @LastEditTime: 2022-08-03 14:13:59
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -19,8 +19,8 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
   const { setVisible } = useContext(VisibleContext)!
 
   useEffect(() => {
-    canvasDrag(canvasRef.current, setVisible)
-  }, [setVisible])
+    canvasDrag(canvasRef.current, nodes, setVisible, config)
+  }, [config, setVisible, config.isSelect, nodes])
   return (
     <div style={{ width: '100%', height: '100%' }}>
       <svg
