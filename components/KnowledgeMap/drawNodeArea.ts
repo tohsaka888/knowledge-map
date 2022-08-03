@@ -245,22 +245,17 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
       if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
         if (config.isStraight) {
-          const middlePointX = (event.x + +toNode.attr('cx')) / 2
-          const middlePointY = (event.y + +toNode.attr('cy')) / 2
           curEdge
-            .attr('d', `M ${event.x} ${event.y} L ${middlePointX} ${middlePointY} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+            .attr('d', `M ${event.x} ${event.y} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
         } else {
           let perX = 0
           if (toNode.nodes().length !== 0) {
             perX = (+toNode.attr('x') - +event.x) / config.besselRate
           }
-          const middlePointX = (event.x + +toNode.attr('cx')) / 2
-          const middlePointY = (event.y + +toNode.attr('cy')) / 2
           curEdge.attr('d', `
             M ${event.x} ${event.y},
-            Q ${+event.x + perX} ${event.y},
-            ${middlePointX} ${middlePointY},
-            Q ${+toNode.attr('x') - perX} ${toNode.attr('y')},
+            C ${+event.x + perX} ${event.y},
+            ${+toNode.attr('x') - perX} ${toNode.attr('y')},
             ${toNode.attr('x')} ${toNode.attr('y')}
         `)
         }
@@ -272,21 +267,17 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
       if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
         if (config.isStraight) {
-          const middlePointX = (event.x + +fromNode.attr('cx')) / 2
-          const middlePointY = (event.y + +fromNode.attr('cy')) / 2
-          curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${middlePointX} ${middlePointY} L ${event.x} ${event.y}`)
+
+          curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${event.x} ${event.y}`)
         } else {
           let perX = 0
           if (fromNode.nodes().length !== 0) {
             perX = (+fromNode.attr('x') - +event.x) / config.besselRate
           }
-          const middlePointX = (event.x + +fromNode.attr('cx')) / 2
-          const middlePointY = (event.y + +fromNode.attr('cy')) / 2
           curEdge.attr('d', `
           M ${fromNode.attr('x')} ${fromNode.attr('y')},
-          Q ${+fromNode.attr('x') - perX} ${fromNode.attr('y')},
-          ${middlePointX} ${middlePointY},
-          Q ${+event.x + perX} ${event.y},
+          C ${+fromNode.attr('x') - perX} ${fromNode.attr('y')},
+          ${+event.x + perX} ${event.y},
           ${event.x} ${event.y}
       `)
         }
