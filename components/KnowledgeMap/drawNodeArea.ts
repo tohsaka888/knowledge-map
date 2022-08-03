@@ -49,6 +49,7 @@ const nextPage = (
   centerPointId?: string,
 ) => {
   const { mode, nodeRadius, basicDistence, setVisible } = config
+  d3.select('#border').select('circle').attr('r', 0)
   const mainPoint = d3.select(`#${centerPointId || 'main'}`)
   const x = +mainPoint.attr('cx')
   const y = +mainPoint.attr('cy')!
@@ -60,33 +61,6 @@ const nextPage = (
       .selectAll('g')
       .data(nodes)
       .join('g')
-      .call(
-        d3.drag<any, any, Graph.Node>()
-          .on('start', dragStart)
-          .on('end', dragEnd)
-          .on('drag', function (event: any, node: Graph.Node) {
-            dragging(this, event, node, edges, config)
-          })
-      ).on('mouseover', function (event, d) {
-        event.stopPropagation();
-        const node = d3.select(`#${d.id}`)
-        const x = +node.attr('cx')
-        const y = +node.attr('cy')
-        d3.select('#border')
-          .attr('transform', `translate(${x}, ${y})`)
-          .select('circle')
-          .attr('stroke-width', 8)
-          .attr('r', nodeRadius + 4)
-        d3.select('#popover-container')
-          .attr('width', 1000)
-          .attr('height', 300)
-          .attr('x', x)
-          .attr('y', +y - 10)
-        setVisible && setVisible(true)
-      })
-      .on('mouseleave', () => {
-        setVisible && setVisible(false)
-      })
   container
     .append('circle')
     .attr('r', nodeRadius)
@@ -168,6 +142,38 @@ const nextPage = (
         : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
     })
     .style('opacity', 1);
+
+  // 延迟1s挂在事件,防止在节点移动中显示悬浮窗 
+  window.setTimeout(() => {
+    container.call(
+      d3.drag<any, any, Graph.Node>()
+        .on('start', dragStart)
+        .on('end', dragEnd)
+        .on('drag', function (event: any, node: Graph.Node) {
+          dragging(this, event, node, edges, config)
+        })
+    ).on('mouseover', function (event, d) {
+      event.stopPropagation();
+      const node = d3.select(`#${d.id}`)
+      const x = +node.attr('cx')
+      const y = +node.attr('cy')
+      d3.select('#border')
+        .attr('transform', `translate(${x}, ${y})`)
+        .select('circle')
+        .attr('stroke-width', 8)
+        .attr('r', nodeRadius + 4)
+      d3.select('#popover-container')
+        .attr('width', 1000)
+        .attr('height', 300)
+        .attr('x', x)
+        .attr('y', +y - 10)
+      setVisible && setVisible(true)
+    })
+      .on('mouseleave', () => {
+        setVisible && setVisible(false)
+      })
+  }, 1000)
+
   d3.selectAll('.edge')
     .filter((item: any) => {
       return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
@@ -386,6 +392,8 @@ const drawSideNodes = (
           .attr('stroke-width', 8)
           .attr('r', nodeRadius + 4)
         d3.select('#popover-container')
+          .transition()
+          .duration(500)
           .attr('width', 1000)
           .attr('height', 300)
           .attr('x', x)
@@ -533,6 +541,8 @@ export const drawNodeArea = (
         .attr('stroke-width', 8)
         .attr('r', nodeRadius + 4)
       d3.select('#popover-container')
+        .transition()
+        .duration(500)
         .attr('width', 1000)
         .attr('height', 300)
         .attr('x', x)
