@@ -233,7 +233,7 @@ export const multiDrag = (
                 currentElement
                   .attr(
                     "transform",
-                    `translate(${x + event.dx / size}, ${y + event.dy / size})`
+                    `translate(${x + event.dx}, ${y + event.dy})`
                   )
                   .style('cursor', 'move')
                 draggingEvent(areaNodes, edges, event, config)
@@ -251,7 +251,7 @@ export const multiDrag = (
                 currentElement
                   .attr(
                     "transform",
-                    `translate(${x + event.dx / size}, ${y + event.dy / size})`
+                    `translate(${x + event.dx}, ${y + event.dy})`
                   )
                   .style('cursor', 'move')
                 draggingEvent(areaNodes, edges, event, config)
