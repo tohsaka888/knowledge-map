@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 13:41:09
+ * @LastEditTime: 2022-08-03 17:12:00
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -38,25 +38,7 @@ function ControllerPannel() {
               }
             ]} />
         </Form.Item>
-        <Form.Item label={'选中模式'} required>
-          <Select
-            onSelect={(value: boolean) => {
-              // resetCanvas()
-              console.log(value)
-              dispatch({ type: 'setIsSelect', payload: value })
-            }}
-            value={config.isSelect}
-            options={[
-              {
-                label: '是',
-                value: true
-              },
-              {
-                label: '否',
-                value: false
-              }
-            ]} />
-        </Form.Item>
+
         <Form.Item label={"显示描述"} required>
           <Select
             value={config.showDisctription}
