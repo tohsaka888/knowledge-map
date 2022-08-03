@@ -1,4 +1,6 @@
 import * as d3 from 'd3'
+import React from 'react'
+import { Graph } from '../..'
 
 let size = 1
 
@@ -6,8 +8,13 @@ export const resetSize = () => {
   size = 1
 }
 
-export const canvasDrag = (canvas: SVGSVGElement) => {
+export const canvasDrag = (canvas: SVGSVGElement, setVisible: React.Dispatch<React.SetStateAction<boolean>>) => {
   d3.select(canvas)
+    .on('mouseover', () => {
+      if (setVisible) {
+        setVisible(false)
+      }
+    })
     .call(
       d3.drag<SVGSVGElement, unknown>()
         .on('start', function () {
@@ -38,5 +45,9 @@ export const canvasDrag = (canvas: SVGSVGElement) => {
         d3.select('#scale')
           .attr('transform', `scale(${size *= 0.95})`)
       }
+    })
+  d3.select('#popover')
+    .on('mouseover', function (event: any) {
+      event.stopPropagation();
     })
 }

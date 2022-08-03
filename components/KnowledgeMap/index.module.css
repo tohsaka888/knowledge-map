@@ -50,3 +50,7 @@
 .discription-arrow {
   font-size: 24;
 }
+
+#popover-container .ant-popover-content {
+  margin-top: 30px;
+}

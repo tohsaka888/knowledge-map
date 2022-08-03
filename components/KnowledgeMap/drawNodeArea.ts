@@ -148,10 +148,10 @@ const nextPage = (
     container.call(
       d3.drag<any, any, Graph.Node>()
         .on('start', function (event: any, node: Graph.Node) {
-          dragStart(this, event, config)
+          dragStart(this, event, node, config)
         })
         .on('end', function (event: any, node: Graph.Node) {
-          dragEnd(this, event, config)
+          dragEnd(this, event, node, config)
         })
         .on('drag', function (event: any, node: Graph.Node) {
           dragging(this, event, node, edges, config)
@@ -167,15 +167,12 @@ const nextPage = (
         .attr('stroke-width', 8)
         .attr('r', nodeRadius + 4)
       d3.select('#popover-container')
-        .attr('width', 1000)
-        .attr('height', 300)
-        .attr('x', x)
+        .attr('width', nodeRadius * 2 + 10)
+        .attr('height', nodeRadius * 2 + 10)
+        .attr('x', +x)
         .attr('y', +y - 10)
       setVisible && setVisible(true)
     })
-      .on('mouseleave', () => {
-        setVisible && setVisible(false)
-      })
   }, 1000)
 
   d3.selectAll('.edge')
@@ -196,12 +193,12 @@ const nextPage = (
  * @param {any} config:Graph.ConfigProps
  * @returns {any}
  */
-function dragStart(this: any, event: any, node: Graph.Node, config: Graph.ConfigProps) {
+function dragStart(that: any, event: any, node: Graph.Node, config: Graph.ConfigProps) {
   const { setVisible } = config
   if (setVisible) {
     setVisible(false)
   }
-  d3.select(this).style('cursor', 'grabbing')
+  d3.select(that).style('cursor', 'grabbing')
 }
 
 /**
@@ -213,12 +210,12 @@ function dragStart(this: any, event: any, node: Graph.Node, config: Graph.Config
  * @param {any} config:Graph.ConfigProps
  * @returns {any}
  */
-function dragEnd(this: any, event: any, node: Graph.Node, config: Graph.ConfigProps) {
+function dragEnd(that: any, event: any, node: Graph.Node, config: Graph.ConfigProps) {
   const { setVisible } = config
   if (setVisible) {
     setVisible(false)
   }
-  d3.select(this).style('cursor', 'pointer')
+  d3.select(that).style('cursor', 'pointer')
 }
 
 /**
@@ -410,22 +407,19 @@ const drawSideNodes = (
           .attr('stroke-width', 8)
           .attr('r', nodeRadius + 4)
         d3.select('#popover-container')
-          .attr('width', 1000)
-          .attr('height', 300)
+          .attr('width', nodeRadius * 2 + 10)
+          .attr('height', nodeRadius * 2 + 10)
           .attr('x', +x)
           .attr('y', +y - 10)
         setVisible && setVisible(true)
       })
-        .on('mouseleave', () => {
-          setVisible && setVisible(false)
-        })
         .call(
           d3.drag<any, any, Graph.Node>()
             .on('start', function (event: any, node: Graph.Node) {
-              dragStart(this, event, config)
+              dragStart(this, event, node, config)
             })
             .on('end', function (event: any, node: Graph.Node) {
-              dragEnd(this, event, config)
+              dragEnd(this, event, node, config)
             })
             .on('drag', function (event: any, node: Graph.Node) {
               dragging(this, event, node, edges, config)
@@ -554,6 +548,7 @@ export const drawNodeArea = (
     .attr('x', x)
     .attr('y', y)
     .on('mouseover', function (event) {
+      event.stopPropagation()
       const node = d3.select(`#${mainNode?.id || 'main'}`)
       const x = node.attr('cx')
       const y = node.attr('cy')
@@ -563,22 +558,19 @@ export const drawNodeArea = (
         .attr('stroke-width', 8)
         .attr('r', nodeRadius + 4)
       d3.select('#popover-container')
-        .attr('width', 1000)
-        .attr('height', 300)
+        .attr('width', nodeRadius * 2 + 10)
+        .attr('height', nodeRadius * 2 + 10)
         .attr('x', +x)
         .attr('y', +y - 10)
       setVisible && setVisible(true)
     })
-    .on('mouseleave', () => {
-      setVisible && setVisible(false)
-    })
     .call(
       d3.drag<any, any, Graph.Node>()
         .on('start', function (event: any, node: Graph.Node) {
-          dragStart(this, event, config)
+          dragStart(this, event, node, config)
         })
         .on('end', function (event: any, node: Graph.Node) {
-          dragEnd(this, event, config)
+          dragEnd(this, event, node, config)
         })
         .on('drag', function (event: any, node: Graph.Node) {
           dragging(this, event, mainNode as Graph.Node, edges, config)
