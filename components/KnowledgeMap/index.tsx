@@ -2,11 +2,11 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 15:55:54
+ * @LastEditTime: 2022-08-03 17:09:06
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
-import { canvasDrag } from './canvasDrag';
+import { canvasDrag, multiDrag, normalDrag } from './canvasDrag';
 import EdgeArea from './EdgeArea';
 import style from './index.module.css'
 import NodeArea from './NodeArea';
@@ -20,6 +20,25 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
 
   useEffect(() => {
     canvasDrag(canvasRef.current, nodes, edges, setVisible, config)
+    normalDrag(canvasRef.current)
+    window.addEventListener('keydown', (event: KeyboardEvent) => {
+      if (event.shiftKey) {
+        multiDrag(canvasRef.current, nodes, edges, config)
+      }
+    })
+
+    window.addEventListener('keyup', (event) => {
+      normalDrag(canvasRef.current)
+    })
+
+    return () => {
+      window.removeEventListener('keydown', () => {
+        console.log('remove')
+      })
+      window.removeEventListener('keyup', () => {
+        console.log('remove')
+      })
+    }
   }, [config, setVisible, config.isSelect, nodes, edges])
   return (
     <div style={{ width: '100%', height: '100%' }}>
