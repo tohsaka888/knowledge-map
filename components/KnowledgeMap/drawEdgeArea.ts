@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 09:33:17
+ * @LastEditTime: 2022-08-03 11:34:14
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -154,4 +154,8 @@ export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, cen
     .attr('dy', 0.1)
     .text(`\u25B8`)
     .style('font-size', 18)
+    .style('opacity', 0)
+    .transition()
+    .duration(1000)
+    .style('opacity', 1)
 }
