@@ -29,7 +29,6 @@
 .node-center {
   position: absolute;
 }
-
 .text-ellipse {
   text-overflow: ellipsis;
   overflow: hidden;
@@ -40,4 +39,14 @@
   font-size: 12px;
   dominant-baseline: text-after-edge;
   fill: #999999;
+}
+
+.discription-icon {
+  dominant-baseline: central;
+  fill: #999999;
+  font-family: "Times New Roman";
+}
+
+.discription-arrow {
+  font-size: 24;
 }

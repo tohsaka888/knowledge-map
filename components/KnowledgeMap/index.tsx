@@ -1,6 +1,12 @@
+/*
+ * @Author: tohsaka888
+ * @Date: 2022-08-01 11:31:01
+ * @LastEditors: tohsaka888
+ * @LastEditTime: 2022-08-03 09:08:33
+ * @Description: 请填写简介
+ */
 import React, { useEffect, useReducer, useRef, useState } from 'react'
 import { canvasDrag } from './canvasDrag';
-import { createArrow } from './createArrow';
 import EdgeArea from './EdgeArea';
 import style from './index.module.css'
 import NodeArea from './NodeArea';
@@ -11,7 +17,6 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
   const canvasRef = useRef<SVGSVGElement>(null!)
 
   useEffect(() => {
-    createArrow(canvasRef.current)
     canvasDrag(canvasRef.current)
   }, [])
   return (

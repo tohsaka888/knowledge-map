@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-01 16:22:32
+ * @LastEditTime: 2022-08-03 09:07:19
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -36,7 +36,7 @@ const drawStraightLine = (
     .transition()
     .duration(1000)
     .style('opacity', 1)
-    .style('marker-mid', 'url(#arrow)')
+    // .style('marker-mid', 'url(#arrow)')
     .attr('d', function (edge) {
       const fromNode = d3.select(`#${edge.fromId}`)
       const toNode = d3.select(`#${edge.toId}`)
@@ -82,7 +82,7 @@ const drawBesselLine = (
     .transition()
     .duration(1000)
     .style('opacity', 1)
-    .style('marker-mid', 'url(#arrow)')
+    // .style('marker-mid', 'url(#arrow)')
     .attr('d', function (edge) {
       const fromNode = d3.select(`#${edge.fromId}`)
       const toNode = d3.select(`#${edge.toId}`)
@@ -155,4 +155,16 @@ export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, cen
       .duration(1000)
       .style('opacity', 1)
   }
+  edge
+    .append('text')
+    .append('textPath')
+    .attr('text-anchor', 'center')
+    .attr('href', item => `#${item.fromId + item.toId}`)
+    .classed(style['discription-icon'], true)
+    .attr('startOffset', '20%')
+    .append('tspan')
+    .attr('dx', 0)
+    .attr('dy', 0.1)
+    .text(`\u25B8`)
+    .style('font-size', 18)
 }
