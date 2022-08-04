@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-04 10:55:29
+ * @LastEditTime: 2022-08-04 11:14:10
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -140,10 +140,7 @@ function ControllerPannel() {
       <div className={style['flex-center']}>
         <Button type='primary'
           onClick={() => {
-            let alink = document.createElement('a');
-            alink.download = '图谱'
-            alink.href = URL.createObjectURL(downloadSvg())
-            alink.click()
+            downloadSvg()
           }}
         >
           下载图片
