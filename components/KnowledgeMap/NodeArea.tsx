@@ -18,7 +18,7 @@ function NodeArea({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.
   }, [config, edges, nodes, setVisible])
 
   return (
-    <g ref={nodesContainerRef} />
+    <g ref={nodesContainerRef} id="node-area" />
   )
 }
 

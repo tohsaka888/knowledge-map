@@ -2,18 +2,24 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-04 11:14:10
+ * @LastEditTime: 2022-08-04 15:59:31
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ConfigContext } from '../../context'
 import { resetCanvas } from '../KnowledgeMap/resetCanvas'
 import { downloadSvg } from '../KnowledgeMap/utils/download'
 import style from './index.module.css'
+import { svgDrag } from './svg/drag'
 
 function ControllerPannel() {
   const { config, dispatch } = useContext(ConfigContext)!
+
+  useEffect(() => {
+    svgDrag()
+  }, [])
+
   return (
     <>
       <Form
@@ -145,6 +151,11 @@ function ControllerPannel() {
         >
           下载图片
         </Button>
+      </div>
+      <div style={{ position: 'fixed' }}>
+        <svg id='test' width={100} height={100}>
+          <circle r={config.nodeRadius} fill={'#1890ff'} cx={50} cy={50} id="test-circle" />
+        </svg>
       </div>
     </>
   )
