@@ -2,6 +2,8 @@ import * as d3 from 'd3'
 import React from 'react'
 import { Graph } from '../..'
 
+// 缩放bug
+
 let size = 1
 
 export const resetSize = () => {
@@ -172,21 +174,23 @@ export const multiDrag = (
       endY = e.y
       const drag = d3.select('#drag').attr('transform')
       const tempArr = drag.split(",");
-      // 获取当前的x和y坐标
+      // 获取偏移量
       const x = +(tempArr?.[0]?.split("(")[1] || 0);
       const y = +(tempArr?.[1]?.split(")")[0] || 0);
-      startX -= x
-      startY -= y;
-      endX -= x;
-      endY -= y;
+      // 移除偏移影响
+      // startX -= x;
+      // startY -= y;
+      // endX -= x;
+      // endY -= y;
       const areaNodes = nodes.filter((node) => {
         const item = d3.select(`#${node.id}`)
         return item.nodes().length !== 0
-          && +item.attr('cy') - config.nodeRadius < Math.max(startY, endY)
-          && +item.attr('cy') + config.nodeRadius > Math.min(startY, endY)
-          && +item.attr('cx') - config.nodeRadius < Math.max(startX, endX)
-          && +item.attr('cx') + config.nodeRadius > Math.min(startX, endX)
+          && +item.attr('cy') - config.nodeRadius < Math.max(startY, endY) / size - y
+          && +item.attr('cy') + config.nodeRadius > Math.min(startY, endY) / size - y
+          && +item.attr('cx') - config.nodeRadius < Math.max(startX, endX) / size - x
+          && +item.attr('cx') + config.nodeRadius > Math.min(startX, endX) / size - x
       })
+      console.log(areaNodes)
       areaNodes.forEach((node, index) => {
         const item = d3.select(`#${node.id}`)
         if (index === 0) {
