@@ -1,5 +1,4 @@
 import * as d3 from 'd3'
-import { Dispatch, SetStateAction } from 'react'
 import { Graph } from '../..'
 import { drawEdgeArea } from './drawEdgeArea'
 import { calcArcX, calcArcY } from './utils/calcArc'
@@ -103,6 +102,7 @@ const nextPage = (
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#fff')
+    .style('font-size', 14)
     .text(node => node.type)
     .transition()
     .duration(1000)
@@ -468,6 +468,7 @@ const drawSideNodes = (
       .attr('text-anchor', 'middle')
       .attr('dominant-baseline', 'middle')
       .attr('fill', '#fff')
+      .style('font-size', 14)
       .attr('x', x)
       .attr('y', y)
       .transition()
@@ -598,6 +599,7 @@ export const drawNodeArea = (
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .attr('fill', '#fff')
+    .style('font-size', 14)
     .text(mainNode?.type || '')
   mainNodeContainer
     .append('text')

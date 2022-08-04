@@ -2,11 +2,10 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 11:34:14
+ * @LastEditTime: 2022-08-04 13:32:17
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
-import style from './index.module.css'
 import { Graph } from '../..'
 
 
@@ -134,7 +133,10 @@ export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, cen
       .style('opacity', 0)
       .attr('text-anchor', 'center')
       .attr('href', item => `#${item.fromId + item.toId}`)
-      .classed(style['discription'], true)
+      .classed('discription', true)
+      .attr('fill', '#999999')
+      .attr('font-size', 12)
+      .attr('dominant-baseline', 'text-after-edge')
       .attr('startOffset', '50%')
       .attr('dy', 20)
       .text(item => item.discription)
@@ -147,7 +149,11 @@ export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, cen
     .append('textPath')
     .attr('text-anchor', 'center')
     .attr('href', item => `#${item.fromId + item.toId}`)
-    .classed(style['discription-icon'], true)
+    .classed('discription-icon', true)
+    .attr('fill', '#999999')
+    .attr('font-size', 12)
+    .attr('dominant-baseline', 'central')
+    .style('font-family', 'Times New Roman')
     .attr('startOffset', `${config.arrowPosition}%`)
     .append('tspan')
     .attr('dx', 0)
