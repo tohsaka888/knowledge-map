@@ -2,13 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 17:12:00
+ * @LastEditTime: 2022-08-04 10:55:29
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
 import React, { useContext } from 'react'
 import { ConfigContext } from '../../context'
 import { resetCanvas } from '../KnowledgeMap/resetCanvas'
+import { downloadSvg } from '../KnowledgeMap/utils/download'
 import style from './index.module.css'
 
 function ControllerPannel() {
@@ -134,6 +135,18 @@ function ControllerPannel() {
           }}
         >
           画布复位
+        </Button>
+      </div>
+      <div className={style['flex-center']}>
+        <Button type='primary'
+          onClick={() => {
+            let alink = document.createElement('a');
+            alink.download = '图谱'
+            alink.href = URL.createObjectURL(downloadSvg())
+            alink.click()
+          }}
+        >
+          下载图片
         </Button>
       </div>
     </>

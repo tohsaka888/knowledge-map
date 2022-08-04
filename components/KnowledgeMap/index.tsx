@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 17:11:52
+ * @LastEditTime: 2022-08-04 10:38:49
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -45,6 +45,7 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className={style['canvas-container']}
+        id='svg'
         ref={canvasRef}
       >
         {/* 画布缩放 */}
