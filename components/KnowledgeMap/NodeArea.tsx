@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-08 08:29:23
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-08 09:31:44
+ * @LastEditTime: 2022-08-08 11:00:58
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -31,7 +31,7 @@ function NodeArea({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.
   }, [config, edges, nodes, setVisible])
 
   return (
-    <g ref={nodesContainerRef} />
+    <g ref={nodesContainerRef} id="node-area" />
   )
 }
 
