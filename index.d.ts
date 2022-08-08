@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 17:11:30
+ * @LastEditTime: 2022-08-08 08:34:38
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -13,6 +13,8 @@ declare namespace Graph {
     name: string;
     type: string;
     mode: number; // 0 主节点 1 入边 2 出边
+    x?: number; // 仅前端使用
+    y?: number; // 仅前端使用
   }
 
   type Edge = {
