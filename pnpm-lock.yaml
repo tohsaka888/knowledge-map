@@ -6,7 +6,7 @@ specifiers:
   '@types/node': 18.0.4
   '@types/react': 18.0.16
   '@types/react-dom': 18.0.6
-  antd: 4.22.3
+  antd: 4.22.4
   d3: 7.6.1
   eslint: 8.21.0
   eslint-config-next: 12.2.4
@@ -19,7 +19,7 @@ specifiers:
 dependencies:
   '@types/d3': 7.4.0
   '@types/lodash': 4.14.182
-  antd: 4.22.3_biqbaboplfbrettd7655fr4n2y
+  antd: 4.22.4_biqbaboplfbrettd7655fr4n2y
   d3: 7.6.1
   lodash: 4.17.21
   next: 12.2.4_biqbaboplfbrettd7655fr4n2y
@@ -602,8 +602,8 @@ packages:
       color-convert: 2.0.1
     dev: true
 
-  /antd/4.22.3_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Nay1tO+G5Z9szmshK9TinOWclJnxOtSe7cr15EX64NGkZZyRoHX2xXOFQoYtBt4qfVfFvLf97m9on7fwgy1Svg==}
+  /antd/4.22.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-u7l68PhSJMxyZmCNw+jwaeurSAaE+bU+lB0SPRHLfOFJR6xRudntvRoQdiEFOD5FZ3eeqz4lYQ3RZZRIarmceg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -628,7 +628,7 @@ packages:
       rc-image: 5.7.0_biqbaboplfbrettd7655fr4n2y
       rc-input: 0.0.1-alpha.7_biqbaboplfbrettd7655fr4n2y
       rc-input-number: 7.3.6_biqbaboplfbrettd7655fr4n2y
-      rc-mentions: 1.9.0_biqbaboplfbrettd7655fr4n2y
+      rc-mentions: 1.9.1_biqbaboplfbrettd7655fr4n2y
       rc-menu: 9.6.0_biqbaboplfbrettd7655fr4n2y
       rc-motion: 2.6.2_biqbaboplfbrettd7655fr4n2y
       rc-notification: 4.6.0_biqbaboplfbrettd7655fr4n2y
@@ -2368,8 +2368,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-mentions/1.9.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-CSC2t8WxK8daS8lylJcquzCgKz4bXLAVNrSHXlTI8fNUy4toot8Sv79wT4fcP/bYgdt07/e3RXzkZfX6xjYYow==}
+  /rc-mentions/1.9.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-6VBaEkJjYdGGxAygQvE2NaIegAzLJSDodgzpoV+vonUUCZ4A/d8izVlc2JqCYa0Yi15HiDcWyfRgJYI7OKTILg==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
