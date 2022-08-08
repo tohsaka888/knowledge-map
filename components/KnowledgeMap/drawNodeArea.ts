@@ -156,6 +156,8 @@ const nextPage = (
   edges.forEach((edge) => {
     if (edge.fromId.includes(nodes[0].type) || edge.toId.includes(nodes[0].type)) {
       d3.select(`#${edge.fromId}${edge.toId}`).remove()
+      d3.select(`#${edge.fromId}${edge.toId}description`).remove()
+      d3.select(`#${edge.fromId}${edge.toId}icon`).remove()
     }
   })
   drawEdgeArea([...nodes, centerPoint], edges, config, centerPoint.id)
