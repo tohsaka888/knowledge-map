@@ -65,33 +65,29 @@ const nextPage = (
     .attr('r', nodeRadius)
     .attr('fill', '#1890ff')
     .attr('id', (node) => node.id)
-    .attr('x', (_, idx) => {
+    .attr('x', (node, idx) => {
       const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
+      node.x = isInside
         ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
         : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      return node.x as number
     })
-    .attr('y', (_, idx) => {
+    .attr('y', (node, idx) => {
       const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
+      node.y = isInside
         ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
         : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      return node.y
     })
     .attr('cx', x)
     .attr('cy', y)
     .transition()
     .duration(1000)
-    .attr('cx', (_, idx) => {
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
-        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+    .attr('cx', (node, idx) => {
+      return node.x as number
     })
-    .attr('cy', (_, idx) => {
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
-        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+    .attr('cy', (node, idx) => {
+      return node.y as number
     })
   container
     .append('text')
@@ -106,17 +102,11 @@ const nextPage = (
     .text(node => node.type)
     .transition()
     .duration(1000)
-    .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
-        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+    .attr('x', (node, idx) => {
+      return node.x as number
     })
-    .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
-        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+    .attr('y', (node, idx) => {
+      return node.y as number
     })
   container
     .append('text')
@@ -129,17 +119,11 @@ const nextPage = (
     .style('opacity', 0)
     .transition()
     .duration(1000)
-    .attr('x', (_, idx) => {
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
-        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+    .attr('x', (node, idx) => {
+      return node.x as number;
     })
-    .attr('y', (_, idx) => {
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      return isInside
-        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
-        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+    .attr('y', (node, idx) => {
+      return node.y as number + nodeRadius + 10;
     })
     .style('opacity', 1);
 
@@ -434,31 +418,27 @@ const drawSideNodes = (
       .attr('id', (node) => node.id)
       .attr('cx', x)
       .attr('cy', y)
-      .attr('x', (_, idx) => {
+      .attr('x', (node, idx) => {
         const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
+        node.x = isInside
           ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
           : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+        return node.x
       })
-      .attr('y', (_, idx) => {
+      .attr('y', (node, idx) => {
         const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
+        node.y = isInside
           ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
           : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+        return node.y
       })
       .transition()
       .duration(1000)
-      .attr('cx', (_, idx) => {
-        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
-          ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-          : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      .attr('cx', (node, idx) => {
+        return node.x as number
       })
-      .attr('cy', (_, idx) => {
-        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
-          ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-          : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      .attr('cy', (node, idx) => {
+        return node.y as number
       })
 
     sideContainer
@@ -473,15 +453,11 @@ const drawSideNodes = (
       .attr('y', y)
       .transition()
       .duration(1000)
-      .attr('x', (_, idx) => {
-        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
-          ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-          : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      .attr('x', (node, idx) => {
+        return node.x as number
       })
-      .attr('y', (_, idx) => {
-        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
+      .attr('y', (node, idx) => {
+        return node.y as number
       })
       .text(node => node.type)
     sideContainer
@@ -495,17 +471,11 @@ const drawSideNodes = (
       .style('opacity', 0)
       .transition()
       .duration(1000)
-      .attr('x', (_, idx) => {
-        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
-          ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-          : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
+      .attr('x', (node, idx) => {
+        return node.x as number
       })
-      .attr('y', (_, idx) => {
-        const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-        return isInside
-          ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
-          : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI) + nodeRadius + 10
+      .attr('y', (node, idx) => {
+        return node.y as number + nodeRadius + 10
       })
       .style('opacity', 1)
   })
