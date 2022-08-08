@@ -153,11 +153,11 @@ const nextPage = (
     })
   }, 1000)
 
-  d3.selectAll('.edge')
-    .filter((item: any) => {
-      return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
-    })
-    .remove()
+  edges.forEach((edge) => {
+    if (edge.fromId.includes(nodes[0].type) || edge.toId.includes(nodes[0].type)) {
+      d3.select(`#${edge.fromId}${edge.toId}`).remove()
+    }
+  })
   drawEdgeArea([...nodes, centerPoint], edges, config, centerPoint.id)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
