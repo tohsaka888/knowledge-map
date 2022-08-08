@@ -128,14 +128,16 @@ export const normalDrag = (
         d3.select(this).style('cursor', 'pointer')
       })
       .on('drag', function (event: any) {
-        canvasX += event.dx / size
-        canvasY += event.dy / size
-        // 当前坐标加上拖拽的相对坐标
-        // 即新坐标相比原坐标的偏移量
-        currentElement.attr(
-          "transform",
-          `translate(${canvasX}, ${canvasY})`
-        );
+        requestAnimationFrame(() => {
+          canvasX += event.dx / size
+          canvasY += event.dy / size
+          // 当前坐标加上拖拽的相对坐标
+          // 即新坐标相比原坐标的偏移量
+          currentElement.attr(
+            "transform",
+            `translate(${canvasX}, ${canvasY})`
+          );
+        })
       })
       .on('end', function () {
         d3.select(this).style('cursor', 'auto')
