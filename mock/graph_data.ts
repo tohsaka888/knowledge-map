@@ -14,7 +14,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   const fakeEdgeData: Graph.Edge[] = []
 
   // 生成type1 fake_data
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < Math.random() * 100; i++) {
     const nodeId = uniqueId('type1-')
     let edgeData = { fromId: nodeId, toId: fakeNodeData[0].id, discription: '描述' + nodeId }
     let nodeData = {
@@ -28,7 +28,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type2 fake_data
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < Math.random() * 100; i++) {
     const nodeId = uniqueId('type2-')
     let edgeData = { fromId: nodeId, toId: fakeNodeData[0].id, discription: '描述' + nodeId }
     let nodeData = {
@@ -42,7 +42,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type3 fake_data
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < Math.random() * 100; i++) {
     const nodeId = uniqueId('type3-')
     let edgeData = { fromId: nodeId, toId: fakeNodeData[0].id, discription: '描述' + nodeId }
     let nodeData = {
@@ -56,7 +56,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type4 fake_data
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < Math.random() * 100; i++) {
     const nodeId = uniqueId('type4-')
     let edgeData = { toId: nodeId, fromId: fakeNodeData[0].id, discription: '描述' + nodeId }
     let nodeData = {
@@ -70,7 +70,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type5 fake_data
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < Math.random() * 100; i++) {
     const nodeId = uniqueId('type5-')
     let edgeData = { toId: nodeId, fromId: fakeNodeData[0].id, discription: '描述' + nodeId }
     let nodeData = {
@@ -84,7 +84,7 @@ export const genGraphData = (): { nodes: Graph.Node[]; edges: Graph.Edge[] } => 
   }
 
   // 生成type6 fake_data
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < Math.random() * 100; i++) {
     const nodeId = uniqueId('type6-')
     let edgeData = { toId: nodeId, fromId: fakeNodeData[0].id, discription: '描述' + nodeId }
     let nodeData = {
