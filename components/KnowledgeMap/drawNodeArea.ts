@@ -164,7 +164,7 @@ const nextPage = (
       return item.fromId.includes(originNodes[0].type) || item.toId.includes(originNodes[0].type)
     })
     .remove()
-  drawEdgeArea(edges, config)
+  drawEdgeArea(nodes, edges, config)
   d3.select(`#${nodes[0].type}-text`).text(`${pagination.page}/${total}`)
 }
 
@@ -615,7 +615,6 @@ export const drawNodeArea = (
     .attr('stroke', 'rgba(24,144,255, .3)')
     .attr('stroke-width', 0)
     .attr('r', nodeRadius)
-    .attr('stroke-linecap', 'round')
     .on('mouseleave', () => {
       d3.select('#border')
         .select('circle')

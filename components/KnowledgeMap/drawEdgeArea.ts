@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-04 13:32:17
+ * @LastEditTime: 2022-08-08 09:26:24
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -101,7 +101,8 @@ const drawBesselLine = (
  * @param {any} mode:number|undefined
  * @returns {any}
  */
-export const drawEdgeArea = (edges: Graph.Edge[], config: Graph.ConfigProps, centerPointId?: string,) => {
+export const drawEdgeArea = (nodes: Graph.Node[],edges: Graph.Edge[], config: Graph.ConfigProps, centerPointId?: string,) => {
+  console.log(nodes)
   const mainPoint = d3.select(`#${centerPointId || 'main'}`)
   const edgeArea = d3.select('#edge-area')
     .insert('g', ':first-child')
