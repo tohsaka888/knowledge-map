@@ -2,13 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-03 17:11:39
+ * @LastEditTime: 2022-08-08 10:43:21
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useReducer, useState } from 'react'
+import { useCallback, useEffect, useReducer, useState } from 'react'
 import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
@@ -56,10 +56,22 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
   }
 }
 
-const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = ({ data }) => {
+const Home: NextPage = () => {
   const { height } = useScreenSize()
   const [config, dispatch] = useReducer(reducer, initState)
   const [visible, setVisible] = useState<boolean>(false)
+  const [graphData, setGraphData] = useState<{ nodes: Graph.Node[]; edges: Graph.Edge[]; }>({ nodes: [], edges: [] })
+
+  const getData = useCallback(async () => {
+    const res = await fetch(`${baseUrl}/api/graph`)
+    const data: Api.GraphResponse = await res.json()
+    setGraphData(data.data)
+  }, [])
+
+  useEffect(() => {
+    getData()
+  }, [getData])
+
   return (
     <>
       <Head>
@@ -80,7 +92,7 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
               </Layout.Sider>
               <Layout.Content style={{ height: height - 70 }}>
                 <VisibleContext.Provider value={{ visible, setVisible }}>
-                  <Canvas nodes={data.nodes} edges={data.edges} config={config} />
+                  <Canvas nodes={graphData.nodes} edges={graphData.edges} config={config} />
                 </VisibleContext.Provider>
               </Layout.Content>
             </ConfigContext.Provider>
@@ -91,14 +103,14 @@ const Home: NextPage<{ data: { nodes: Graph.Node[]; edges: Graph.Edge[]; } }> = 
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${baseUrl}/api/graph`)
-  const data: Api.GraphResponse = await res.json()
-  return {
-    props: {
-      data: data.data
-    },
-  }
-}
+// export const getServerSideProps: GetServerSideProps = async () => {
+//   const res = await fetch(`${baseUrl}/api/graph`)
+//   const data: Api.GraphResponse = await res.json()
+//   return {
+//     props: {
+//       data: data.data
+//     },
+//   }
+// }
 
 export default Home
