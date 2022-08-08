@@ -209,6 +209,8 @@ function dragEnd(that: any, event: any, node: Graph.Node, config: Graph.ConfigPr
  */
 function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], config: Graph.ConfigProps) {
   const { nodeRadius, setVisible } = config
+  node.x = event.x
+  node.y = event.y
   if (setVisible) {
     setVisible(false)
   }
@@ -218,8 +220,6 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
     d3.select(`#${node.id}`)
       .attr('cx', event.x)
       .attr('cy', event.y)
-      .attr('x', event.x)
-      .attr('y', event.y)
     d3.select(`#${node.id}text`)
       .attr('x', event.x)
       .attr('y', event.y)
@@ -227,9 +227,8 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
 
-    const currentNode = d3.select(`#${node?.id || 'main'}`)
-    const x = currentNode.attr('cx')
-    const y = currentNode.attr('cy')
+    const x = node.x
+    const y = node.y
     d3.select('#border')
       .attr('transform', `translate(${x}, ${y})`)
       .select('circle')
@@ -249,13 +248,13 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
         } else {
           let perX = 0
           if (toNode.nodes().length !== 0) {
-            perX = (+toNode.attr('x') - +event.x) / config.besselRate
+            perX = (+toNode.attr('cx') - +event.x) / config.besselRate
           }
           curEdge.attr('d', `
             M ${event.x} ${event.y},
             C ${+event.x + perX} ${event.y},
-            ${+toNode.attr('x') - perX} ${toNode.attr('y')},
-            ${toNode.attr('x')} ${toNode.attr('y')}
+            ${+toNode.attr('cx') - perX} ${toNode.attr('cy')},
+            ${toNode.attr('cx')} ${toNode.attr('cy')}
         `)
         }
       }
@@ -266,16 +265,15 @@ function dragging(that: any, event: any, node: Graph.Node, edges: Graph.Edge[], 
       const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
       if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
         if (config.isStraight) {
-
           curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${event.x} ${event.y}`)
         } else {
           let perX = 0
           if (fromNode.nodes().length !== 0) {
-            perX = (+fromNode.attr('x') - +event.x) / config.besselRate
+            perX = (+fromNode.attr('cx') - +event.x) / config.besselRate
           }
           curEdge.attr('d', `
-          M ${fromNode.attr('x')} ${fromNode.attr('y')},
-          C ${+fromNode.attr('x') - perX} ${fromNode.attr('y')},
+          M ${fromNode.attr('cx')} ${fromNode.attr('cy')},
+          C ${+fromNode.attr('cx') - perX} ${fromNode.attr('cy')},
           ${+event.x + perX} ${event.y},
           ${event.x} ${event.y}
       `)
