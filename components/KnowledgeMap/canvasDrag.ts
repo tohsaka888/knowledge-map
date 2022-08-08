@@ -16,21 +16,21 @@ export const resetSize = () => {
 const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, config: Graph.ConfigProps) => {
   nodes.forEach((node) => {
     const item = d3.select(`#${node.id}`)
+    node.x += event.dx
+    node.y += event.dy
     item
-      .attr('cx', +item.attr('cx') + event.dx)
-      .attr('cy', +item.attr('cy') + event.dy)
-      .attr('x', +item.attr('cx') + event.dx)
-      .attr('y', +item.attr('cy') + event.dy)
+      .attr('cx', node.x as number)
+      .attr('cy', node.y as number)
 
     const itemText = d3.select(`#${node.id}text`)
     itemText
-      .attr('x', +itemText.attr('x') + event.dx)
-      .attr('y', +itemText.attr('y') + event.dy)
+      .attr('x', node.x as number)
+      .attr('y', node.y as number)
 
     const itemName = d3.select(`#${node.id}name`)
     itemName
-      .attr('x', +itemName.attr('x') + event.dx)
-      .attr('y', +itemName.attr('y') + event.dy)
+      .attr('x', node.x as number)
+      .attr('y', node.y as number + config.nodeRadius + 10)
 
     // 筛选出和当前节点有关的边
     const fromEdges = edges.filter(edge => edge.fromId === node.id)
@@ -42,15 +42,15 @@ const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, con
       if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
         if (config.isStraight) {
           curEdge
-            .attr('d', `M ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+            .attr('d', `M ${node.x as number + event.dx} ${node.y as number + event.dy} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
         } else {
           let perX = 0
           if (toNode.nodes().length !== 0) {
-            perX = (+toNode.attr('x') - +item.attr('cx') + event.dx) / config.besselRate
+            perX = (+toNode.attr('cx') - (node.x || 0) + event.dx) / config.besselRate
           }
           curEdge.attr('d', `
-             M ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy},
-             C ${+item.attr('cx') + event.dx + perX} ${+item.attr('cy') + event.dy},
+             M ${node.x as number + event.dx} ${node.y as number + event.dy},
+             C ${node.x as number + event.dx + perX} ${node.y as number + event.dy},
              ${+toNode.attr('cx') - perX} ${toNode.attr('cy')},
              ${toNode.attr('cx')} ${toNode.attr('cy')}
          `)
@@ -64,17 +64,17 @@ const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, con
       if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
         if (config.isStraight) {
 
-          curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy}`)
+          curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${node.x as number + event.dx} ${node.y as number + event.dy}`)
         } else {
           let perX = 0
           if (fromNode.nodes().length !== 0) {
-            perX = (+fromNode.attr('x') - +item.attr('cx') + event.dx) / config.besselRate
+            perX = (+fromNode.attr('x') - (node.x as number) + event.dx) / config.besselRate
           }
           curEdge.attr('d', `
            M ${fromNode.attr('x')} ${fromNode.attr('y')},
            C ${+fromNode.attr('x') - perX} ${fromNode.attr('y')},
-           ${+item.attr('cx') + event.dx + perX} ${+item.attr('cy') + event.dy},
-           ${+item.attr('cx') + event.dx} ${+item.attr('cy') + event.dy}
+           ${node.x as number + event.dx + perX} ${node.y as number + event.dy},
+           ${node.x as number + event.dx} ${node.y as number + event.dy}
        `)
         }
       }
@@ -180,25 +180,23 @@ export const multiDrag = (
       const y = canvasY;
       // 移除偏移影响
       const areaNodes = nodes.filter((node) => {
-        const item = d3.select(`#${node.id}`)
-        return item.nodes().length !== 0
-          && +item.attr('cy') - config.nodeRadius < Math.max(startY, endY) / size - y
-          && +item.attr('cy') + config.nodeRadius > Math.min(startY, endY) / size - y
-          && +item.attr('cx') - config.nodeRadius < Math.max(startX, endX) / size - x
-          && +item.attr('cx') + config.nodeRadius > Math.min(startX, endX) / size - x
+        return node.x && node.y
+          && node.y as number - config.nodeRadius < Math.max(startY, endY) / size - y
+          && node.y as number + config.nodeRadius > Math.min(startY, endY) / size - y
+          && node.x as number - config.nodeRadius < Math.max(startX, endX) / size - x
+          && node.x as number + config.nodeRadius > Math.min(startX, endX) / size - x
       })
       areaNodes.forEach((node, index) => {
-        const item = d3.select(`#${node.id}`)
         if (index === 0) {
-          minX = +item.attr('cx')
+          minX = node.x as number
           maxX = minX
-          minY = +item.attr('cy')
+          minY = node.y as number
           maxY = minY
         } else {
-          if (+item.attr('cx') < minX) { minX = +item.attr('cx') }
-          if (+item.attr('cy') < minY) { minY = +item.attr('cy') }
-          if (+item.attr('cx') > maxX) { maxX = +item.attr('cx') }
-          if (+item.attr('cy') > maxY) { maxY = +item.attr('cy') }
+          if (node.x as number < minX) { minX = node.x as number }
+          if (node.y as number < minY) { minY = node.y as number }
+          if (node.x as number > maxX) { maxX = node.x as number }
+          if (node.y as number > maxY) { maxY = node.y as number }
         }
       })
       d3.select('#selector').remove()
