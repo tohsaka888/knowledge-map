@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-15 08:50:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 13:49:08
+ * @LastEditTime: 2022-08-15 15:33:52
  * @Description: 请填写简介
  */
 
@@ -19,13 +19,74 @@ function intern(value: any) {
   return value !== null && typeof value === "object" ? value.valueOf() : value;
 }
 
-function ticked({ nodeContainer, link, config }: any) {
+const createDescription = (edgeArea: d3.Selection<any, any, any, any>, config: Graph.ConfigProps, edges: Graph.Edge[]) => {
+  edges.forEach(edge => {
+    if (config.showDisctription) {
+      edgeArea
+        .append('text')
+        .attr('id', edge.fromId + edge.toId + 'description')
+        .append('textPath')
+        .style('opacity', 0)
+        .attr('text-anchor', 'center')
+        .attr('href', `#${edge.fromId + edge.toId}`)
+        .classed('discription', true)
+        .attr('fill', '#999999')
+        .attr('font-size', 12)
+        .attr('dominant-baseline', 'text-after-edge')
+        .attr('startOffset', '50%')
+        .attr('dy', 20)
+        .text(edge.discription)
+        .transition()
+        .duration(1000)
+        .style('opacity', 1)
+    }
+    edgeArea
+      .append('text')
+      .attr('id', edge.fromId + edge.toId + 'icon')
+      .append('textPath')
+      .attr('text-anchor', 'center')
+      .attr('href', `#${edge.fromId + edge.toId}`)
+      .classed('discription-icon', true)
+      .attr('fill', '#999999')
+      .attr('font-size', 12)
+      .attr('dominant-baseline', 'central')
+      .style('font-family', 'Times New Roman')
+      .attr('startOffset', `${config.arrowPosition}%`)
+      .append('tspan')
+      .attr('dx', 0)
+      .attr('dy', 0.1)
+      .text(`\u25B8`)
+      .style('font-size', 18)
+      .style('opacity', 0)
+      .transition()
+      .duration(1000)
+      .style('opacity', 1)
+  })
+}
+
+function ticked({ nodeContainer, link, config }: { nodeContainer: any; link: any; config: Graph.ConfigProps }) {
   requestAnimationFrame(() => {
-    link
-      .attr("x1", (d: { source: { x: any; }; }) => d.source.x)
-      .attr("y1", (d: { source: { y: any; }; }) => d.source.y)
-      .attr("x2", (d: { target: { x: any; }; }) => d.target.x)
-      .attr("y2", (d: { target: { y: any; }; }) => d.target.y);
+    if (config.isStraight) {
+      link.attr('d', (d: any) => `
+        M ${d.source.x} ${d.source.y},
+        L ${d.target.x} ${d.target.y}
+      `)
+        .attr('id', (d: any) => d.source.id + d.target.id)
+    } else {
+      link.attr('d', (d: any) => {
+        const fromNode = d.source
+        const toNode = d.target
+        const perX = (toNode.x - fromNode.x) / config.besselRate
+        return `
+        M ${fromNode.x} ${fromNode.y},
+        C ${+fromNode.x + perX} ${fromNode.y},
+        ${+toNode.x - perX} ${toNode.y}
+        ${toNode.x} ${toNode.y}
+        `
+      })
+        .attr('fill', 'transparent')
+        .attr('id', (d: any) => d.source.id + d.target.id)
+    }
 
 
     nodeContainer
@@ -37,8 +98,8 @@ function ticked({ nodeContainer, link, config }: any) {
       .select('.type')
       .attr("x", (d: { x: any; }) => d.x)
       .attr("y", (d: { y: any; }) => d.y);
-    
-      nodeContainer
+
+    nodeContainer
       .select('.name')
       .attr("x", (d: { x: any; }) => d.x)
       .attr("y", (d: { y: any; }) => d.y + config.nodeRadius + 10);
@@ -81,8 +142,8 @@ export const createForceGraph = ({ nodes, edges, config }: Props) => {
   const l = d3.map(edges, (_, i) => ({ source: computedSource[i], target: computedTarget[i] }));
 
   // Construct the forces.
-  const forceNode = d3.forceCollide(nodes.length).strength(0.1)
-  const forceLink = d3.forceLink(l).id((_, i) => computedNodes[i]).distance(nodes.length * config.nodeRadius / 5)
+  const forceNode = d3.forceCollide(config.nodeRadius * 2).strength(0.5)
+  const forceLink = d3.forceLink(l).id((_, i) => computedNodes[i]).distance(nodes.length * config.nodeRadius / 2)
 
   const container = d3.select('#drag')
   container.selectAll('*').remove()
@@ -91,9 +152,9 @@ export const createForceGraph = ({ nodes, edges, config }: Props) => {
     .attr("class", "force-graph")
     .attr("stroke", "#cecece")
     .attr("stroke-width", 1)
-    .selectAll("line")
+    .selectAll("path")
     .data(l)
-    .join("line");
+    .join("path")
 
   const nodeContainer = container.append('g')
     .attr("class", "force-graph")
@@ -135,5 +196,9 @@ export const createForceGraph = ({ nodes, edges, config }: Props) => {
     .on("tick", () => ticked({ nodeContainer, link, config }))
 
   nodeContainer.call(drag(simulation))
+
+  setTimeout(() => {
+    createDescription(container, config, edges)
+  })
 }
 
