@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-15 08:50:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 13:39:15
+ * @LastEditTime: 2022-08-15 13:49:08
  * @Description: 请填写简介
  */
 
@@ -61,8 +61,8 @@ function drag(simulation: any) {
 
   function dragended(event: any) {
     if (!event.active) simulation.alphaTarget(0);
-    event.subject.fx = null;
-    event.subject.fy = null;
+    event.subject.fx = event.x;
+    event.subject.fy = event.y;
   }
 
   return d3.drag<any, any>()
