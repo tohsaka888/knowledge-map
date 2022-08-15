@@ -488,6 +488,7 @@ export const drawNodeArea = (
   y: number,
   config: Graph.ConfigProps,
 ): any => {
+  d3.selectAll('.force-graph').remove()
   // 根节点
   const { nodeRadius, setVisible } = config
   const mainNode = nodes.find(node => node.mode === 0)!

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-04 11:14:10
+ * @LastEditTime: 2022-08-15 13:23:58
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -36,6 +36,9 @@ function ControllerPannel() {
               {
                 label: '分页',
                 value: 2
+              }, {
+                label: '力导向',
+                value: 3
               }
             ]} />
         </Form.Item>

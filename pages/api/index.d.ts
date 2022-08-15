@@ -3,7 +3,7 @@ declare namespace Api {
     success: boolean;
     data: {
       nodes: Graph.Node[];
-      edges: Graph.Edge[]
+      edges: Graph.Edge[];
     }
   }
 }
