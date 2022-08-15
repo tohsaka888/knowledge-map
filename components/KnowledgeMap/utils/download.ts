@@ -2,11 +2,10 @@
  * @Author: tohsaka888
  * @Date: 2022-08-04 10:36:41
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 14:40:28
+ * @LastEditTime: 2022-08-15 14:42:45
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
-import { cloneDeep } from 'lodash';
 import { base64ToBlob } from './base64ToBlob';
 
 export const downloadSvg = () => {
@@ -20,7 +19,6 @@ export const downloadSvg = () => {
     .select('#drag')
     .attr('transform', `translate(${-drag.getBoundingClientRect().left + 225}, ${-drag.getBoundingClientRect().top + 85})`)
 
-  console.log(newSvg)
 
   const s = new XMLSerializer().serializeToString(newSvg);
   const src = `data:image/svg+xml;base64,${window.btoa(unescape(encodeURIComponent(s)))}`;
