@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 13:31:57
+ * @LastEditTime: 2022-08-15 16:13:58
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -53,7 +53,7 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
         ref={canvasRef}
       >
         {/* 画布缩放 */}
-        <g id="scale">
+        <g id="scale" transform={`scale(1)`}>
           {/* 画布移动 */}
           <g transform={`translate(0, 0)`} id="drag">
             <CustomPopover />
