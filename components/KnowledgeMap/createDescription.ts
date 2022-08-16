@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 11:37:18
+ * @LastEditTime: 2022-08-16 11:55:25
  * @Description: 请填写简介
  */
 
@@ -15,6 +15,15 @@ type Props = {
   edgeId: string;
 }
 
+/**
+ * 描述 创建描述及箭头
+ * @date 2022-08-16
+ * @param {any} {edge
+ * @param {any} edgeArea
+ * @param {any} config
+ * @param {any} edgeId}:Props
+ * @returns {any}
+ */
 export const createDescription = ({ edge, edgeArea, config, edgeId }: Props) => {
   if (config.showDisctription) {
     edgeArea

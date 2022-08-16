@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:47:14
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 11:49:16
+ * @LastEditTime: 2022-08-16 11:54:52
  * @Description: 请填写简介
  */
 
@@ -20,6 +20,11 @@ type Props = {
   config: Graph.ConfigProps
 }
 
+/**
+ * 描述 两条节点之间创建多条边
+ * @date 2022-08-16
+ * @returns {any}
+ */
 export const createMultiLine = ({ isTop, topCount, downCount, fromNode, toNode, edgeArea, edge, config }: Props) => {
   if (isTop) {
     topCount++
