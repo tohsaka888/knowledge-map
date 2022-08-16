@@ -2,55 +2,12 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-08 13:52:37
+ * @LastEditTime: 2022-08-16 11:37:58
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { Graph } from '../..'
-
-
-const createDescription = (edgeArea: d3.Selection<any, any, any, any>, config: Graph.ConfigProps, edge: Graph.Edge) => {
-  if (config.showDisctription) {
-    edgeArea
-      .append('text')
-      .attr('id', edge.fromId + edge.toId + 'description')
-      .append('textPath')
-      .style('opacity', 0)
-      .attr('text-anchor', 'center')
-      .attr('href', `#${edge.fromId + edge.toId}`)
-      .classed('discription', true)
-      .attr('fill', '#999999')
-      .attr('font-size', 12)
-      .attr('dominant-baseline', 'text-after-edge')
-      .attr('startOffset', '50%')
-      .attr('dy', 20)
-      .text(edge.discription)
-      .transition()
-      .duration(1000)
-      .style('opacity', 1)
-  }
-  edgeArea
-    .append('text')
-    .attr('id', edge.fromId + edge.toId + 'icon')
-    .append('textPath')
-    .attr('text-anchor', 'center')
-    .attr('href', `#${edge.fromId + edge.toId}`)
-    .classed('discription-icon', true)
-    .attr('fill', '#999999')
-    .attr('font-size', 12)
-    .attr('dominant-baseline', 'central')
-    .style('font-family', 'Times New Roman')
-    .attr('startOffset', `${config.arrowPosition}%`)
-    .append('tspan')
-    .attr('dx', 0)
-    .attr('dy', 0.1)
-    .text(`\u25B8`)
-    .style('font-size', 18)
-    .style('opacity', 0)
-    .transition()
-    .duration(1000)
-    .style('opacity', 1)
-}
+import { createDescription } from './createDescription'
 
 /**
  * 画直线
@@ -85,7 +42,7 @@ const drawStraightLine = (
         .duration(1000)
         .style('opacity', 1)
         .attr('d', `M ${fromNode.x} ${fromNode.y},L ${toNode.x} ${toNode.y}`);
-      createDescription(edgeArea, config, edge)
+      createDescription({ edgeArea, config, edge, edgeId: edge.fromId + edge.toId })
     }
   })
 }
@@ -131,7 +88,7 @@ const drawBesselLine = (
       ${+toNode.x - perX} ${toNode.y}
       ${toNode.x} ${toNode.y}
       `)
-      createDescription(edgeArea, config, edge)
+      createDescription({ edgeArea, config, edge, edgeId: edge.fromId + edge.toId })
     }
   })
 }
