@@ -6,7 +6,7 @@ specifiers:
   '@types/node': 18.0.4
   '@types/react': 18.0.17
   '@types/react-dom': 18.0.6
-  antd: 4.22.4
+  antd: 4.22.5
   d3: 7.6.1
   eslint: 8.22.0
   eslint-config-next: 12.2.5
@@ -19,7 +19,7 @@ specifiers:
 dependencies:
   '@types/d3': 7.4.0
   '@types/lodash': 4.14.182
-  antd: 4.22.4_biqbaboplfbrettd7655fr4n2y
+  antd: 4.22.5_biqbaboplfbrettd7655fr4n2y
   d3: 7.6.1
   lodash: 4.17.21
   next: 12.2.5_biqbaboplfbrettd7655fr4n2y
@@ -286,6 +286,13 @@ packages:
     resolution: {integrity: sha512-6JrF+fdUK2zbGpJIlN7G3v966PQjyx/dPt1T9km2wj+EUBqgrxCk3uX4Kct16MIm9gGxfKRcfax2hVf5jvlTzA==}
     dependencies:
       tslib: 2.4.0
+    dev: false
+
+  /@testing-library/user-event/14.4.3:
+    resolution: {integrity: sha512-kCUc5MEwaEMakkO5x7aoD+DLi02ehmEM2QCGWvNqAS1dV/fAvORWEjnjsEIvml59M7Y5kCkWN6fCCyPOe8OL6Q==}
+    engines: {node: '>=12', npm: '>=6'}
+    peerDependencies:
+      '@testing-library/dom': '>=7.21.4'
     dev: false
 
   /@types/d3-array/3.0.3:
@@ -602,8 +609,8 @@ packages:
       color-convert: 2.0.1
     dev: true
 
-  /antd/4.22.4_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-u7l68PhSJMxyZmCNw+jwaeurSAaE+bU+lB0SPRHLfOFJR6xRudntvRoQdiEFOD5FZ3eeqz4lYQ3RZZRIarmceg==}
+  /antd/4.22.5_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-+qIEyzsenM9bllZHfE6ueZbI9EWulCIWeQhUeiIC6p8J2+M8w2tG2t6anbxxsOb5FnmML60ipVLL/rbm+oFKyw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -613,6 +620,7 @@ packages:
       '@ant-design/react-slick': 0.29.2_react@18.2.0
       '@babel/runtime': 7.18.6
       '@ctrl/tinycolor': 3.4.1
+      '@testing-library/user-event': 14.4.3
       classnames: 2.3.1
       copy-to-clipboard: 3.3.1
       lodash: 4.17.21
@@ -622,7 +630,7 @@ packages:
       rc-checkbox: 2.3.2_biqbaboplfbrettd7655fr4n2y
       rc-collapse: 3.3.1_biqbaboplfbrettd7655fr4n2y
       rc-dialog: 8.9.0_biqbaboplfbrettd7655fr4n2y
-      rc-drawer: 5.1.0-alpha.2_biqbaboplfbrettd7655fr4n2y
+      rc-drawer: 5.1.0_biqbaboplfbrettd7655fr4n2y
       rc-dropdown: 4.0.1_biqbaboplfbrettd7655fr4n2y
       rc-field-form: 1.27.1_biqbaboplfbrettd7655fr4n2y
       rc-image: 5.7.0_biqbaboplfbrettd7655fr4n2y
@@ -654,6 +662,8 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       scroll-into-view-if-needed: 2.2.29
+    transitivePeerDependencies:
+      - '@testing-library/dom'
     dev: false
 
   /argparse/2.0.1:
@@ -2286,8 +2296,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-drawer/5.1.0-alpha.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-tDT2WG9j4zLUL1kw7BJ1u+cCDypqgonwVO3OwIzksyqeqeLKWRJCwRSxwLYDsuVeCoXFndCGZ7qmRUG83z6mOQ==}
+  /rc-drawer/5.1.0_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-pU3Tsn99pxGdYowXehzZbdDVE+4lDXSGb7p8vA9mSmr569oc2Izh4Zw5vLKSe/Xxn2p5MSNbLVqD4tz+pK6SOw==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
