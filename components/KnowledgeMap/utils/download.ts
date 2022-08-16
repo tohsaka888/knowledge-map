@@ -2,13 +2,21 @@
  * @Author: tohsaka888
  * @Date: 2022-08-04 10:36:41
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 16:20:01
+ * @LastEditTime: 2022-08-16 09:13:02
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { base64ToBlob } from './base64ToBlob';
 
 export const downloadSvg = () => {
+  //  获取影响布局的元素
+  const controllerPannel = document.getElementsByClassName('ant-layout-sider-children')[0]
+  const left = controllerPannel.getBoundingClientRect().width as number
+
+  const header = document.getElementsByClassName('ant-layout-header')[0]
+  const top = header.getBoundingClientRect().height as number
+
+
   // 获取画布大小
   const svg = d3.select('#svg').node() as HTMLElement
   const drag = document.getElementById('drag')!
@@ -30,7 +38,7 @@ export const downloadSvg = () => {
   const newSvg = svg.cloneNode(true)
   d3.select(newSvg as SVGSVGElement)
     .select('#drag')
-    .attr('transform', `translate(${(-drag.getBoundingClientRect().left + 250) / size + x}, ${(-drag.getBoundingClientRect().top + 110) / size + y})`)
+    .attr('transform', `translate(${(-drag.getBoundingClientRect().left + left + 50) / size + x}, ${(-drag.getBoundingClientRect().top + top + 50) / size + y})`)
 
 
   const s = new XMLSerializer().serializeToString(newSvg);
