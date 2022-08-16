@@ -1,13 +1,7 @@
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { createNode } from './createNode'
-import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
-import { verticePrefix } from './prefix'
-import { calcArcX, calcArcY } from './utils/calcArc'
-import { calcBasicDistence } from './utils/calcBasicDistance'
-import { calcMode } from './utils/calcMode'
-import { transferLabelName } from './utils/transferLabelName'
 
 /**
  *  拖拽开始事件
@@ -237,17 +231,16 @@ export const drawNodeArea = (
   )
 
   // 创建出边节点
-  // drawSideNodes(
-  //   outsideTypeNodes,
-  //   config,
-  //   container,
-  //   outSideMaxAngle,
-  //   x,
-  //   y,
-  //   edges,
-  //   false,
-  //   mainNode
-  // )
+  drawSideNodes(
+    {
+      typeNodes: outsideTypeVertices,
+      config,
+      container,
+      isInside: false,
+      centerPoint: mainVertice,
+      maxAngle: outsideMaxAngle
+    }
+  )
 
   // 创建悬停边框
   // d3.select(container)
