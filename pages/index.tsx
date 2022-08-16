@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-08 10:43:21
+ * @LastEditTime: 2022-08-16 14:56:57
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
@@ -17,6 +17,7 @@ import { nodeRadius, basicDistence, arcAreaLength, arcAreaDistence, mode } from 
 import { ConfigContext } from '../context'
 import { VisibleContext } from '../components/context'
 import ControllerPannel from '../components/ControllerPannel'
+import main from '../mock/main.json'
 
 const initState: Graph.ConfigProps = {
   nodeRadius,
@@ -61,11 +62,17 @@ const Home: NextPage = () => {
   const [config, dispatch] = useReducer(reducer, initState)
   const [visible, setVisible] = useState<boolean>(false)
   const [graphData, setGraphData] = useState<{ nodes: Graph.Node[]; edges: Graph.Edge[]; }>({ nodes: [], edges: [] })
+  const [insideGraph, setInsideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
+  const [outSideGraph, setOutSideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
 
   const getData = useCallback(async () => {
-    const res = await fetch(`${baseUrl}/api/graph`)
-    const data: Api.GraphResponse = await res.json()
-    setGraphData(data.data)
+    const inRes = await fetch(`${baseUrl}/api/getNextVerticesWithEdge?id=${main.id}&direction=in`)
+    const inData: Api.KnowledgeResponse = await inRes.json()
+    setInsideGraph(inData.data)
+
+    const outRes = await fetch(`${baseUrl}/api/getNextVerticesWithEdge?id=${main.id}&direction=out`)
+    const outData: Api.KnowledgeResponse = await outRes.json()
+    setOutSideGraph(outData.data)
   }, [])
 
   useEffect(() => {
@@ -92,7 +99,15 @@ const Home: NextPage = () => {
               </Layout.Sider>
               <Layout.Content style={{ height: height - 70 }}>
                 <VisibleContext.Provider value={{ visible, setVisible }}>
-                  <Canvas nodes={graphData.nodes} edges={graphData.edges} config={config} />
+                  <Canvas
+                    insideVertices={insideGraph.vertices}
+                    mainVertice={main}
+                    outSideVertices={outSideGraph.vertices}
+                    nodes={graphData.nodes}
+                    edges={[]}
+                    vertices={[]}
+                    config={config}
+                  />
                 </VisibleContext.Provider>
               </Layout.Content>
             </ConfigContext.Provider>
