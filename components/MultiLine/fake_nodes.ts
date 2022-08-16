@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 09:36:24
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 09:37:44
+ * @LastEditTime: 2022-08-16 11:24:06
  * @Description: 请填写简介
  */
 
@@ -14,8 +14,8 @@ export const FakeNodes: Graph.Node[] = [
     type: 'type1',
     mode: 1,
     name: '节点1',
-    x: 500,
-    y: 350,
+    x: 100,
+    y: 550,
   },
   {
     id: 'n2',
@@ -23,6 +23,6 @@ export const FakeNodes: Graph.Node[] = [
     mode: 1,
     name: '节点1',
     x: 800,
-    y: 350,
+    y: 550,
   }
 ]
