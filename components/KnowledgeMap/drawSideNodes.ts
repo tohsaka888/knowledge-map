@@ -17,7 +17,6 @@ import { calcMode } from "./utils/calcMode";
 import * as d3 from 'd3'
 import { calcArcX, calcArcY } from "./utils/calcArc";
 import { calcBasicDistence } from "./utils/calcBasicDistance";
-import { transferLabelName } from "./utils/transferLabelName";
 import { verticePrefix } from "./prefix";
 import { createSideNode } from "./createNode";
 
@@ -133,7 +132,7 @@ export const drawSideNodes = (
             .attr('height', nodeRadius * 2 + 10)
             .attr('x', +x)
             .attr('y', +y - 10)
-          setVisible && setVisible(true)
+          // setVisible && setVisible(true)
         })
         // .call(
         //   d3.drag<any, any, Graph.Node>()
