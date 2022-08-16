@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 14:06:53
+ * @LastEditTime: 2022-08-16 14:56:45
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -63,16 +63,16 @@ declare namespace Graph {
     x?: number; // 仅前端使用
     y?: number; // 仅前端使用
     propertyMap: {
-      model_property_name: string;
-      dkg_sys_code: string;
-      model_name: string;
-      dkg_sys_updated_time: string;
-      dkg_sys_label_name: string;
-      model_property_id: string;
-      dkg_sys_created_time: string;
-      id: number;
-      label: string;
-      dkg_sys_name: string;
+      model_property_name?: string;
+      dkg_sys_code?: string;
+      model_name?: string;
+      dkg_sys_updated_time?: string;
+      dkg_sys_label_name?: string;
+      model_property_id?: string;
+      dkg_sys_created_time?: string;
+      id?: number | string;
+      label?: string;
+      dkg_sys_name?: string;
     };
   };
 
