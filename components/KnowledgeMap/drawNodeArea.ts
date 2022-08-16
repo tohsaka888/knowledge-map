@@ -1,5 +1,6 @@
 import * as d3 from 'd3'
 import { Graph } from '../..'
+import { createNode } from './createNode'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { verticePrefix } from './prefix'
@@ -363,35 +364,7 @@ export const drawNodeArea = (
   //         .attr('transform-origin', '0 0')
   //     })
   // )
-  mainNodeContainer
-    .append('circle')
-    .attr('r', nodeRadius)
-    .attr('cx', mainVertice.x!)
-    .attr('cy', mainVertice.y!)
-    .attr('fill', '#1890ff')
-    .style('cursor', 'pointer')
-    .attr('id', verticePrefix + mainVertice.id || '')
-  mainNodeContainer
-    .append('text')
-    .attr('x', mainVertice.x!)
-    .attr('y', mainVertice.y!)
-    .attr('id', verticePrefix + mainVertice.id + 'text')
-    .style('cursor', 'pointer')
-    .attr('text-anchor', 'middle')
-    .attr('dominant-baseline', 'central')
-    .attr('fill', '#fff')
-    .style('font-size', 12)
-    .text(transferLabelName(mainVertice.labelName) || '')
-  mainNodeContainer
-    .append('text')
-    .attr('x', mainVertice.x!)
-    .attr('y', mainVertice.y! + nodeRadius + 10)
-    .attr('id', verticePrefix + mainVertice.id + 'name')
-    .style('cursor', 'pointer')
-    .attr('text-anchor', 'middle')
-    .attr('dominant-baseline', 'middle')
-    .style('font-size', 10)
-    .text(mainVertice.name || '')
+  createNode({ container: mainNodeContainer, config, vertice: mainVertice })
 
   // 创建入边节点
   drawSideNodes(
