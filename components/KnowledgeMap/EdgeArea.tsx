@@ -10,12 +10,12 @@ import { drawEdgeArea } from './drawEdgeArea';
 import * as d3 from 'd3'
 import { Graph } from '../..';
 
-function EdgeArea({ children,nodes, edges, config }: { children: ReactNode; nodes: Graph.Node[]; edges: Graph.Edge[], config: Graph.ConfigProps }) {
+function EdgeArea({ children,nodes, edges, config }: { children: ReactNode; nodes: Graph.Node[]; edges: Graph.Line[], config: Graph.ConfigProps }) {
   const edgeAreaContainer = useRef<SVGGElement>(null!)
 
   useEffect(() => {
     const container = edgeAreaContainer.current
-    drawEdgeArea(nodes, edges, config, 'main', true)
+    drawEdgeArea(nodes, [], config, 'main', true)
     return () => {
       d3.select(container).selectAll(':first-child').remove()
       d3.select('#selector-result').remove()

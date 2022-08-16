@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 11:52:27
+ * @LastEditTime: 2022-08-16 14:20:16
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -143,9 +143,9 @@ export const drawEdgeArea = (nodes: Graph.Node[], edges: Graph.Edge[], config: G
   // 画线
   if (mainPoint) {
     if (config.isStraight) {
-      drawStraightLine(needDrawNodes, edges, mainPoint, config, edgeArea)
+      // drawStraightLine(needDrawNodes, edges, mainPoint, config, edgeArea)
     } else {
-      drawBesselLine(needDrawNodes, edges, mainPoint, config, edgeArea)
+      // drawBesselLine(needDrawNodes, edges, mainPoint, config, edgeArea)
     }
   }
 }
