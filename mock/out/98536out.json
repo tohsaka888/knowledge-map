@@ -1,0 +1,688 @@
+{
+  "vertices": [
+    {
+      "id": "1196080",
+      "code": "MP1000333",
+      "name": "行政裁决时间",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决时间",
+        "dkg_sys_code": "MP1000333",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000333",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1196080,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决时间"
+      }
+    },
+    {
+      "id": "1241200",
+      "code": "MP1000331",
+      "name": "行政裁决类型",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决类型",
+        "dkg_sys_code": "MP1000331",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000331",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1241200,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决类型"
+      }
+    },
+    {
+      "id": "1093864",
+      "code": "MP1000336",
+      "name": "当事人类别(企业、社会组织，自然人等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "当事人类别(企业、社会组织，自然人等)",
+        "dkg_sys_code": "MP1000336",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000336",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1093864,
+        "label": "model_property",
+        "dkg_sys_name": "当事人类别(企业、社会组织，自然人等)"
+      }
+    },
+    {
+      "id": "2367736",
+      "code": "MP1000342",
+      "name": "被裁决对象名称(如某某企业)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决对象名称(如某某企业)",
+        "dkg_sys_code": "MP1000342",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000342",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 2367736,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决对象名称(如某某企业)"
+      }
+    },
+    {
+      "id": "42061840",
+      "code": "MP1000329",
+      "name": "行政裁决部门名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决部门名称",
+        "dkg_sys_code": "MP1000329",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000329",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 42061840,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决部门名称"
+      }
+    },
+    {
+      "id": "1147056",
+      "code": "MP1000326",
+      "name": "所属地区行政区划代码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "所属地区行政区划代码",
+        "dkg_sys_code": "MP1000326",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000326",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1147056,
+        "label": "model_property",
+        "dkg_sys_name": "所属地区行政区划代码"
+      }
+    },
+    {
+      "id": "42082320",
+      "code": "MP1000344",
+      "name": "被裁决对象证件号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决对象证件号码",
+        "dkg_sys_code": "MP1000344",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000344",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 42082320,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决对象证件号码"
+      }
+    },
+    {
+      "id": "1200232",
+      "code": "MP1000338",
+      "name": "当事人证件类型(组织机构代码证等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "当事人证件类型(组织机构代码证等)",
+        "dkg_sys_code": "MP1000338",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000338",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1200232,
+        "label": "model_property",
+        "dkg_sys_name": "当事人证件类型(组织机构代码证等)"
+      }
+    },
+    {
+      "id": "1208424",
+      "code": "MP1000345",
+      "name": "被裁决单位统一社会信用代码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决单位统一社会信用代码",
+        "dkg_sys_code": "MP1000345",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000345",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1208424,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决单位统一社会信用代码"
+      }
+    },
+    {
+      "id": "1200176",
+      "code": "MP1000337",
+      "name": "当事人名称(如某某企业)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "当事人名称(如某某企业)",
+        "dkg_sys_code": "MP1000337",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000337",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1200176,
+        "label": "model_property",
+        "dkg_sys_name": "当事人名称(如某某企业)"
+      }
+    },
+    {
+      "id": "42074128",
+      "code": "MP1000340",
+      "name": "当事人申诉主张",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "当事人申诉主张",
+        "dkg_sys_code": "MP1000340",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000340",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 42074128,
+        "label": "model_property",
+        "dkg_sys_name": "当事人申诉主张"
+      }
+    },
+    {
+      "id": "1245296",
+      "code": "MP1000341",
+      "name": "被裁决对象类别(企业、社会组织，自然人等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决对象类别(企业、社会组织，自然人等)",
+        "dkg_sys_code": "MP1000341",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000341",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1245296,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决对象类别(企业、社会组织，自然人等)"
+      }
+    },
+    {
+      "id": "1191984",
+      "code": "MP1000327",
+      "name": "所属地区行政区划名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "所属地区行政区划名称",
+        "dkg_sys_code": "MP1000327",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000327",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1191984,
+        "label": "model_property",
+        "dkg_sys_name": "所属地区行政区划名称"
+      }
+    },
+    {
+      "id": "2355448",
+      "code": "MP1000334",
+      "name": "行政裁决文号",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决文号",
+        "dkg_sys_code": "MP1000334",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000334",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 2355448,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决文号"
+      }
+    },
+    {
+      "id": "1196032",
+      "code": "MP1000346",
+      "name": "被裁决单位法定代表人姓名",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决单位法定代表人姓名",
+        "dkg_sys_code": "MP1000346",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000346",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1196032,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决单位法定代表人姓名"
+      }
+    },
+    {
+      "id": "2347256",
+      "code": "MP1000328",
+      "name": "行政裁决行业(公安、交通等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决行业(公安、交通等)",
+        "dkg_sys_code": "MP1000328",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000328",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 2347256,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决行业(公安、交通等)"
+      }
+    },
+    {
+      "id": "1196136",
+      "code": "MP1000332",
+      "name": "行政裁决名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决名称",
+        "dkg_sys_code": "MP1000332",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000332",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1196136,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决名称"
+      }
+    },
+    {
+      "id": "1212464",
+      "code": "MP1000347",
+      "name": "被裁决单位法定代表人身份证号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决单位法定代表人身份证号码",
+        "dkg_sys_code": "MP1000347",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000347",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1212464,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决单位法定代表人身份证号码"
+      }
+    },
+    {
+      "id": "1085672",
+      "code": "MP1000330",
+      "name": "行政裁决部门编码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决部门编码",
+        "dkg_sys_code": "MP1000330",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000330",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1085672,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决部门编码"
+      }
+    },
+    {
+      "id": "42070032",
+      "code": "MP1000339",
+      "name": "当事人证件号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "当事人证件号码",
+        "dkg_sys_code": "MP1000339",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000339",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 42070032,
+        "label": "model_property",
+        "dkg_sys_name": "当事人证件号码"
+      }
+    },
+    {
+      "id": "42078224",
+      "code": "MP1000343",
+      "name": "被裁决对象证件类型(组织机构代码证等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被裁决对象证件类型(组织机构代码证等)",
+        "dkg_sys_code": "MP1000343",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000343",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 42078224,
+        "label": "model_property",
+        "dkg_sys_name": "被裁决对象证件类型(组织机构代码证等)"
+      }
+    },
+    {
+      "id": "1122504",
+      "code": "MP1000335",
+      "name": "行政裁决内容",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政裁决内容",
+        "dkg_sys_code": "MP1000335",
+        "model_name": "行政裁决类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000335",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1122504,
+        "label": "model_property",
+        "dkg_sys_name": "行政裁决内容"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1qhwd-2414-pq1h-n9pk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1085672"
+    },
+    {
+      "id": "1qk9p-2414-pq1h-ng14",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1093864"
+    },
+    {
+      "id": "1qjvh-2414-pq1h-o24o",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1122504"
+    },
+    {
+      "id": "1qgbh-2414-pq1h-ol2o",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1147056"
+    },
+    {
+      "id": "1qgpp-2414-pq1h-pjqo",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1191984"
+    },
+    {
+      "id": "1qo7x-2414-pq1h-pmv4",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196032"
+    },
+    {
+      "id": "1qj31-2414-pq1h-pmwg",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196080"
+    },
+    {
+      "id": "1qiot-2414-pq1h-pmy0",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196136"
+    },
+    {
+      "id": "1qknx-2414-pq1h-pq28",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1200176"
+    },
+    {
+      "id": "1ql25-2414-pq1h-pq3s",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1200232"
+    },
+    {
+      "id": "1qntp-2414-pq1h-pwfc",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1208424"
+    },
+    {
+      "id": "1qom5-2414-pq1h-pzjk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1212464"
+    },
+    {
+      "id": "1qial-2414-pq1h-qlps",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1241200"
+    },
+    {
+      "id": "1qm8t-2414-pq1h-qovk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1245296"
+    },
+    {
+      "id": "1qh3x-2414-pq1h-1eb5k",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2347256"
+    },
+    {
+      "id": "1qjh9-2414-pq1h-1ehh4",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2355448"
+    },
+    {
+      "id": "1qmn1-2414-pq1h-1eqyg",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2367736"
+    },
+    {
+      "id": "1qhi5-2414-pq1h-p1j4g",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42061840"
+    },
+    {
+      "id": "1qlgd-2414-pq1h-p1pg0",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42070032"
+    },
+    {
+      "id": "1qlul-2414-pq1h-p1sls",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42074128"
+    },
+    {
+      "id": "1qn19-2414-pq1h-p1vrk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42078224"
+    },
+    {
+      "id": "1qnfh-2414-pq1h-p1yxc",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42082320"
+    },
+    {
+      "id": "1qj31-2414-pq1h-pmwg",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196080"
+    },
+    {
+      "id": "1qial-2414-pq1h-qlps",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1241200"
+    },
+    {
+      "id": "1qk9p-2414-pq1h-ng14",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1093864"
+    },
+    {
+      "id": "1qmn1-2414-pq1h-1eqyg",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2367736"
+    },
+    {
+      "id": "1qhi5-2414-pq1h-p1j4g",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42061840"
+    },
+    {
+      "id": "1qgbh-2414-pq1h-ol2o",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1147056"
+    },
+    {
+      "id": "1qnfh-2414-pq1h-p1yxc",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42082320"
+    },
+    {
+      "id": "1ql25-2414-pq1h-pq3s",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1200232"
+    },
+    {
+      "id": "1qntp-2414-pq1h-pwfc",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1208424"
+    },
+    {
+      "id": "1qknx-2414-pq1h-pq28",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1200176"
+    },
+    {
+      "id": "1qlul-2414-pq1h-p1sls",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42074128"
+    },
+    {
+      "id": "1qm8t-2414-pq1h-qovk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1245296"
+    },
+    {
+      "id": "1qgpp-2414-pq1h-pjqo",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1191984"
+    },
+    {
+      "id": "1qjh9-2414-pq1h-1ehh4",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2355448"
+    },
+    {
+      "id": "1qo7x-2414-pq1h-pmv4",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196032"
+    },
+    {
+      "id": "1qh3x-2414-pq1h-1eb5k",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2347256"
+    },
+    {
+      "id": "1qiot-2414-pq1h-pmy0",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196136"
+    },
+    {
+      "id": "1qom5-2414-pq1h-pzjk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1212464"
+    },
+    {
+      "id": "1qhwd-2414-pq1h-n9pk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1085672"
+    },
+    {
+      "id": "1qlgd-2414-pq1h-p1pg0",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42070032"
+    },
+    {
+      "id": "1qn19-2414-pq1h-p1vrk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42078224"
+    },
+    {
+      "id": "1qjvh-2414-pq1h-o24o",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1122504"
+    }
+  ]
+}

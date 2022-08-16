@@ -1,0 +1,175 @@
+{
+  "vertices": [
+    {
+      "id": "98536",
+      "code": "LM10024",
+      "name": "行政裁决类信息汇总",
+      "labelName": "logical_model",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "LM10024",
+        "dkg_sys_updated_time": "2022-04-15 18:32:03",
+        "dkg_sys_label_name": "logical_model",
+        "dkg_sys_created_time": "2022-04-15 18:32:03",
+        "id": 98536,
+        "label": "logical_model",
+        "dkg_sys_name": "行政裁决类信息汇总",
+        "model_chinese_name": "行政裁决类信息汇总",
+        "dkg_sys_tags": [
+          "错误提示 model_data_pieces_num:非空校验失败",
+          "错误提示 model_description:非空校验失败",
+          "错误提示 model_property_list:非空校验失败",
+          "错误提示 model_english_name:非空校验失败",
+          "错误提示 model_data_bytes_num:非空校验失败",
+          "错误提示 model_field_num:非空校验失败"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1qk9p-2414-pq1h-ng14",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1093864"
+    },
+    {
+      "id": "1w7bi-18c0-p72t-2414",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "98536"
+    },
+    {
+      "id": "1qhwd-2414-pq1h-n9pk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1085672"
+    },
+    {
+      "id": "1qk9p-2414-pq1h-ng14",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1093864"
+    },
+    {
+      "id": "1qjvh-2414-pq1h-o24o",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1122504"
+    },
+    {
+      "id": "1qgbh-2414-pq1h-ol2o",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1147056"
+    },
+    {
+      "id": "1qgpp-2414-pq1h-pjqo",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1191984"
+    },
+    {
+      "id": "1qo7x-2414-pq1h-pmv4",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196032"
+    },
+    {
+      "id": "1qj31-2414-pq1h-pmwg",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196080"
+    },
+    {
+      "id": "1qiot-2414-pq1h-pmy0",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1196136"
+    },
+    {
+      "id": "1qknx-2414-pq1h-pq28",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1200176"
+    },
+    {
+      "id": "1ql25-2414-pq1h-pq3s",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1200232"
+    },
+    {
+      "id": "1qntp-2414-pq1h-pwfc",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1208424"
+    },
+    {
+      "id": "1qom5-2414-pq1h-pzjk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1212464"
+    },
+    {
+      "id": "1qial-2414-pq1h-qlps",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1241200"
+    },
+    {
+      "id": "1qm8t-2414-pq1h-qovk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "1245296"
+    },
+    {
+      "id": "1qh3x-2414-pq1h-1eb5k",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2347256"
+    },
+    {
+      "id": "1qjh9-2414-pq1h-1ehh4",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2355448"
+    },
+    {
+      "id": "1qmn1-2414-pq1h-1eqyg",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "2367736"
+    },
+    {
+      "id": "1qhi5-2414-pq1h-p1j4g",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42061840"
+    },
+    {
+      "id": "1qlgd-2414-pq1h-p1pg0",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42070032"
+    },
+    {
+      "id": "1qlul-2414-pq1h-p1sls",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42074128"
+    },
+    {
+      "id": "1qn19-2414-pq1h-p1vrk",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42078224"
+    },
+    {
+      "id": "1qnfh-2414-pq1h-p1yxc",
+      "name": "包含属性",
+      "fromVertexId": "98536",
+      "toVertexId": "42082320"
+    }
+  ]
+}
