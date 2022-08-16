@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-08 08:34:38
+ * @LastEditTime: 2022-08-16 13:57:31
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -53,4 +53,31 @@ declare namespace Graph {
     config: ConfigProps;
     dispatch: Dispatch<ActionType>
   }
+
+  type Vertice = {
+    id: string;
+    code: string;
+    name: string;
+    labelName: string;
+    hasNextVertices: boolean;
+    propertyMap: {
+      model_property_name: string;
+      dkg_sys_code: string;
+      model_name: string;
+      dkg_sys_updated_time: string;
+      dkg_sys_label_name: string;
+      model_property_id: string;
+      dkg_sys_created_time: string;
+      id: number;
+      label: string;
+      dkg_sys_name: string;
+    };
+  };
+
+  type Line = {
+    id: string;
+    name: string;
+    fromVertexId: string;
+    toVertexId: string;
+  };
 }
