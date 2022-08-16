@@ -2,17 +2,29 @@ import * as d3 from 'd3'
 import React from 'react'
 import { Graph } from '../..'
 
-// 缩放bug
-
 let size = 1
 let canvasX = 0
 let canvasY = 0
 
 
+/**
+ * 描述 重置画布大小
+ * @date 2022-08-16
+ * @returns {any}
+ */
 export const resetSize = () => {
   size = 1
 }
 
+/**
+ * 描述 多选拖拽事件
+ * @date 2022-08-16
+ * @param {any} nodes:Graph.Node[]
+ * @param {any} edges:Graph.Edge[]
+ * @param {any} event:any
+ * @param {any} config:Graph.ConfigProps
+ * @returns {any}
+ */
 const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, config: Graph.ConfigProps) => {
   nodes.forEach((node) => {
     const item = d3.select(`#${node.id}`)
@@ -82,6 +94,16 @@ const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, con
   })
 }
 
+/**
+ * 描述 拖拽及缩放画布
+ * @date 2022-08-16
+ * @param {any} canvas:SVGSVGElement
+ * @param {any} nodes:Graph.Node[]
+ * @param {any} edges:Graph.Edge[]
+ * @param {any} setVisible:React.Dispatch<React.SetStateAction<boolean>>
+ * @param {any} config:Graph.ConfigProps
+ * @returns {any}
+ */
 export const canvasDrag = (
   canvas: SVGSVGElement,
   nodes: Graph.Node[],
@@ -89,7 +111,7 @@ export const canvasDrag = (
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
   config: Graph.ConfigProps
 ) => {
-  const mainCanvas = d3.select(canvas)
+  d3.select(canvas)
     .on('mouseover', () => {
       if (setVisible) {
         setVisible(false)
@@ -117,6 +139,12 @@ export const canvasDrag = (
     })
 }
 
+/**
+ * 拖拽画布
+ * @date 2022-08-16
+ * @param {any} canvas:SVGSVGElement
+ * @returns {any}
+ */
 export const normalDrag = (
   canvas: SVGSVGElement
 ) => {
@@ -145,6 +173,15 @@ export const normalDrag = (
   )
 }
 
+/**
+ * 描述 多选拖拽
+ * @date 2022-08-16
+ * @param {any} canvas:SVGSVGElement
+ * @param {any} nodes:Graph.Node[]
+ * @param {any} edges:Graph.Edge[]
+ * @param {any} config:Graph.ConfigProps
+ * @returns {any}
+ */
 export const multiDrag = (
   canvas: SVGSVGElement,
   nodes: Graph.Node[],

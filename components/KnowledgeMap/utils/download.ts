@@ -2,12 +2,17 @@
  * @Author: tohsaka888
  * @Date: 2022-08-04 10:36:41
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 09:13:02
+ * @LastEditTime: 2022-08-16 09:20:42
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { base64ToBlob } from './base64ToBlob';
 
+/**
+ * 描述 下载图片
+ * @date 2022-08-16
+ * @returns {any}
+ */
 export const downloadSvg = () => {
   //  获取影响布局的元素
   const controllerPannel = document.getElementsByClassName('ant-layout-sider-children')[0]
