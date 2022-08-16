@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 16:46:12
+ * @LastEditTime: 2022-08-16 16:50:14
  * @Description: 请填写简介
  */
 
@@ -79,10 +79,12 @@ export const createSideNode = (
     .attr('fill', '#1890ff')
     .style('cursor', 'pointer')
     .attr('id', verticePrefix + vertice.id || '')
+    .style('opacity', 0)
     .transition()
     .duration(1000)
     .attr('cx', vertice.x!)
     .attr('cy', vertice.y!)
+    .style('opacity', 1)
   container
     .append('text')
     .attr('x', mainVertice.x!)
@@ -94,10 +96,12 @@ export const createSideNode = (
     .attr('fill', '#fff')
     .style('font-size', 12)
     .text(transferLabelName(vertice.labelName) || '')
+    .style('opacity', 0)
     .transition()
     .duration(1000)
     .attr('x', vertice.x!)
     .attr('y', vertice.y!)
+    .style('opacity', 1)
   container
     .append('text')
     .attr('x', mainVertice.x!)
@@ -108,8 +112,10 @@ export const createSideNode = (
     .attr('dominant-baseline', 'middle')
     .style('font-size', 10)
     .text(vertice.name || '')
+    .style('opacity', 0)
     .transition()
     .duration(1000)
     .attr('x', vertice.x!)
     .attr('y', vertice.y! + nodeRadius + 10)
+    .style('opacity', 1)
 }
