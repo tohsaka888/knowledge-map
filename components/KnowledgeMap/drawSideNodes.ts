@@ -19,32 +19,38 @@ import { calcArcX, calcArcY } from "./utils/calcArc";
 import { calcBasicDistence } from "./utils/calcBasicDistance";
 import { verticePrefix } from "./prefix";
 import { createSideNode } from "./createNode";
+import { calcNodePosition } from "./utils/calcNodePosition";
 
 type Props = {
   typeNodes: Graph.Vertice[][];
   config: Graph.ConfigProps;
-  container: SVGGElement;
   isInside: boolean;
   centerPoint: Graph.Vertice;
   maxAngle: number;
+  edges: Graph.Line[],
+  fId?: string; // 父节点id
+  atanAngle?: number;
 }
 
 export const drawSideNodes = (
   {
     typeNodes,
     config,
-    container,
     isInside,
     centerPoint,
-    maxAngle
+    maxAngle,
+    edges,
+    fId,
+    atanAngle = 0
   }: Props
 ) => {
+  const container = d3.select('#node-area')
   const { nodeRadius, arcAreaDistence, arcAreaLength, mode, basicDistence, setVisible } = config
   typeNodes.forEach((originNodes, index) => {
     const nodes = calcMode(originNodes, 1, mode)
     const pagination = { page: 1, pageSize: 5 }
     if (mode === 2 && originNodes.length > 5) {
-      const arc = d3.select(container)
+      const arc = container
         .append('g')
         .classed('arc', true)
         .append('g')
@@ -101,52 +107,60 @@ export const drawSideNodes = (
         .attr('text-anchor', 'right')
     }
 
-    const typeContainer = d3.select(container)
+    const parent = [fId!, ...centerPoint.p!]
+    const parentClass = parent.map(p => verticePrefix + p).join(' ')
+
+    const typeContainer = container
       .append('g')
-      .attr('id', verticePrefix + nodes[0].labelName)
-    nodes.forEach((node, idx) => {
-      // 
-      const x = centerPoint.x!
-      const y = centerPoint.y!
-      const angle: number = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
-      node.x = isInside
-        ? x - calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-        : x + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.cos(Math.abs(angle - 90) / 180 * Math.PI)
-      node.y = isInside
-        ? y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-        : y + calcBasicDistence(nodes.length, maxAngle, basicDistence) * Math.sin((angle - 90) / 180 * Math.PI)
-      const sideContainer = typeContainer.append('g')
-      createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config })
-      window.setTimeout(() => {
-        sideContainer.on('mouseover', function (event) {
-          event.stopPropagation();
-          const x = node.x as number
-          const y = node.y as number
-          d3.select('#border')
-            .attr('transform', `translate(${x}, ${y})`)
-            .select('circle')
-            .attr('stroke-width', 8)
-            .attr('r', nodeRadius + 4)
-          d3.select('#popover-container')
-            .attr('width', nodeRadius * 2 + 10)
-            .attr('height', nodeRadius * 2 + 10)
-            .attr('x', +x)
-            .attr('y', +y - 10)
-          // setVisible && setVisible(true)
-        })
-        // .call(
-        //   d3.drag<any, any, Graph.Node>()
-        //     .on('start', function (event: any, node: Graph.Node) {
-        //       dragStart(this, event, node, config)
-        //     })
-        //     .on('end', function (event: any, node: Graph.Node) {
-        //       dragEnd(this, event, node, config)
-        //     })
-        //     .on('drag', function (event: any, node: Graph.Node) {
-        //       dragging(this, event, node, edges, config)
-        //     })
-        // )
-      }, 1000)
+      .classed(nodes[0].labelName, true)
+      .classed(parentClass || '', true)
+    let idx = 0
+    nodes.forEach((node) => {
+      node.p = parent
+      if (document.getElementById(verticePrefix + node.id) === null) {
+        document.getElementById(verticePrefix + node.id)?.parentElement?.remove()
+        // 记录节点信息
+        node.angle = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+        node.distance = calcBasicDistence(nodes.length, maxAngle, basicDistence)
+        node.isInside = isInside
+        const position = calcNodePosition({ distance: node.distance, angle: node.angle, centerPoint, isInside: node.isInside, atanAngle })
+        node.x = position.x
+        node.y = position.y
+
+        const sideContainer = typeContainer.append('g')
+        createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges })
+        window.setTimeout(() => {
+          sideContainer.on('mouseover', function (event) {
+            event.stopPropagation();
+            const x = node.x as number
+            const y = node.y as number
+            d3.select('#border')
+              .attr('transform', `translate(${x}, ${y})`)
+              .select('circle')
+              .attr('stroke-width', 8)
+              .attr('r', nodeRadius + 4)
+            d3.select('#popover-container')
+              .attr('width', nodeRadius * 2 + 10)
+              .attr('height', nodeRadius * 2 + 10)
+              .attr('x', +x)
+              .attr('y', +y - 10)
+            // setVisible && setVisible(true)
+          })
+          // .call(
+          //   d3.drag<any, any, Graph.Node>()
+          //     .on('start', function (event: any, node: Graph.Node) {
+          //       dragStart(this, event, node, config)
+          //     })
+          //     .on('end', function (event: any, node: Graph.Node) {
+          //       dragEnd(this, event, node, config)
+          //     })
+          //     .on('drag', function (event: any, node: Graph.Node) {
+          //       dragging(this, event, node, edges, config)
+          //     })
+          // )
+        }, 1000)
+        idx++
+      }
     })
   })
 }

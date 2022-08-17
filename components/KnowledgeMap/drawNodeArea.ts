@@ -140,7 +140,8 @@ type Props = {
   x?: number,
   y?: number,
   config: Graph.ConfigProps,
-  init: boolean
+  init: boolean,
+  edges: Graph.Line[]
 }
 
 export const drawNodeArea = (
@@ -152,7 +153,8 @@ export const drawNodeArea = (
     x,
     y,
     config,
-    init
+    init,
+    edges
   }: Props
 ): any => {
   d3.selectAll('.force-graph').remove()
@@ -176,7 +178,6 @@ export const drawNodeArea = (
     return outsideVertices.filter(v => v.labelName === type)
   })
   const outsideMaxAngle = 180 / outsideTypes.length
-  console.log(insideTypeVertices)
 
   // 创建根节点
   const mainNodeContainer = d3.select(container)
@@ -223,10 +224,10 @@ export const drawNodeArea = (
     {
       typeNodes: insideTypeVertices,
       config,
-      container,
       isInside: true,
       centerPoint: mainVertice,
-      maxAngle: insideMaxAngle
+      maxAngle: insideMaxAngle,
+      edges
     }
   )
 
@@ -235,10 +236,10 @@ export const drawNodeArea = (
     {
       typeNodes: outsideTypeVertices,
       config,
-      container,
       isInside: false,
       centerPoint: mainVertice,
-      maxAngle: outsideMaxAngle
+      maxAngle: outsideMaxAngle,
+      edges
     }
   )
 
