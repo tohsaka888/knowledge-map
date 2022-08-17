@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 14:56:45
+ * @LastEditTime: 2022-08-17 15:32:19
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -60,8 +60,14 @@ declare namespace Graph {
     name: string;
     labelName: string;
     hasNextVertices: boolean;
+    s?: string[]; // 当前节点包含的子节点的ids
     x?: number; // 仅前端使用
     y?: number; // 仅前端使用
+    p?: string[]; // 当前节点所有的父节点
+    size?: number;
+    angle?: number;
+    distance?: number;
+    isInside?: boolean;
     propertyMap: {
       model_property_name?: string;
       dkg_sys_code?: string;
