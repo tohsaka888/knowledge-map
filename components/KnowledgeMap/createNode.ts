@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 15:33:38
+ * @LastEditTime: 2022-08-17 17:14:03
  * @Description: 请填写简介
  */
 
@@ -78,6 +78,7 @@ export const createSideNode = (
   let isExplore = false
   // 探索
   container.on('click', (e) => {
+    e.stopPropagation()
     isExplore = !isExplore
     explore({ current: vertice, isExplore, config, mainPoint: mainVertice, edges });
   })

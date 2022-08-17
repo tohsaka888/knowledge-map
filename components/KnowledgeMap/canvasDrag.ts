@@ -2,9 +2,8 @@ import * as d3 from 'd3'
 import React from 'react'
 import { Graph } from '../..'
 
-let size = 1
-let canvasX = 0
-let canvasY = 0
+export let size = 1
+export let translate = { x: 0, y: 0 }
 
 
 /**
@@ -154,13 +153,13 @@ export const normalDrag = (
       })
       .on('drag', function (event: any) {
         requestAnimationFrame(() => {
-          canvasX += event.dx / size
-          canvasY += event.dy / size
+          translate.x += event.dx / size
+          translate.y += event.dy / size
           // 当前坐标加上拖拽的相对坐标
           // 即新坐标相比原坐标的偏移量
           currentElement.attr(
             "transform",
-            `translate(${canvasX}, ${canvasY})`
+            `translate(${translate.x}, ${translate.y})`
           );
         })
       })
@@ -210,8 +209,8 @@ export const multiDrag = (
       endX = e.x
       endY = e.y
       // 获取偏移量
-      const x = canvasX;
-      const y = canvasY;
+      const x = translate.x;
+      const y = translate.y;
       // 移除偏移影响
       const areaNodes = nodes.filter((node) => {
         return node.x && node.y
