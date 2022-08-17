@@ -2,12 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 16:50:14
+ * @LastEditTime: 2022-08-17 15:33:38
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { Graph } from '../..';
+import { explore } from './explore';
 import { verticePrefix } from './prefix';
 import { transferLabelName } from './utils/transferLabelName';
 type Props = {
@@ -24,6 +25,7 @@ export const createNode = (
   }: Props
 ) => {
   const { nodeRadius } = config
+  vertice.p = []
   container
     .append('circle')
     .attr('r', nodeRadius)
@@ -60,6 +62,7 @@ type SideProps = {
   config: Graph.ConfigProps;
   vertice: Graph.Vertice;
   mainVertice: Graph.Vertice;
+  edges: Graph.Line[]
 }
 
 export const createSideNode = (
@@ -67,10 +70,18 @@ export const createSideNode = (
     container,
     config,
     vertice,
-    mainVertice
+    mainVertice,
+    edges
   }: SideProps
 ) => {
   const { nodeRadius } = config
+  let isExplore = false
+  // 探索
+  container.on('click', (e) => {
+    isExplore = !isExplore
+    explore({ current: vertice, isExplore, config, mainPoint: mainVertice, edges });
+  })
+
   container
     .append('circle')
     .attr('r', nodeRadius)
