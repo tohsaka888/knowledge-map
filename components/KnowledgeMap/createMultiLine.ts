@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:47:14
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 11:54:52
+ * @LastEditTime: 2022-08-17 16:23:40
  * @Description: 请填写简介
  */
 
@@ -45,5 +45,5 @@ export const createMultiLine = ({ isTop, topCount, downCount, fromNode, toNode, 
     .attr('stroke', '#cecece')
     .attr('stroke-width', 1)
     .attr('id', edge.fromId + edge.toId + (isTop ? ('top' + topCount) : ('down' + downCount)))
-  createDescription({ edge, edgeId: edge.fromId + edge.toId + (isTop ? ('top' + topCount) : ('down' + downCount)), edgeArea, config })
+  // createDescription({ edge, edgeId: edge.fromId + edge.toId + (isTop ? ('top' + topCount) : ('down' + downCount)), edgeArea, config })
 }
