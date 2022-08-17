@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 14:48:01
+ * @LastEditTime: 2022-08-17 08:28:13
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -22,10 +22,10 @@ type Props = {
   config: Graph.ConfigProps;
   mainVertice: Graph.Vertice;
   insideVertices: Graph.Vertice[];
-  outSideVertices: Graph.Vertice[];
+  outsideVertices: Graph.Vertice[];
 }
 
-function Canvas({ nodes, edges, config, mainVertice, insideVertices, outSideVertices }: Props) {
+function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVertices }: Props) {
   const canvasRef = useRef<SVGSVGElement>(null!)
   const { setVisible } = useContext(VisibleContext)!
 
@@ -68,8 +68,8 @@ function Canvas({ nodes, edges, config, mainVertice, insideVertices, outSideVert
           <g transform={`translate(0, 0)`} id="drag">
             {/* <CustomPopover /> */}
             {config.mode !== 3 && <>
-              <EdgeArea nodes={nodes} edges={edges} config={config}>
-                <NodeArea mainVertice={mainVertice} insideVertices={insideVertices} outSideVertices={outSideVertices} edges={edges} config={config} />
+              <EdgeArea mainVertice={mainVertice} vertices={[mainVertice, ...insideVertices, ...outsideVertices]} edges={edges} config={config}>
+                <NodeArea mainVertice={mainVertice} insideVertices={insideVertices} outsideVertices={outsideVertices} edges={edges} config={config} />
               </EdgeArea>
             </>}
           </g>

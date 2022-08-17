@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-08 08:29:23
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 15:47:32
+ * @LastEditTime: 2022-08-17 08:20:21
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -16,10 +16,10 @@ type Props = {
   edges: Graph.Line[];
   config: Graph.ConfigProps;
   insideVertices: Graph.Vertice[];
-  outSideVertices: Graph.Vertice[];
+  outsideVertices: Graph.Vertice[];
 }
 
-function NodeArea({ mainVertice, insideVertices, outSideVertices, edges, config }: Props) {
+function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config }: Props) {
 
   const nodesContainerRef = useRef<SVGGElement>(null!)
   const { setVisible } = useContext(VisibleContext)!
@@ -27,7 +27,7 @@ function NodeArea({ mainVertice, insideVertices, outSideVertices, edges, config 
   // 状态改变时清除画布
   useEffect(() => {
     const container = nodesContainerRef.current
-    drawNodeArea({ container, mainVertice, insideVertices, outSideVertices, config: { ...config, setVisible }, x: 700, y: 400, init: true })
+    drawNodeArea({ container, mainVertice, insideVertices, outsideVertices, config: { ...config, setVisible }, x: 700, y: 400, init: true })
     return () => {
       d3.select(container).selectAll('*').remove()
       // 清除记住的节点坐标
@@ -35,14 +35,14 @@ function NodeArea({ mainVertice, insideVertices, outSideVertices, edges, config 
         node.x = 0
         node.y = 0
       })
-      outSideVertices.forEach((node) => {
+      outsideVertices.forEach((node) => {
         node.x = 0
         node.y = 0
       })
       mainVertice.x = 0
       mainVertice.y = 0
     }
-  }, [config, edges, insideVertices, mainVertice, outSideVertices, setVisible])
+  }, [config, edges, insideVertices, mainVertice, outsideVertices, setVisible])
 
   return (
     <g ref={nodesContainerRef} id="node-area" />

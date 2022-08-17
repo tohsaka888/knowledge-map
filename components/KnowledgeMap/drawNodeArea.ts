@@ -136,7 +136,7 @@ type Props = {
   container: SVGGElement,
   mainVertice: Graph.Vertice,
   insideVertices: Graph.Vertice[],
-  outSideVertices: Graph.Vertice[],
+  outsideVertices: Graph.Vertice[],
   x?: number,
   y?: number,
   config: Graph.ConfigProps,
@@ -148,7 +148,7 @@ export const drawNodeArea = (
     container,
     mainVertice,
     insideVertices,
-    outSideVertices,
+    outsideVertices,
     x,
     y,
     config,
@@ -171,9 +171,9 @@ export const drawNodeArea = (
   })
   const insideMaxAngle = 180 / insideTypes.length
 
-  const outsideTypes = Array.from(new Set(outSideVertices.map(v => v.labelName)))
+  const outsideTypes = Array.from(new Set(outsideVertices.map(v => v.labelName)))
   const outsideTypeVertices = outsideTypes.map((type) => {
-    return outSideVertices.filter(v => v.labelName === type)
+    return outsideVertices.filter(v => v.labelName === type)
   })
   const outsideMaxAngle = 180 / outsideTypes.length
   console.log(insideTypeVertices)

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 14:56:57
+ * @LastEditTime: 2022-08-17 08:21:45
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
@@ -63,7 +63,7 @@ const Home: NextPage = () => {
   const [visible, setVisible] = useState<boolean>(false)
   const [graphData, setGraphData] = useState<{ nodes: Graph.Node[]; edges: Graph.Edge[]; }>({ nodes: [], edges: [] })
   const [insideGraph, setInsideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
-  const [outSideGraph, setOutSideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
+  const [outsideGraph, setOutsideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
 
   const getData = useCallback(async () => {
     const inRes = await fetch(`${baseUrl}/api/getNextVerticesWithEdge?id=${main.id}&direction=in`)
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
 
     const outRes = await fetch(`${baseUrl}/api/getNextVerticesWithEdge?id=${main.id}&direction=out`)
     const outData: Api.KnowledgeResponse = await outRes.json()
-    setOutSideGraph(outData.data)
+    setOutsideGraph(outData.data)
   }, [])
 
   useEffect(() => {
@@ -102,9 +102,9 @@ const Home: NextPage = () => {
                   <Canvas
                     insideVertices={insideGraph.vertices}
                     mainVertice={main}
-                    outSideVertices={outSideGraph.vertices}
+                    outsideVertices={outsideGraph.vertices}
                     nodes={graphData.nodes}
-                    edges={[]}
+                    edges={[...insideGraph.edges, ...outsideGraph.edges]}
                     vertices={[]}
                     config={config}
                   />
