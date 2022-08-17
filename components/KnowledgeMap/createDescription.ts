@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 08:31:14
+ * @LastEditTime: 2022-08-17 15:56:29
  * @Description: 请填写简介
  */
 
@@ -13,6 +13,7 @@ type Props = {
   config: Graph.ConfigProps;
   edge: Graph.Line;
   edgeId: string;
+  fId?: string;
 }
 
 /**
@@ -24,10 +25,11 @@ type Props = {
  * @param {any} edgeId}:Props
  * @returns {any}
  */
-export const createDescription = ({ edge, edgeArea, config, edgeId }: Props) => {
+export const createDescription = ({ edge, edgeArea, config, edgeId, fId }: Props) => {
   if (config.showDisctription) {
     edgeArea
       .append('text')
+      .classed(fId || '', true)
       .attr('id', edgeId + 'description')
       .append('textPath')
       .style('opacity', 0)
@@ -46,6 +48,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId }: Props) => 
   }
   edgeArea
     .append('text')
+    .classed(fId || '', true)
     .attr('id', edgeId + 'icon')
     .append('textPath')
     .attr('text-anchor', 'middle')
