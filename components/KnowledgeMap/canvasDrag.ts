@@ -106,10 +106,7 @@ const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, con
  */
 export const canvasDrag = (
   canvas: SVGSVGElement,
-  nodes: Graph.Node[],
-  edges: Graph.Edge[],
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
-  config: Graph.ConfigProps
 ) => {
   d3.select(canvas)
     .on('mouseover', () => {

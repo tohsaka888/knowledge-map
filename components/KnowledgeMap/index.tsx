@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 08:28:13
+ * @LastEditTime: 2022-08-17 16:20:25
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -30,7 +30,7 @@ function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVert
   const { setVisible } = useContext(VisibleContext)!
 
   useEffect(() => {
-    // canvasDrag(canvasRef.current, nodes, edges, setVisible, config)
+    canvasDrag(canvasRef.current, setVisible)
     normalDrag(canvasRef.current)
     if (config.mode === 3) {
       // createForceGraph({ nodes, edges, config })
