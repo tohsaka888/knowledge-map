@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 15:05:53
+ * @LastEditTime: 2022-08-17 17:12:30
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -11,6 +11,7 @@ import { baseUrl } from '../../config/baseUrl'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { modifyEdge } from './modifyEdge'
+import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
 import { calcNodePosition } from './utils/calcNodePosition'
 import { calcSize } from './utils/calcSize'
@@ -61,6 +62,7 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
       position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
       current.x = position.x
       current.y = position.y
+      moveNodeToCenter({ node: current })
       window.setTimeout(() => {
         // 创建入边出边types数组
         const insideTypes = Array.from(new Set(inData.vertices.map(v => v.labelName)))
@@ -105,6 +107,7 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
       position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
       current.x = position.x
       current.y = position.y
+      moveNodeToCenter({ node: current })
       d3.selectAll(`.${verticePrefix + current.id}`)
         // .transition()
         // .duration(1000)
