@@ -2,16 +2,16 @@
  * @Author: tohsaka888
  * @Date: 2022-08-17 10:22:11
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 09:51:24
+ * @LastEditTime: 2022-08-18 14:08:18
  * @Description: 请填写简介
  */
 
 import { Graph } from "../.."
 import * as d3 from 'd3'
 import { edgePrefix, verticePrefix } from "./prefix";
+import { globalEdges } from "./global";
 
 type Props = {
-  edges: Graph.Line[];
   x: number;
   y: number;
   node: Graph.Vertice;
@@ -19,24 +19,30 @@ type Props = {
   timer?: number
 }
 
-export const modifyEdge = ({ edges, x, y, node, config, timer = 1000 }: Props) => {
+export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
   // 筛选出和当前节点有关的边
-  const fromEdges = edges.filter(edge => edge.fromVertexId === node.id)
-  const toEdges = edges.filter(edge => edge.toVertexId === node.id)
+  const fromEdges = globalEdges.filter(edge => edge.fromVertexId === node.id)
+  const toEdges = globalEdges.filter(edge => edge.toVertexId === node.id)
   // 更改入边相关的位置
   fromEdges.forEach(edge => {
-    const toNode = d3.select(`#${verticePrefix + edge.toVertexId}`)
     const curEdge = d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}`)
-    if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
+    console.log(edge)
+    if (edge.toX !== undefined && edge.toY !== undefined && curEdge.nodes().length !== 0) {
+      // 修改memo值
+      edge.fromX = x
+      edge.fromY = y
+      const memoEdge = globalEdges.find(gE => gE.id == edge.id)!
+      memoEdge.fromX = x
+      memoEdge.fromY = y
       if (config.isStraight) {
         curEdge
           .transition()
           .duration(timer)
-          .attr('d', `M ${x} ${y} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
+          .attr('d', `M ${x} ${y} L ${edge.toX} ${edge.toY}`)
       } else {
         let perX = 0
-        if (toNode.nodes().length !== 0) {
-          perX = (+toNode.attr('cx') - +x) / config.besselRate
+        if (edge.toX) {
+          perX = (edge.toX - +x) / config.besselRate
         }
         curEdge
           .transition()
@@ -44,33 +50,38 @@ export const modifyEdge = ({ edges, x, y, node, config, timer = 1000 }: Props) =
           .attr('d', `
             M ${x} ${y},
             C ${+x + perX} ${y},
-            ${+toNode.attr('cx') - perX} ${toNode.attr('cy')},
-            ${toNode.attr('cx')} ${toNode.attr('cy')}
+            ${edge.toX! - perX} ${edge.toY},
+            ${edge.toX} ${edge.toY}
         `)
       }
     }
   })
   // 更改出边相关的位置
   toEdges.forEach(edge => {
-    const fromNode = d3.select(`#${verticePrefix + edge.fromVertexId}`)
     const curEdge = d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}`)
-    if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
+    if (edge.fromX && edge.fromY && curEdge.nodes().length !== 0) {
+      // 修改memo值
+      edge.toX = x
+      edge.toY = y
+      const memoEdge = globalEdges.find(gE => gE.id === edge.id)!
+      memoEdge.toX = x
+      memoEdge.toY = y
       if (config.isStraight) {
         curEdge
           .transition()
           .duration(timer)
-          .attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${x} ${y}`)
+          .attr('d', `M ${edge.fromX} ${edge.fromY} L ${x} ${y}`)
       } else {
         let perX = 0
-        if (fromNode.nodes().length !== 0) {
-          perX = (+fromNode.attr('cx') - +x) / config.besselRate
+        if (edge.fromX) {
+          perX = (edge.fromX - +x) / config.besselRate
         }
         curEdge
           .transition()
           .duration(timer)
           .attr('d', `
-            M ${fromNode.attr('cx')} ${fromNode.attr('cy')},
-            C ${+fromNode.attr('cx') - perX} ${fromNode.attr('cy')},
+            M ${edge.fromX} ${edge.fromY},
+            C ${edge.fromX! - perX} ${edge.fromY},
             ${+x + perX} ${y},
             ${x} ${y}
         `)
