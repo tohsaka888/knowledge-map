@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-17 10:22:11
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 15:04:54
+ * @LastEditTime: 2022-08-18 09:51:24
  * @Description: 请填写简介
  */
 
@@ -16,9 +16,10 @@ type Props = {
   y: number;
   node: Graph.Vertice;
   config: Graph.ConfigProps;
+  timer?: number
 }
 
-export const modifyEdge = ({ edges, x, y, node, config }: Props) => {
+export const modifyEdge = ({ edges, x, y, node, config, timer = 1000 }: Props) => {
   // 筛选出和当前节点有关的边
   const fromEdges = edges.filter(edge => edge.fromVertexId === node.id)
   const toEdges = edges.filter(edge => edge.toVertexId === node.id)
@@ -30,7 +31,7 @@ export const modifyEdge = ({ edges, x, y, node, config }: Props) => {
       if (config.isStraight) {
         curEdge
           .transition()
-          .duration(1000)
+          .duration(timer)
           .attr('d', `M ${x} ${y} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
       } else {
         let perX = 0
@@ -39,7 +40,7 @@ export const modifyEdge = ({ edges, x, y, node, config }: Props) => {
         }
         curEdge
           .transition()
-          .duration(1000)
+          .duration(timer)
           .attr('d', `
             M ${x} ${y},
             C ${+x + perX} ${y},
@@ -57,7 +58,7 @@ export const modifyEdge = ({ edges, x, y, node, config }: Props) => {
       if (config.isStraight) {
         curEdge
           .transition()
-          .duration(1000)
+          .duration(timer)
           .attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${x} ${y}`)
       } else {
         let perX = 0
@@ -66,7 +67,7 @@ export const modifyEdge = ({ edges, x, y, node, config }: Props) => {
         }
         curEdge
           .transition()
-          .duration(1000)
+          .duration(timer)
           .attr('d', `
             M ${fromNode.attr('cx')} ${fromNode.attr('cy')},
             C ${+fromNode.attr('cx') - perX} ${fromNode.attr('cy')},
