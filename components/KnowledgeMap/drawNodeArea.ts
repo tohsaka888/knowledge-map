@@ -98,7 +98,7 @@ export const drawNodeArea = (
   //         .attr('transform-origin', '0 0')
   //     })
   // )
-  createNode({ container: mainNodeContainer, config, vertice: mainVertice })
+  createNode({ container: mainNodeContainer, config, vertice: mainVertice, edges })
 
   // 创建入边节点
   drawSideNodes(

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 11:06:56
+ * @LastEditTime: 2022-08-18 11:14:28
  * @Description: 请填写简介
  */
 
@@ -17,17 +17,31 @@ type Props = {
   container: d3.Selection<any, any, any, any>;
   config: Graph.ConfigProps;
   vertice: Graph.Vertice;
+  edges: Graph.Line[]
 }
 
 export const createNode = (
   {
     container,
     config,
-    vertice
+    vertice,
+    edges
   }: Props
 ) => {
   const { nodeRadius } = config
   vertice.p = []
+  container.call(
+    d3.drag<any, any>()
+      .on('start', function (event) {
+        dragStart({ current: this, event, node: vertice, config, edges })
+      })
+      .on('drag', function (event) {
+        dragging({ current: this, event, node: vertice, config, edges })
+      })
+      .on('end', function (event) {
+        dragEnd({ current: this, event, node: vertice, config, edges })
+      })
+  )
   container
     .append('circle')
     .attr('r', nodeRadius)
