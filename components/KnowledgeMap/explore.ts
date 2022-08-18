@@ -5,6 +5,7 @@
  * @LastEditTime: 2022-08-18 09:00:11
  * @Description: 请填写简介
  */
+import { message } from 'antd'
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
@@ -160,5 +161,7 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
       // 更改线
       modifyEdge({ edges, x: position.x, y: position.y, node: current, config })
     }
+  } else {
+    message.error('服务端错误,请刷新后重试')
   }
 }
