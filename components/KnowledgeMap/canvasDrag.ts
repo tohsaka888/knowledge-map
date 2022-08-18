@@ -1,6 +1,9 @@
 import * as d3 from 'd3'
 import React from 'react'
 import { Graph } from '../..'
+import { globalNodes } from './global'
+import { modifyEdge } from './modifyEdge'
+import { verticePrefix } from './prefix'
 
 export let size = 1
 export let translate = { x: 0, y: 0 }
@@ -24,72 +27,34 @@ export const resetSize = () => {
  * @param {any} config:Graph.ConfigProps
  * @returns {any}
  */
-const draggingEvent = (nodes: Graph.Node[], edges: Graph.Edge[], event: any, config: Graph.ConfigProps) => {
+
+type DraggingProps = {
+  nodes: Graph.Vertice[];
+  event: any;
+  config: Graph.ConfigProps
+}
+
+const draggingEvent = ({ nodes, event, config }: DraggingProps) => {
+  console.log(nodes)
   nodes.forEach((node) => {
-    const item = d3.select(`#${node.id}`)
+    const item = d3.select(`#${verticePrefix + node.id}`)
     node.x += event.dx
     node.y += event.dy
+
     item
       .attr('cx', node.x as number)
       .attr('cy', node.y as number)
 
-    const itemText = d3.select(`#${node.id}text`)
+    const itemText = d3.select(`#${verticePrefix + node.id}text`)
     itemText
       .attr('x', node.x as number)
       .attr('y', node.y as number)
 
-    const itemName = d3.select(`#${node.id}name`)
+    const itemName = d3.select(`#${verticePrefix + node.id}name`)
     itemName
       .attr('x', node.x as number)
       .attr('y', node.y as number + config.nodeRadius + 10)
-
-    // 筛选出和当前节点有关的边
-    const fromEdges = edges.filter(edge => edge.fromId === node.id)
-    const toEdges = edges.filter(edge => edge.toId === node.id)
-    // 更改入边相关的位置
-    fromEdges.forEach(edge => {
-      const toNode = d3.select(`#${edge.toId}`)
-      const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
-      if (toNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
-        if (config.isStraight) {
-          curEdge
-            .attr('d', `M ${node.x as number + event.dx} ${node.y as number + event.dy} L ${toNode.attr('cx')} ${toNode.attr('cy')}`)
-        } else {
-          let perX = 0
-          if (toNode.nodes().length !== 0) {
-            perX = (+toNode.attr('cx') - (node.x || 0) + event.dx) / config.besselRate
-          }
-          curEdge.attr('d', `
-             M ${node.x as number + event.dx} ${node.y as number + event.dy},
-             C ${node.x as number + event.dx + perX} ${node.y as number + event.dy},
-             ${+toNode.attr('cx') - perX} ${toNode.attr('cy')},
-             ${toNode.attr('cx')} ${toNode.attr('cy')}
-         `)
-        }
-      }
-    })
-    // 更改出边相关的位置
-    toEdges.forEach(edge => {
-      const fromNode = d3.select(`#${edge.fromId}`)
-      const curEdge = d3.select(`#${edge.fromId}${edge.toId}`)
-      if (fromNode.nodes().length !== 0 && curEdge.nodes().length !== 0) {
-        if (config.isStraight) {
-
-          curEdge.attr('d', `M ${fromNode.attr('cx')} ${fromNode.attr('cy')} L ${node.x as number + event.dx} ${node.y as number + event.dy}`)
-        } else {
-          let perX = 0
-          if (fromNode.nodes().length !== 0) {
-            perX = (+fromNode.attr('x') - (node.x as number) + event.dx) / config.besselRate
-          }
-          curEdge.attr('d', `
-           M ${fromNode.attr('x')} ${fromNode.attr('y')},
-           C ${+fromNode.attr('x') - perX} ${fromNode.attr('y')},
-           ${node.x as number + event.dx + perX} ${node.y as number + event.dy},
-           ${node.x as number + event.dx} ${node.y as number + event.dy}
-       `)
-        }
-      }
-    })
+    modifyEdge({ x: node.x!, y: node.y!, node, config, timer: 0 })
   })
 }
 
@@ -178,17 +143,21 @@ export const normalDrag = (
  * @param {any} config:Graph.ConfigProps
  * @returns {any}
  */
-export const multiDrag = (
-  canvas: SVGSVGElement,
-  nodes: Graph.Node[],
-  edges: Graph.Edge[],
+
+type MultiDragProps = {
   config: Graph.ConfigProps
+}
+
+export const multiDrag = (
+  {
+    config
+  }: MultiDragProps
 ) => {
   let startX = 0, startY = 0
   let endX = 0, endY = 0
   let minX = 0, minY = 0, maxX = 0, maxY = 0
-  const mainCanvas = d3.select(canvas)
-  mainCanvas.call(d3.drag<SVGSVGElement, unknown>()
+  const mainCanvas = d3.select('#svg')
+  mainCanvas.call(d3.drag<any, unknown>()
     .on('start', function (e) {
       d3.select(`#selector-result`).remove()
       startX = e.x
@@ -212,7 +181,7 @@ export const multiDrag = (
       const x = translate.x;
       const y = translate.y;
       // 移除偏移影响
-      const areaNodes = nodes.filter((node) => {
+      const areaNodes = globalNodes.filter((node) => {
         return node.x && node.y
           && node.y as number - config.nodeRadius < Math.max(startY, endY) / size - y
           && node.y as number + config.nodeRadius > Math.min(startY, endY) / size - y
@@ -267,7 +236,7 @@ export const multiDrag = (
                     `translate(${x + event.dx}, ${y + event.dy})`
                   )
                   .style('cursor', 'move')
-                draggingEvent(areaNodes, edges, event, config)
+                draggingEvent({ nodes: areaNodes, config, event })
               })
             })
             .on('end', function (event: any) {
@@ -285,7 +254,7 @@ export const multiDrag = (
                     `translate(${x + event.dx}, ${y + event.dy})`
                   )
                   .style('cursor', 'move')
-                draggingEvent(areaNodes, edges, event, config)
+                draggingEvent({ nodes: areaNodes, config, event })
               })
               d3.select(this).style('cursor', 'default')
             })
