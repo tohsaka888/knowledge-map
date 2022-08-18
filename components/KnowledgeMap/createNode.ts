@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 10:46:22
+ * @LastEditTime: 2022-08-18 11:06:56
  * @Description: 请填写简介
  */
 
@@ -11,6 +11,7 @@ import { Graph } from '../..';
 import { explore } from './explore';
 import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
+import { canExplore } from './utils/test/canExplore';
 import { transferLabelName } from './utils/transferLabelName';
 type Props = {
   container: d3.Selection<any, any, any, any>;
@@ -100,7 +101,7 @@ export const createSideNode = (
     .attr('r', nodeRadius)
     .attr('cx', mainVertice.x!)
     .attr('cy', mainVertice.y!)
-    .attr('fill', '#1890ff')
+    .attr('fill', canExplore({ node: vertice }) ? 'tomato' : '#1890ff')
     .style('cursor', 'pointer')
     .attr('id', verticePrefix + vertice.id || '')
     .style('opacity', 0)
