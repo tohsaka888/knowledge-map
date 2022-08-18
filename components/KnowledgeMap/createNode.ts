@@ -2,13 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 11:44:18
+ * @LastEditTime: 2022-08-18 13:34:28
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { Graph } from '../..';
 import { explore } from './explore';
+import { globalNodes } from './global';
 import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
 import { canExplore } from './utils/test/canExplore';
@@ -30,6 +31,7 @@ export const createNode = (
 ) => {
   const { nodeRadius } = config
   vertice.p = []
+  globalNodes.push(vertice)
   container.call(
     d3.drag<any, any>()
       .on('start', function (event) {
@@ -92,6 +94,7 @@ export const createSideNode = (
 ) => {
   const { nodeRadius } = config
   let isExplore = false
+  globalNodes.push(vertice)
   // 探索
   container.call(
     d3.drag<any, any>()
