@@ -2,13 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 17:14:03
+ * @LastEditTime: 2022-08-18 10:46:22
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { Graph } from '../..';
 import { explore } from './explore';
+import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
 import { transferLabelName } from './utils/transferLabelName';
 type Props = {
@@ -81,7 +82,18 @@ export const createSideNode = (
     e.stopPropagation()
     isExplore = !isExplore
     explore({ current: vertice, isExplore, config, mainPoint: mainVertice, edges });
-  })
+  }).call(
+    d3.drag<any, any>()
+      .on('start', function (event) {
+        dragStart({ current: this, event, node: vertice, config, edges })
+      })
+      .on('drag', function (event) {
+        dragging({ current: this, event, node: vertice, config, edges })
+      })
+      .on('end', function (event) {
+        dragEnd({ current: this, event, node: vertice, config, edges })
+      })
+  )
 
   container
     .append('circle')
