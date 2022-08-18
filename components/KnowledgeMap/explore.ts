@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 17:12:30
+ * @LastEditTime: 2022-08-18 08:37:37
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -10,6 +10,7 @@ import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
+import { fixedNodePosition } from './fixedNodePosition'
 import { modifyEdge } from './modifyEdge'
 import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
@@ -49,6 +50,8 @@ type Props = {
 export const explore = async ({ mainPoint, isExplore, config, current, edges }: Props) => {
   const { isInside, angle } = current
   let position = { x: mainPoint.x!, y: mainPoint.y! }
+  const originX = current.x!
+  const originY = current.y!
   const atanAngle = isInside ? Math.atan2(current.y! - mainPoint.y!, current.x! - mainPoint.x!) + Math.PI : Math.atan2(current.y! - mainPoint.y!, current.x! - mainPoint.x!)
   if (current.distance && isInside !== undefined && angle) {
     if (isExplore) {
@@ -60,9 +63,11 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
       current.s = [...insideIds, ...outsideIds]
       current.size = size
       position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
+
       current.x = position.x
       current.y = position.y
-      moveNodeToCenter({ node: current })
+      // moveNodeToCenter({ node: current })
+      fixedNodePosition({ node: current, x: originX, y: originY })
       window.setTimeout(() => {
         // 创建入边出边types数组
         const insideTypes = Array.from(new Set(inData.vertices.map(v => v.labelName)))
@@ -107,7 +112,8 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
       position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
       current.x = position.x
       current.y = position.y
-      moveNodeToCenter({ node: current })
+      // moveNodeToCenter({ node: current })
+      fixedNodePosition({ node: current, x: originX, y: originY })
       d3.selectAll(`.${verticePrefix + current.id}`)
         // .transition()
         // .duration(1000)
