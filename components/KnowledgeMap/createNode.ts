@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 11:14:28
+ * @LastEditTime: 2022-08-18 11:44:18
  * @Description: 请填写简介
  */
 
@@ -93,11 +93,7 @@ export const createSideNode = (
   const { nodeRadius } = config
   let isExplore = false
   // 探索
-  container.on('click', (e) => {
-    e.stopPropagation()
-    isExplore = !isExplore
-    explore({ current: vertice, isExplore, config, mainPoint: mainVertice, edges });
-  }).call(
+  container.call(
     d3.drag<any, any>()
       .on('start', function (event) {
         dragStart({ current: this, event, node: vertice, config, edges })
@@ -108,7 +104,11 @@ export const createSideNode = (
       .on('end', function (event) {
         dragEnd({ current: this, event, node: vertice, config, edges })
       })
-  )
+  ).on('click', (e) => {
+    e.stopPropagation()
+    isExplore = !isExplore
+    explore({ current: vertice, isExplore, config, mainPoint: mainVertice, edges });
+  })
 
   container
     .append('circle')

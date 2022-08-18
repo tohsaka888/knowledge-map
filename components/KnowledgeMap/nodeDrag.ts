@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:22:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 10:45:24
+ * @LastEditTime: 2022-08-18 11:45:34
  * @Description: 请填写简介
  */
 
@@ -44,7 +44,5 @@ export const dragging = ({ current, event, node, config, edges }: Props) => {
 }
 
 export const dragEnd = ({ current, event, node, config }: Props) => {
-  node.x = event.x
-  node.y = event.y
   d3.select(current).selectAll('*').style('cursor', 'pointer');
 }
