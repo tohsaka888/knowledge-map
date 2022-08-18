@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-18 08:32:54
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 08:45:10
+ * @LastEditTime: 2022-08-18 10:54:02
  * @Description: 请填写简介
  */
 
@@ -19,7 +19,6 @@ type Props = {
 export const fixedNodePosition = ({ node, x, y }: Props) => {
   const offsetX = x - node.x! + translate.x;
   const offsetY = y - node.y! + translate.y
-  console.log(offsetX, offsetY)
   d3.select('#drag')
     .transition()
     .duration(1000)
