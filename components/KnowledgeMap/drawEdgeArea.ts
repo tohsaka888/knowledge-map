@@ -2,13 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 15:58:42
+ * @LastEditTime: 2022-08-18 13:49:01
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { createDescription } from './createDescription'
 import { createMultiLine } from './createMultiLine'
+import { globalEdges } from './global'
 import { edgePrefix, verticePrefix } from './prefix'
 
 /**
@@ -30,11 +31,17 @@ const drawStraightLine = (
   let downCount = 0
   let parentClass = fId
   edges.forEach((edge) => {
-
     const fromNode = nodes.find(node => node.id === edge.fromVertexId)
     const toNode = nodes.find(node => node.id === edge.toVertexId)
     if (fromNode && toNode) {
       // 判断之前两个节点之间是否已经有连线
+      // memo 记录值
+      edge.fromX = fromNode?.x
+      edge.fromY = fromNode?.y
+      edge.toX = toNode?.x
+      edge.toY = toNode?.y
+      globalEdges.push(edge)
+
       const isExist = document.getElementById(edgePrefix + fromNode.id + toNode.id) || document.getElementById(edgePrefix + toNode.id + fromNode.id)
       const parent = [fId!, ...fromNode.p!, ...toNode.p!]
       parentClass = parent.map(p => verticePrefix + p).join(' ')
@@ -86,6 +93,13 @@ const drawBesselLine = (
   edges.forEach((edge, index) => {
     const fromNode = nodes.find(node => node.id === edge.fromVertexId)
     const toNode = nodes.find(node => node.id === edge.toVertexId)
+    // memo 记录值
+    edge.fromX = fromNode?.x
+    edge.fromY = fromNode?.y
+    edge.toX = toNode?.x
+    edge.toY = toNode?.y
+    globalEdges.push(edge)
+
     let perX = 0
     if (fromNode && toNode && fromNode.x && toNode.x) {
       const parent = [fId!, ...fromNode.p!, ...toNode.p!]
