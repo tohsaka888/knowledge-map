@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-17 10:22:11
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 14:08:18
+ * @LastEditTime: 2022-08-18 15:02:48
  * @Description: 请填写简介
  */
 
@@ -26,7 +26,6 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
   // 更改入边相关的位置
   fromEdges.forEach(edge => {
     const curEdge = d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}`)
-    console.log(edge)
     if (edge.toX !== undefined && edge.toY !== undefined && curEdge.nodes().length !== 0) {
       // 修改memo值
       edge.fromX = x
