@@ -1,0 +1,781 @@
+{
+  "vertices": [
+    {
+      "id": "1130672",
+      "code": "MP1000318",
+      "name": "被处罚对象证件号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象证件号码",
+        "dkg_sys_code": "MP1000318",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000318",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1130672,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象证件号码"
+      }
+    },
+    {
+      "id": "42057744",
+      "code": "MP1000313",
+      "name": "行政处罚是否公开",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚是否公开",
+        "dkg_sys_code": "MP1000313",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000313",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 42057744,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚是否公开"
+      }
+    },
+    {
+      "id": "1138736",
+      "code": "MP1000302",
+      "name": "所属地区行政区划名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "所属地区行政区划名称",
+        "dkg_sys_code": "MP1000302",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000302",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1138736,
+        "label": "model_property",
+        "dkg_sys_name": "所属地区行政区划名称"
+      }
+    },
+    {
+      "id": "1106120",
+      "code": "MP1000303",
+      "name": "行政处罚执法部门名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚执法部门名称",
+        "dkg_sys_code": "MP1000303",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000303",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1106120,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚执法部门名称"
+      }
+    },
+    {
+      "id": "1183744",
+      "code": "MP1000305",
+      "name": "行政处罚类型",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚类型",
+        "dkg_sys_code": "MP1000305",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000305",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1183744,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚类型"
+      }
+    },
+    {
+      "id": "1159216",
+      "code": "MP1000315",
+      "name": "被处罚对象类别(企业、社会组织，自然人，场所等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象类别(企业、社会组织，自然人，场所等)",
+        "dkg_sys_code": "MP1000315",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000315",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1159216,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象类别(企业、社会组织，自然人，场所等)"
+      }
+    },
+    {
+      "id": "1065192",
+      "code": "MP1000304",
+      "name": "行政处罚决定书文号",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚决定书文号",
+        "dkg_sys_code": "MP1000304",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000304",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1065192,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚决定书文号"
+      }
+    },
+    {
+      "id": "1187840",
+      "code": "MP1000306",
+      "name": "行政处罚名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚名称",
+        "dkg_sys_code": "MP1000306",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000306",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1187840,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚名称"
+      }
+    },
+    {
+      "id": "1228912",
+      "code": "MP1000309",
+      "name": "行政处罚内容",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚内容",
+        "dkg_sys_code": "MP1000309",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000309",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1228912,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚内容"
+      }
+    },
+    {
+      "id": "1183792",
+      "code": "MP1000325",
+      "name": "作出行政处罚日期",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "作出行政处罚日期",
+        "dkg_sys_code": "MP1000325",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000325",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1183792,
+        "label": "model_property",
+        "dkg_sys_name": "作出行政处罚日期"
+      }
+    },
+    {
+      "id": "1118408",
+      "code": "MP1000320",
+      "name": "被处罚对象罚款金额",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象罚款金额",
+        "dkg_sys_code": "MP1000320",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000320",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1118408,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象罚款金额"
+      }
+    },
+    {
+      "id": "42049552",
+      "code": "MP1000308",
+      "name": "行政处罚依据",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚依据",
+        "dkg_sys_code": "MP1000308",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000308",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 42049552,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚依据"
+      }
+    },
+    {
+      "id": "2339064",
+      "code": "MP1000324",
+      "name": "被处罚单位法定代表人身份证号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚单位法定代表人身份证号码",
+        "dkg_sys_code": "MP1000324",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000324",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 2339064,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚单位法定代表人身份证号码"
+      }
+    },
+    {
+      "id": "2330872",
+      "code": "MP1000317",
+      "name": "被处罚对象证件类型(组织机构代码证等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象证件类型(组织机构代码证等)",
+        "dkg_sys_code": "MP1000317",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000317",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 2330872,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象证件类型(组织机构代码证等)"
+      }
+    },
+    {
+      "id": "1142960",
+      "code": "MP1000322",
+      "name": "被处罚单位统一社会信用代码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚单位统一社会信用代码",
+        "dkg_sys_code": "MP1000322",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000322",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1142960,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚单位统一社会信用代码"
+      }
+    },
+    {
+      "id": "1077480",
+      "code": "MP1000316",
+      "name": "被处罚对象名称(如某某企业)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象名称(如某某企业)",
+        "dkg_sys_code": "MP1000316",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000316",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1077480,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象名称(如某某企业)"
+      }
+    },
+    {
+      "id": "1126576",
+      "code": "MP1000312",
+      "name": "行政处罚有效截止日期",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚有效截止日期",
+        "dkg_sys_code": "MP1000312",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000312",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1126576,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚有效截止日期"
+      }
+    },
+    {
+      "id": "1146928",
+      "code": "MP1000307",
+      "name": "行政处罚事由",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚事由",
+        "dkg_sys_code": "MP1000307",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000307",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1146928,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚事由"
+      }
+    },
+    {
+      "id": "1183848",
+      "code": "MP1000314",
+      "name": "行政处罚执行情况",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚执行情况",
+        "dkg_sys_code": "MP1000314",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000314",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1183848,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚执行情况"
+      }
+    },
+    {
+      "id": "1167408",
+      "code": "MP1000321",
+      "name": "被处罚对象没收金额",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象没收金额",
+        "dkg_sys_code": "MP1000321",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000321",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1167408,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象没收金额"
+      }
+    },
+    {
+      "id": "2322680",
+      "code": "MP1000301",
+      "name": "所属地区行政区划代码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "所属地区行政区划代码",
+        "dkg_sys_code": "MP1000301",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000301",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 2322680,
+        "label": "model_property",
+        "dkg_sys_name": "所属地区行政区划代码"
+      }
+    },
+    {
+      "id": "1237104",
+      "code": "MP1000323",
+      "name": "被处罚单位法定代表人姓名",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚单位法定代表人姓名",
+        "dkg_sys_code": "MP1000323",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000323",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1237104,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚单位法定代表人姓名"
+      }
+    },
+    {
+      "id": "1233008",
+      "code": "MP1000319",
+      "name": "被处罚对象违法行为类型",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被处罚对象违法行为类型",
+        "dkg_sys_code": "MP1000319",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:37",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000319",
+        "dkg_sys_created_time": "2022-04-15 18:32:37",
+        "id": 1233008,
+        "label": "model_property",
+        "dkg_sys_name": "被处罚对象违法行为类型"
+      }
+    },
+    {
+      "id": "1155120",
+      "code": "MP1000310",
+      "name": "行政处罚结果",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚结果",
+        "dkg_sys_code": "MP1000310",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000310",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1155120,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚结果"
+      }
+    },
+    {
+      "id": "1069288",
+      "code": "MP1000311",
+      "name": "行政处罚是否存在有效期",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "行政处罚是否存在有效期",
+        "dkg_sys_code": "MP1000311",
+        "model_name": "行政处罚类信息汇总",
+        "dkg_sys_updated_time": "2022-04-15 18:32:36",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000311",
+        "dkg_sys_created_time": "2022-04-15 18:32:36",
+        "id": 1069288,
+        "label": "model_property",
+        "dkg_sys_name": "行政处罚是否存在有效期"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1x9mu-2gj4-pq1h-mtwo",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1065192"
+    },
+    {
+      "id": "1xcee-2gj4-pq1h-mx2g",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1069288"
+    },
+    {
+      "id": "1xedi-2gj4-pq1h-n3e0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1077480"
+    },
+    {
+      "id": "1x98m-2gj4-pq1h-nphk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1106120"
+    },
+    {
+      "id": "1xfye-2gj4-pq1h-nyyw",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1118408"
+    },
+    {
+      "id": "1xcsm-2gj4-pq1h-o59s",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1126576"
+    },
+    {
+      "id": "1xf5y-2gj4-pq1h-o8fk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1130672"
+    },
+    {
+      "id": "1x8ue-2gj4-pq1h-oenk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1138736"
+    },
+    {
+      "id": "1xgqu-2gj4-pq1h-ohww",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1142960"
+    },
+    {
+      "id": "1xati-2gj4-pq1h-okz4",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1146928"
+    },
+    {
+      "id": "1xc06-2gj4-pq1h-orao",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1155120"
+    },
+    {
+      "id": "1xdza-2gj4-pq1h-ougg",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1159216"
+    },
+    {
+      "id": "1xgcm-2gj4-pq1h-p0s0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1167408"
+    },
+    {
+      "id": "1xa12-2gj4-pq1h-pdds",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1183744"
+    },
+    {
+      "id": "1xhxi-2gj4-pq1h-pdf4",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1183792"
+    },
+    {
+      "id": "1xdl2-2gj4-pq1h-pdgo",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1183848"
+    },
+    {
+      "id": "1xafa-2gj4-pq1h-pgjk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1187840"
+    },
+    {
+      "id": "1xbly-2gj4-pq1h-qc8g",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1228912"
+    },
+    {
+      "id": "1xfk6-2gj4-pq1h-qfe8",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1233008"
+    },
+    {
+      "id": "1xh52-2gj4-pq1h-qik0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1237104"
+    },
+    {
+      "id": "1x8g6-2gj4-pq1h-1ds6w",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "2322680"
+    },
+    {
+      "id": "1xerq-2gj4-pq1h-1dyig",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "2330872"
+    },
+    {
+      "id": "1xhja-2gj4-pq1h-1e4u0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "2339064"
+    },
+    {
+      "id": "1xb7q-2gj4-pq1h-p19n4",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "42049552"
+    },
+    {
+      "id": "1xd6u-2gj4-pq1h-p1fyo",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "42057744"
+    },
+    {
+      "id": "1xd6u-2gj4-pq1h-p1fyo",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "42057744"
+    },
+    {
+      "id": "1xhxi-2gj4-pq1h-pdf4",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1183792"
+    },
+    {
+      "id": "1xhja-2gj4-pq1h-1e4u0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "2339064"
+    },
+    {
+      "id": "1xerq-2gj4-pq1h-1dyig",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "2330872"
+    },
+    {
+      "id": "1xedi-2gj4-pq1h-n3e0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1077480"
+    },
+    {
+      "id": "1xdl2-2gj4-pq1h-pdgo",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1183848"
+    },
+    {
+      "id": "1x8g6-2gj4-pq1h-1ds6w",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "2322680"
+    },
+    {
+      "id": "1xh52-2gj4-pq1h-qik0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1237104"
+    },
+    {
+      "id": "1xfk6-2gj4-pq1h-qfe8",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1233008"
+    },
+    {
+      "id": "1xc06-2gj4-pq1h-orao",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1155120"
+    },
+    {
+      "id": "1xcee-2gj4-pq1h-mx2g",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1069288"
+    },
+    {
+      "id": "1xf5y-2gj4-pq1h-o8fk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1130672"
+    },
+    {
+      "id": "1x8ue-2gj4-pq1h-oenk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1138736"
+    },
+    {
+      "id": "1x98m-2gj4-pq1h-nphk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1106120"
+    },
+    {
+      "id": "1xa12-2gj4-pq1h-pdds",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1183744"
+    },
+    {
+      "id": "1xdza-2gj4-pq1h-ougg",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1159216"
+    },
+    {
+      "id": "1x9mu-2gj4-pq1h-mtwo",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1065192"
+    },
+    {
+      "id": "1xafa-2gj4-pq1h-pgjk",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1187840"
+    },
+    {
+      "id": "1xbly-2gj4-pq1h-qc8g",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1228912"
+    },
+    {
+      "id": "1xfye-2gj4-pq1h-nyyw",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1118408"
+    },
+    {
+      "id": "1xb7q-2gj4-pq1h-p19n4",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "42049552"
+    },
+    {
+      "id": "1xgqu-2gj4-pq1h-ohww",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1142960"
+    },
+    {
+      "id": "1xcsm-2gj4-pq1h-o59s",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1126576"
+    },
+    {
+      "id": "1xati-2gj4-pq1h-okz4",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1146928"
+    },
+    {
+      "id": "1xgcm-2gj4-pq1h-p0s0",
+      "name": "包含属性",
+      "fromVertexId": "114736",
+      "toVertexId": "1167408"
+    }
+  ]
+}

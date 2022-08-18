@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 14:06:53
+ * @LastEditTime: 2022-08-18 13:39:41
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -60,19 +60,25 @@ declare namespace Graph {
     name: string;
     labelName: string;
     hasNextVertices: boolean;
+    s?: string[]; // 当前节点包含的子节点的ids
     x?: number; // 仅前端使用
     y?: number; // 仅前端使用
+    p?: string[]; // 当前节点所有的父节点
+    size?: number;
+    angle?: number;
+    distance?: number;
+    isInside?: boolean;
     propertyMap: {
-      model_property_name: string;
-      dkg_sys_code: string;
-      model_name: string;
-      dkg_sys_updated_time: string;
-      dkg_sys_label_name: string;
-      model_property_id: string;
-      dkg_sys_created_time: string;
-      id: number;
-      label: string;
-      dkg_sys_name: string;
+      model_property_name?: string;
+      dkg_sys_code?: string;
+      model_name?: string;
+      dkg_sys_updated_time?: string;
+      dkg_sys_label_name?: string;
+      model_property_id?: string;
+      dkg_sys_created_time?: string;
+      id?: number | string;
+      label?: string;
+      dkg_sys_name?: string;
     };
   };
 
@@ -81,5 +87,9 @@ declare namespace Graph {
     name: string;
     fromVertexId: string;
     toVertexId: string;
+    fromX?: number;
+    fromY?: number;
+    toX?: number;
+    toY?: number;
   };
 }

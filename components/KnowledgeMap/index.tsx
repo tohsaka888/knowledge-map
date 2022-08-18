@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 16:23:41
+ * @LastEditTime: 2022-08-18 14:28:04
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -15,19 +15,29 @@ import CustomPopover from '../CustomPopover';
 import { VisibleContext } from '../context';
 import { createForceGraph } from './createForceGraph';
 
-function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Edge[]; config: Graph.ConfigProps }) {
+type Props = {
+  nodes: Graph.Node[];
+  edges: Graph.Line[];
+  vertices: Graph.Vertice[]
+  config: Graph.ConfigProps;
+  mainVertice: Graph.Vertice;
+  insideVertices: Graph.Vertice[];
+  outsideVertices: Graph.Vertice[];
+}
+
+function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVertices }: Props) {
   const canvasRef = useRef<SVGSVGElement>(null!)
   const { setVisible } = useContext(VisibleContext)!
 
   useEffect(() => {
-    canvasDrag(canvasRef.current, nodes, edges, setVisible, config)
+    canvasDrag(canvasRef.current, setVisible)
     normalDrag(canvasRef.current)
     if (config.mode === 3) {
-      createForceGraph({ nodes, edges, config })
+      // createForceGraph({ nodes, edges, config })
     }
     window.addEventListener('keydown', (event: KeyboardEvent) => {
       if (event.shiftKey) {
-        multiDrag(canvasRef.current, nodes, edges, config)
+        multiDrag({ config })
       }
     })
 
@@ -58,8 +68,8 @@ function Canvas({ nodes, edges, config }: { nodes: Graph.Node[]; edges: Graph.Ed
           <g transform={`translate(0, 0)`} id="drag">
             {/* <CustomPopover /> */}
             {config.mode !== 3 && <>
-              <EdgeArea nodes={nodes} edges={edges} config={config}>
-                <NodeArea nodes={nodes} edges={edges} config={config} />
+              <EdgeArea mainVertice={mainVertice} vertices={[mainVertice, ...insideVertices, ...outsideVertices]} edges={edges} config={config}>
+                <NodeArea mainVertice={mainVertice} insideVertices={insideVertices} outsideVertices={outsideVertices} edges={edges} config={config} />
               </EdgeArea>
             </>}
           </g>

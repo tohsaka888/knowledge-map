@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 11:55:25
+ * @LastEditTime: 2022-08-17 15:56:29
  * @Description: 请填写简介
  */
 
@@ -11,8 +11,9 @@ import { Graph } from "../..";
 type Props = {
   edgeArea: d3.Selection<any, any, any, any>;
   config: Graph.ConfigProps;
-  edge: Graph.Edge;
+  edge: Graph.Line;
   edgeId: string;
+  fId?: string;
 }
 
 /**
@@ -24,14 +25,15 @@ type Props = {
  * @param {any} edgeId}:Props
  * @returns {any}
  */
-export const createDescription = ({ edge, edgeArea, config, edgeId }: Props) => {
+export const createDescription = ({ edge, edgeArea, config, edgeId, fId }: Props) => {
   if (config.showDisctription) {
     edgeArea
       .append('text')
+      .classed(fId || '', true)
       .attr('id', edgeId + 'description')
       .append('textPath')
       .style('opacity', 0)
-      .attr('text-anchor', 'center')
+      .attr('text-anchor', 'middle')
       .attr('href', `#${edgeId}`)
       .classed('discription', true)
       .attr('fill', '#999999')
@@ -39,16 +41,17 @@ export const createDescription = ({ edge, edgeArea, config, edgeId }: Props) => 
       .attr('dominant-baseline', 'text-after-edge')
       .attr('startOffset', '50%')
       .attr('dy', 20)
-      .text(edge.discription)
+      .text(edge.name)
       .transition()
       .duration(1000)
       .style('opacity', 1)
   }
   edgeArea
     .append('text')
+    .classed(fId || '', true)
     .attr('id', edgeId + 'icon')
     .append('textPath')
-    .attr('text-anchor', 'center')
+    .attr('text-anchor', 'middle')
     .attr('href', `#${edgeId}`)
     .classed('discription-icon', true)
     .attr('fill', '#999999')

@@ -1,0 +1,16 @@
+{
+  "id": "1093864",
+  "code": "MP1000336",
+  "name": "当事人类别(企业、社会组织，自然人等)",
+  "labelName": "model_property",
+  "hasNextVertices": true,
+  "propertyMap": {
+    "dkg_sys_code": "MP1000336",
+    "model_property_name": "当事人类别(企业、社会组织，自然人等)",
+    "model_name": "行政裁决类信息汇总",
+    "dkg_sys_label_name": "model_property",
+    "model_property_id": "MP1000336",
+    "id": "1093864",
+    "dkg_sys_name": "当事人类别(企业、社会组织，自然人等)"
+  }
+}

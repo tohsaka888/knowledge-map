@@ -2,13 +2,15 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 11:52:27
+ * @LastEditTime: 2022-08-18 13:49:01
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { createDescription } from './createDescription'
 import { createMultiLine } from './createMultiLine'
+import { globalEdges } from './global'
+import { edgePrefix, verticePrefix } from './prefix'
 
 /**
  * 画直线
@@ -18,24 +20,35 @@ import { createMultiLine } from './createMultiLine'
  * @returns {any}
  */
 const drawStraightLine = (
-  nodes: Graph.Node[],
-  edges: Graph.Edge[],
-  mainPoint: Graph.Node,
+  nodes: Graph.Vertice[],
+  edges: Graph.Line[],
+  mainPoint: Graph.Vertice,
   config: Graph.ConfigProps,
-  edgeArea: d3.Selection<any, unknown, any, any>
+  edgeArea: d3.Selection<any, unknown, any, any>,
+  fId?: string
 ) => {
   let topCount = 0
   let downCount = 0
+  let parentClass = fId
   edges.forEach((edge) => {
-    const fromNode = nodes.find(node => node.id === edge.fromId)
-    const toNode = nodes.find(node => node.id === edge.toId)
+    const fromNode = nodes.find(node => node.id === edge.fromVertexId)
+    const toNode = nodes.find(node => node.id === edge.toVertexId)
     if (fromNode && toNode) {
       // 判断之前两个节点之间是否已经有连线
-      const isExist = document.getElementById(fromNode.id + toNode.id) || document.getElementById(toNode.id + fromNode.id)
+      // memo 记录值
+      edge.fromX = fromNode?.x
+      edge.fromY = fromNode?.y
+      edge.toX = toNode?.x
+      edge.toY = toNode?.y
+      globalEdges.push(edge)
+
+      const isExist = document.getElementById(edgePrefix + fromNode.id + toNode.id) || document.getElementById(edgePrefix + toNode.id + fromNode.id)
+      const parent = [fId!, ...fromNode.p!, ...toNode.p!]
+      parentClass = parent.map(p => verticePrefix + p).join(' ')
       // 判断当前连线在上方or下方
       const isTop = (fromNode.x as number) < (toNode.x as number)
       if (isExist) {
-        createMultiLine({ isTop, fromNode, toNode, topCount, downCount, edgeArea, config, edge })
+        // createMultiLine({ isTop, fromNode, toNode, topCount, downCount, edgeArea, config, edge })
       } else {
         const current = edgeArea
           .append('path')
@@ -46,13 +59,14 @@ const drawStraightLine = (
           )
           .attr('stroke-width', config.lineWidth)
           .attr('stroke', '#cecece')
-          .attr('id', edge.fromId + edge.toId)
+          .attr('id', edgePrefix + edge.fromVertexId + edge.toVertexId)
+          .classed(parentClass, true)
           .style('opacity', 0);
         current.transition()
           .duration(1000)
           .style('opacity', 1)
           .attr('d', `M ${fromNode.x} ${fromNode.y},L ${toNode.x} ${toNode.y}`);
-        createDescription({ edgeArea, config, edge, edgeId: edge.fromId + edge.toId })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass })
       }
     }
   })
@@ -66,25 +80,36 @@ const drawStraightLine = (
  * @returns {any}
  */
 const drawBesselLine = (
-  nodes: Graph.Node[],
-  edges: Graph.Edge[],
-  mainPoint: Graph.Node,
+  nodes: Graph.Vertice[],
+  edges: Graph.Line[],
+  mainPoint: Graph.Vertice,
   config: Graph.ConfigProps,
-  edgeArea: d3.Selection<any, unknown, any, any>
+  edgeArea: d3.Selection<any, unknown, any, any>,
+  fId?: string
 ) => {
   let topCount = 0;
   let downCount = 0;
+  let parentClass = fId
   edges.forEach((edge, index) => {
-    const fromNode = nodes.find(node => node.id === edge.fromId)
-    const toNode = nodes.find(node => node.id === edge.toId)
+    const fromNode = nodes.find(node => node.id === edge.fromVertexId)
+    const toNode = nodes.find(node => node.id === edge.toVertexId)
+    // memo 记录值
+    edge.fromX = fromNode?.x
+    edge.fromY = fromNode?.y
+    edge.toX = toNode?.x
+    edge.toY = toNode?.y
+    globalEdges.push(edge)
+
     let perX = 0
     if (fromNode && toNode && fromNode.x && toNode.x) {
+      const parent = [fId!, ...fromNode.p!, ...toNode.p!]
+      parentClass = parent.map(p => verticePrefix + p).join(' ')
       // 判断之前两个节点之间是否已经有连线
-      const isExist = document.getElementById(fromNode.id + toNode.id) || document.getElementById(toNode.id + fromNode.id)
+      const isExist = document.getElementById(edgePrefix + fromNode.id + toNode.id) || document.getElementById(edgePrefix + toNode.id + fromNode.id)
       // 判断当前连线在上方or下方
       const isTop = (fromNode.x as number) < (toNode.x as number)
       if (isExist) {
-        createMultiLine({ fromNode, toNode, isTop, edge, edgeArea, topCount, downCount, config })
+        // createMultiLine({ fromNode, toNode, isTop, edge, edgeArea, topCount, downCount, config })
       } else {
         perX = (toNode.x - fromNode.x) / config.besselRate
         edgeArea.append('path')
@@ -97,7 +122,8 @@ const drawBesselLine = (
           .attr('stroke-width', config.lineWidth)
           .attr('stroke', '#cecece')
           .attr('fill', 'transparent')
-          .attr('id', edge.fromId + edge.toId)
+          .classed(parentClass, true)
+          .attr('id', edgePrefix + edge.fromVertexId + edge.toVertexId)
           .style('opacity', 0)
           .transition()
           .duration(1000)
@@ -108,7 +134,7 @@ const drawBesselLine = (
       ${+toNode.x - perX} ${toNode.y}
       ${toNode.x} ${toNode.y}
       `)
-        createDescription({ edgeArea, config, edge, edgeId: edge.fromId + edge.toId })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass })
       }
     }
   })
@@ -121,10 +147,18 @@ const drawBesselLine = (
  * @param {any} mode:number|undefined
  * @returns {any}
  */
-export const drawEdgeArea = (nodes: Graph.Node[], edges: Graph.Edge[], config: Graph.ConfigProps, centerPointId?: string, init?: boolean) => {
-  const needDrawNodes = nodes.filter(node => node.x && node.y)
-  const mainPoint = nodes.find(node => node.id === (centerPointId || 'main'))
 
+type Props = {
+  nodes: Graph.Vertice[];
+  edges: Graph.Line[];
+  config: Graph.ConfigProps;
+  mainPoint?: Graph.Vertice;
+  init?: boolean;
+  fId?: string
+}
+
+export const drawEdgeArea = ({ nodes, edges, config, mainPoint, init, fId }: Props) => {
+  const needDrawNodes = nodes.filter(node => node.x && node.y)
   let edgeArea = null
 
   if (init) {
@@ -143,9 +177,9 @@ export const drawEdgeArea = (nodes: Graph.Node[], edges: Graph.Edge[], config: G
   // 画线
   if (mainPoint) {
     if (config.isStraight) {
-      drawStraightLine(needDrawNodes, edges, mainPoint, config, edgeArea)
+      drawStraightLine(needDrawNodes, edges, mainPoint, config, edgeArea, fId)
     } else {
-      drawBesselLine(needDrawNodes, edges, mainPoint, config, edgeArea)
+      drawBesselLine(needDrawNodes, edges, mainPoint, config, edgeArea, fId)
     }
   }
 }
