@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 09:00:11
+ * @LastEditTime: 2022-08-18 10:41:32
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -11,6 +11,7 @@ import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
+import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
 import { modifyEdge } from './modifyEdge'
 import { moveNodeToCenter } from './moveNodeToCenter'
@@ -74,7 +75,8 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
         current.distance += config.basicDistence * size;
         current.s = [...insideIds, ...outsideIds]
         current.size = size
-        position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
+        // position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
+        position = extendDistance({ node: current, mainPoint, isInside, size, isExplore, config })
 
         current.x = position.x
         current.y = position.y
@@ -93,7 +95,7 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
             isInside: true,
             centerPoint: current,
             maxAngle: insideMaxAngle,
-            edges,
+            edges: [...inData.edges, ...outData.edges],
             fId: current.id,
             atanAngle
           })
@@ -121,7 +123,7 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
         }, 1000)
       } else {
         current.distance -= config.basicDistence * current.size!;
-        position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
+        position = extendDistance({ node: current, mainPoint, isInside, size: current.size!, isExplore, config })
         current.x = position.x
         current.y = position.y
         // moveNodeToCenter({ node: current })
