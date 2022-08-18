@@ -2,13 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 14:11:47
+ * @LastEditTime: 2022-08-18 15:20:37
  * @Description: 请填写简介
  */
 import { message } from 'antd'
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
+import { clearMemo } from './clearMemo'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
@@ -133,6 +134,7 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
           .remove()
         current.s?.forEach((id) => {
           if (id !== mainPoint.id) {
+            clearMemo({ nodeId: id })
             d3.selectAll(`.${verticePrefix + id}`)
               // .transition()
               // .duration(1000)
