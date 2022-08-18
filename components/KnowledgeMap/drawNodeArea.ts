@@ -108,7 +108,9 @@ export const drawNodeArea = (
       isInside: true,
       centerPoint: mainVertice,
       maxAngle: insideMaxAngle,
-      edges
+      edges,
+      insideLength: insideVertices.length,
+      outsideLength: outsideVertices.length
     }
   )
 
@@ -120,7 +122,9 @@ export const drawNodeArea = (
       isInside: false,
       centerPoint: mainVertice,
       maxAngle: outsideMaxAngle,
-      edges
+      edges,
+      insideLength: insideVertices.length,
+      outsideLength: outsideVertices.length
     }
   )
 

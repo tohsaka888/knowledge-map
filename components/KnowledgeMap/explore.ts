@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 16:51:34
+ * @LastEditTime: 2022-08-18 17:20:19
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -97,7 +97,9 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
             maxAngle: insideMaxAngle,
             edges: [...inData.edges, ...outData.edges],
             fId: current.id,
-            atanAngle
+            atanAngle,
+            insideLength: inData.vertices.length,
+            outsideLength: outData.vertices.length
           })
 
           // 创建出边
@@ -113,7 +115,9 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
             maxAngle: outsideMaxAngle,
             edges: [...inData.edges, ...outData.edges],
             fId: current.id,
-            atanAngle
+            atanAngle,
+            insideLength: inData.vertices.length,
+            outsideLength: outData.vertices.length
           })
 
           setTimeout(() => {

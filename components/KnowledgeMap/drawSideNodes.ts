@@ -30,6 +30,8 @@ type Props = {
   edges: Graph.Line[],
   fId?: string; // 父节点id
   atanAngle?: number;
+  insideLength: number;
+  outsideLength: number;
 }
 
 export const drawSideNodes = (
@@ -41,7 +43,9 @@ export const drawSideNodes = (
     maxAngle,
     edges,
     fId,
-    atanAngle = 0
+    atanAngle = 0,
+    insideLength,
+    outsideLength
   }: Props
 ) => {
   const container = d3.select('#node-area')
@@ -125,10 +129,20 @@ export const drawSideNodes = (
         node.angle = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
         node.distance = calcBasicDistence(nodes.length, maxAngle, basicDistence)
         node.isInside = isInside
-        const position = calcNodePosition({ distance: node.distance, angle: node.angle, centerPoint, isInside: node.isInside, atanAngle })
+        const position = calcNodePosition(
+          {
+            distance: node.distance,
+            angle: node.angle,
+            centerPoint,
+            isInside: node.isInside,
+            atanAngle,
+            insideLength,
+            outsideLength
+          }
+        )
         node.x = position.x
         node.y = position.y
-        
+
         const sideContainer = typeContainer.append('g')
         createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges })
         window.setTimeout(() => {
