@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 14:12:25
+ * @LastEditTime: 2022-08-18 15:13:25
  * @Description: 请填写简介
  */
 
@@ -31,7 +31,10 @@ export const createNode = (
 ) => {
   const { nodeRadius } = config
   vertice.p = []
-  globalNodes.push(vertice)
+  const memoNode = globalNodes.find(v => v.id === vertice.id)
+  if (!memoNode) {
+    globalNodes.push(vertice)
+  }
   container.call(
     d3.drag<any, any>()
       .on('start', function (event) {
@@ -94,7 +97,9 @@ export const createSideNode = (
 ) => {
   const { nodeRadius } = config
   let isExplore = false
-  globalNodes.push(vertice)
+  if (!globalNodes.find(v => v.id === vertice.id)) {
+    globalNodes.push(vertice)
+  }
   // 探索
   container.call(
     d3.drag<any, any>()
