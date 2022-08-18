@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 15:20:37
+ * @LastEditTime: 2022-08-18 16:51:34
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -88,7 +88,7 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
           const insideTypeVertices = insideTypes.map((type) => {
             return inData.vertices.filter(v => v.labelName === type)
           })
-          const insideMaxAngle = 180 / insideTypes.length
+          const insideMaxAngle = insideTypes.length ? 180 / insideTypes.length : 0
           drawSideNodes({
             typeNodes: insideTypeVertices,
             config,
@@ -105,7 +105,7 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
           const outsideTypeVertices = outsideTypes.map((type) => {
             return outData.vertices.filter(v => v.labelName === type)
           })
-          const outsideMaxAngle = 180 / insideTypes.length
+          const outsideMaxAngle = outsideTypes.length ? 180 / outsideTypes.length : 0
           drawSideNodes({
             typeNodes: outsideTypeVertices,
             config, isInside: false,
