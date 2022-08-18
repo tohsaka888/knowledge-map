@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 13:34:28
+ * @LastEditTime: 2022-08-18 14:12:25
  * @Description: 请填写简介
  */
 
@@ -110,7 +110,7 @@ export const createSideNode = (
   ).on('click', (e) => {
     e.stopPropagation()
     isExplore = !isExplore
-    explore({ current: vertice, isExplore, config, mainPoint: mainVertice, edges });
+    explore({ current: vertice, isExplore, config, mainPoint: mainVertice });
   })
 
   container
