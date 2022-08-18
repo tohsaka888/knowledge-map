@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 16:20:25
+ * @LastEditTime: 2022-08-18 14:28:04
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -37,7 +37,7 @@ function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVert
     }
     window.addEventListener('keydown', (event: KeyboardEvent) => {
       if (event.shiftKey) {
-        // multiDrag(canvasRef.current, nodes, edges, config)
+        multiDrag({ config })
       }
     })
 
