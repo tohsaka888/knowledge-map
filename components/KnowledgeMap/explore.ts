@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 10:41:32
+ * @LastEditTime: 2022-08-18 14:11:47
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -14,9 +14,9 @@ import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
 import { modifyEdge } from './modifyEdge'
-import { moveNodeToCenter } from './moveNodeToCenter'
+// import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
-import { calcNodePosition } from './utils/calcNodePosition'
+// import { calcNodePosition } from './utils/calcNodePosition'
 import { calcSize } from './utils/calcSize'
 
 type FetchProps = {
@@ -56,10 +56,9 @@ type Props = {
   isExplore: boolean;
   config: Graph.ConfigProps;
   current: Graph.Vertice;
-  edges: Graph.Line[]
 }
 
-export const explore = async ({ mainPoint, isExplore, config, current, edges }: Props) => {
+export const explore = async ({ mainPoint, isExplore, config, current }: Props) => {
   if (success) {
     const { isInside, angle } = current
     let position = { x: mainPoint.x!, y: mainPoint.y! }
@@ -161,7 +160,7 @@ export const explore = async ({ mainPoint, isExplore, config, current, edges }: 
         .attr('y', position.y + config.nodeRadius + 10)
 
       // 更改线
-      modifyEdge({ edges, x: position.x, y: position.y, node: current, config })
+      modifyEdge({ x: position.x, y: position.y, node: current, config })
     }
   } else {
     message.error('服务端错误,请刷新后重试')
