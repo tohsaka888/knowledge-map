@@ -2,12 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:22:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 11:45:34
+ * @LastEditTime: 2022-08-18 14:09:24
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { Graph } from '../..';
+import { globalNodes } from './global';
 import { modifyEdge } from './modifyEdge';
 import { verticePrefix } from './prefix';
 
@@ -24,8 +25,12 @@ export const dragStart = ({ current }: Props) => {
 }
 
 export const dragging = ({ current, event, node, config, edges }: Props) => {
+  // 修改memo
   node.x = event.x
   node.y = event.y
+  const memoNode = globalNodes.find(gN => gN.id === node.id)!
+  memoNode.x = event.x
+  memoNode.y = event.y
   const { nodeRadius } = config
   requestAnimationFrame(() => {
     // 更改节点坐标
@@ -39,7 +44,7 @@ export const dragging = ({ current, event, node, config, edges }: Props) => {
     container.select(`#${verticePrefix + node.id}name`)
       .attr('x', event.x)
       .attr('y', event.y + nodeRadius + 10)
-    modifyEdge({ edges, config, x: event.x, y: event.y, node, timer: 0 })
+    modifyEdge({ config, x: event.x, y: event.y, node, timer: 0 })
   })
 }
 
