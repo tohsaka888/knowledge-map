@@ -1,0 +1,558 @@
+{
+  "vertices": [
+    {
+      "id": "36968",
+      "code": "TP103",
+      "name": "许可资质荣誉",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP103",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP103",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "许可资质荣誉",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 36968,
+        "label": "theme",
+        "dkg_sys_name": "许可资质荣誉",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "41029648",
+      "code": "TP107",
+      "name": "司法信息",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP107",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP107",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "司法信息",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 41029648,
+        "label": "theme",
+        "dkg_sys_name": "司法信息",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "57456",
+      "code": "TP106",
+      "name": "行政监管",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP106",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP106",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "行政监管",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 57456,
+        "label": "theme",
+        "dkg_sys_name": "行政监管",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "8368",
+      "code": "2",
+      "name": "法人",
+      "labelName": "subject",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "subject_description": "具有民事权利能力和民事行为能力，依法独立享有民事权利和承担民事义务的组织，在《中华人民共和国民法总则》中指出法人包含营利法人、非营利法人以及特别法人",
+        "subject_code": "2",
+        "dkg_sys_code": "2",
+        "dkg_sys_updated_time": "2022-04-15 18:31:56",
+        "dkg_sys_label_name": "subject",
+        "subject_name": "法人",
+        "dkg_sys_created_time": "2022-04-15 18:31:56",
+        "id": 8368,
+        "label": "subject",
+        "dkg_sys_name": "法人",
+        "dkg_sys_tags": [
+          "错误提示 subject_data_num:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "41033744",
+      "code": "TP108",
+      "name": "信用评价",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP108",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP108",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "信用评价",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 41033744,
+        "label": "theme",
+        "dkg_sys_name": "信用评价",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "82120",
+      "code": "TP104",
+      "name": "纳税参保",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP104",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP104",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "纳税参保",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 82120,
+        "label": "theme",
+        "dkg_sys_name": "纳税参保",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "53480",
+      "code": "TP105",
+      "name": "生产经营",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP105",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP105",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "生产经营",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 53480,
+        "label": "theme",
+        "dkg_sys_name": "生产经营",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "32768",
+      "code": "TP102",
+      "name": "资本资产",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP102",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP102",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "资本资产",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 32768,
+        "label": "theme",
+        "dkg_sys_name": "资本资产",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    },
+    {
+      "id": "41192",
+      "code": "TP101",
+      "name": "基本信息",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP101",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP101",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "基本信息",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 41192,
+        "label": "theme",
+        "dkg_sys_name": "基本信息",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "3q9zz-9o8-pmvp-6gg",
+      "name": "关联主体",
+      "fromVertexId": "12536",
+      "toVertexId": "8368"
+    },
+    {
+      "id": "3qpen-9o8-pwd1-pa8",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "32768"
+    },
+    {
+      "id": "3qqzj-9o8-pwd1-siw",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "36968"
+    },
+    {
+      "id": "3qo7z-9o8-pwd1-vs8",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "41192"
+    },
+    {
+      "id": "3qtr3-9o8-pwd1-159k",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "53480"
+    },
+    {
+      "id": "3qvbz-9o8-pwd1-18c0",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "57456"
+    },
+    {
+      "id": "3qs67-9o8-pwd1-1rd4",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "82120"
+    },
+    {
+      "id": "3qwin-9o8-pwd1-ofeog",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "41029648"
+    },
+    {
+      "id": "3qy3j-9o8-pwd1-ofhu8",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "41033744"
+    },
+    {
+      "id": "1sff1-siw-p72t-23w0",
+      "name": "包含模型",
+      "fromVertexId": "36968",
+      "toVertexId": "98352"
+    },
+    {
+      "id": "1sft9-siw-p72t-271s",
+      "name": "包含模型",
+      "fromVertexId": "36968",
+      "toVertexId": "102448"
+    },
+    {
+      "id": "1sg7h-siw-p72t-2jsg",
+      "name": "包含模型",
+      "fromVertexId": "36968",
+      "toVertexId": "118960"
+    },
+    {
+      "id": "1sf0t-siw-p72t-2tag",
+      "name": "包含模型",
+      "fromVertexId": "36968",
+      "toVertexId": "131272"
+    },
+    {
+      "id": "3qqzj-9o8-pwd1-siw",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "36968"
+    },
+    {
+      "id": "q44xu-ofeog-p72t-23uo",
+      "name": "包含模型",
+      "fromVertexId": "41029648",
+      "toVertexId": "98304"
+    },
+    {
+      "id": "q45c2-ofeog-p72t-2gko",
+      "name": "包含模型",
+      "fromVertexId": "41029648",
+      "toVertexId": "114792"
+    },
+    {
+      "id": "3qwin-9o8-pwd1-ofeog",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "41029648"
+    },
+    {
+      "id": "1w8we-18c0-p72t-20ow",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "94208"
+    },
+    {
+      "id": "1w7bi-18c0-p72t-2414",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "98536"
+    },
+    {
+      "id": "1w8i6-18c0-p72t-2a94",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "106600"
+    },
+    {
+      "id": "1w6xa-18c0-p72t-2gj4",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "114736"
+    },
+    {
+      "id": "1w7pq-18c0-p72t-629k",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "282872"
+    },
+    {
+      "id": "1w83y-18c0-p72t-65fc",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "286968"
+    },
+    {
+      "id": "3qvbz-9o8-pwd1-18c0",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "57456"
+    },
+    {
+      "id": "1te6u-6gg-pded-fyg",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "20680"
+    },
+    {
+      "id": "1td06-6gg-pded-j3k",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "24752"
+    },
+    {
+      "id": "1teza-6gg-pded-m5s",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "28720"
+    },
+    {
+      "id": "1tel2-6gg-pded-pf4",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "32944"
+    },
+    {
+      "id": "1tfrq-6gg-pded-pfs",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "32968"
+    },
+    {
+      "id": "1tfdi-6gg-pded-vqo",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "41136"
+    },
+    {
+      "id": "1tdee-6gg-pded-1erc",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "65784"
+    },
+    {
+      "id": "1tdsm-6gg-pded-1hx4",
+      "name": "包含类目",
+      "fromVertexId": "8368",
+      "toVertexId": "69880"
+    },
+    {
+      "id": "3q9zz-9o8-pmvp-6gg",
+      "name": "关联主体",
+      "fromVertexId": "12536",
+      "toVertexId": "8368"
+    },
+    {
+      "id": "q464i-ofhu8-p72t-270g",
+      "name": "包含模型",
+      "fromVertexId": "41033744",
+      "toVertexId": "102400"
+    },
+    {
+      "id": "q46iq-ofhu8-p72t-2a68",
+      "name": "包含模型",
+      "fromVertexId": "41033744",
+      "toVertexId": "106496"
+    },
+    {
+      "id": "q45qa-ofhu8-p72t-3fcg",
+      "name": "包含模型",
+      "fromVertexId": "41033744",
+      "toVertexId": "159856"
+    },
+    {
+      "id": "3qy3j-9o8-pwd1-ofhu8",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "41033744"
+    },
+    {
+      "id": "1u521-1rd4-p72t-1ujs",
+      "name": "包含模型",
+      "fromVertexId": "82120",
+      "toVertexId": "86248"
+    },
+    {
+      "id": "1u7fd-1rd4-p72t-1xm0",
+      "name": "包含模型",
+      "fromVertexId": "82120",
+      "toVertexId": "90216"
+    },
+    {
+      "id": "1u5uh-1rd4-p72t-2my8",
+      "name": "包含模型",
+      "fromVertexId": "82120",
+      "toVertexId": "123056"
+    },
+    {
+      "id": "1u6mx-1rd4-p72t-2t80",
+      "name": "包含模型",
+      "fromVertexId": "82120",
+      "toVertexId": "131184"
+    },
+    {
+      "id": "1u715-1rd4-p72t-ogdg0",
+      "name": "包含模型",
+      "fromVertexId": "82120",
+      "toVertexId": "41074704"
+    },
+    {
+      "id": "3qs67-9o8-pwd1-1rd4",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "82120"
+    },
+    {
+      "id": "1p7od-159k-p72t-1xj4",
+      "name": "包含模型",
+      "fromVertexId": "53480",
+      "toVertexId": "90112"
+    },
+    {
+      "id": "1p6vx-159k-p72t-2q40",
+      "name": "包含模型",
+      "fromVertexId": "53480",
+      "toVertexId": "127152"
+    },
+    {
+      "id": "1p82l-159k-p72t-2t9s",
+      "name": "包含模型",
+      "fromVertexId": "53480",
+      "toVertexId": "131248"
+    },
+    {
+      "id": "1p7a5-159k-p72t-3c94",
+      "name": "包含模型",
+      "fromVertexId": "53480",
+      "toVertexId": "155848"
+    },
+    {
+      "id": "3qtr3-9o8-pwd1-159k",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "53480"
+    },
+    {
+      "id": "3fpuyo-pa8-p72t-1rag",
+      "name": "包含模型",
+      "fromVertexId": "32768",
+      "toVertexId": "82024"
+    },
+    {
+      "id": "3fpu68-pa8-p72t-1xkg",
+      "name": "包含模型",
+      "fromVertexId": "32768",
+      "toVertexId": "90160"
+    },
+    {
+      "id": "3fpukg-pa8-p72t-2dgw",
+      "name": "包含模型",
+      "fromVertexId": "32768",
+      "toVertexId": "110768"
+    },
+    {
+      "id": "3fpvcw-pa8-p72t-2mwg",
+      "name": "包含模型",
+      "fromVertexId": "32768",
+      "toVertexId": "122992"
+    },
+    {
+      "id": "3qpen-9o8-pwd1-pa8",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "32768"
+    },
+    {
+      "id": "1p5p9-vs8-p72t-1l2g",
+      "name": "包含模型",
+      "fromVertexId": "41192",
+      "toVertexId": "73960"
+    },
+    {
+      "id": "1p4wt-vs8-p72t-2myw",
+      "name": "包含模型",
+      "fromVertexId": "41192",
+      "toVertexId": "123080"
+    },
+    {
+      "id": "1p5b1-vs8-p72t-4x6g",
+      "name": "包含模型",
+      "fromVertexId": "41192",
+      "toVertexId": "229624"
+    },
+    {
+      "id": "1p63h-vs8-p72t-50c8",
+      "name": "包含模型",
+      "fromVertexId": "41192",
+      "toVertexId": "233720"
+    },
+    {
+      "id": "1p6hp-vs8-p72t-og3yo",
+      "name": "包含模型",
+      "fromVertexId": "41192",
+      "toVertexId": "41062416"
+    },
+    {
+      "id": "3qo7z-9o8-pwd1-vs8",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "41192"
+    }
+  ]
+}
