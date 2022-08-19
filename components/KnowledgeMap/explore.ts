@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 08:37:50
+ * @LastEditTime: 2022-08-19 09:40:27
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -17,9 +17,7 @@ import { fixedNodePosition } from './fixedNodePosition'
 import { modifyEdge } from './modifyEdge'
 // import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
-// import { calcNodePosition } from './utils/calcNodePosition'
 import { calcSize } from './utils/calcSize'
-import { throttle } from 'lodash'
 
 type FetchProps = {
   current: Graph.Vertice
@@ -76,7 +74,6 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
         current.distance += config.basicDistence * size;
         current.s = [...insideIds, ...outsideIds]
         current.size = size
-        // position = calcNodePosition({ distance: current.distance, angle, centerPoint: mainPoint, isInside })
         position = extendDistance({ node: current, mainPoint, isInside, size, isExplore, config })
 
         current.x = position.x
