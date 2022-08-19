@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 13:23:58
+ * @LastEditTime: 2022-08-19 15:12:44
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -11,6 +11,10 @@ import { ConfigContext } from '../../context'
 import { resetCanvas } from '../KnowledgeMap/resetCanvas'
 import { downloadSvg } from '../KnowledgeMap/utils/download'
 import style from './index.module.css'
+
+// type Props = {
+//   setLoading: React.Dispatch<React.SetStateAction<boolean>>
+// }
 
 function ControllerPannel() {
   const { config, dispatch } = useContext(ConfigContext)!

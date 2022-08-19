@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 14:28:04
+ * @LastEditTime: 2022-08-19 15:05:08
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -18,7 +18,6 @@ import { createForceGraph } from './createForceGraph';
 type Props = {
   nodes: Graph.Node[];
   edges: Graph.Line[];
-  vertices: Graph.Vertice[]
   config: Graph.ConfigProps;
   mainVertice: Graph.Vertice;
   insideVertices: Graph.Vertice[];
