@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-08 08:29:23
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 10:28:40
+ * @LastEditTime: 2022-08-19 15:12:33
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -22,7 +22,6 @@ type Props = {
 function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config }: Props) {
 
   const nodesContainerRef = useRef<SVGGElement>(null!)
-  const { setVisible } = useContext(VisibleContext)!
 
   // 状态改变时清除画布
   useEffect(() => {
@@ -33,7 +32,7 @@ function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config 
         mainVertice,
         insideVertices,
         outsideVertices,
-        config: { ...config, setVisible },
+        config,
         x: 700,
         y: 400,
         init: true,
@@ -54,7 +53,7 @@ function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config 
       mainVertice.x = 0
       mainVertice.y = 0
     }
-  }, [config, edges, insideVertices, mainVertice, outsideVertices, setVisible])
+  }, [config, edges, insideVertices, mainVertice, outsideVertices])
 
   return (
     <g ref={nodesContainerRef} id="node-area" />

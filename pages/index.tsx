@@ -2,13 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 08:21:45
+ * @LastEditTime: 2022-08-19 15:12:28
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { useCallback, useEffect, useReducer, useState } from 'react'
+import { Suspense, useCallback, useEffect, useReducer, useState } from 'react'
 import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
@@ -24,7 +24,7 @@ const initState: Graph.ConfigProps = {
   basicDistence,
   arcAreaDistence,
   arcAreaLength,
-  mode,
+  mode: 2,
   showDisctription: true,
   isStraight: true,
   besselRate: 5,
@@ -64,6 +64,7 @@ const Home: NextPage = () => {
   const [graphData, setGraphData] = useState<{ nodes: Graph.Node[]; edges: Graph.Edge[]; }>({ nodes: [], edges: [] })
   const [insideGraph, setInsideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
   const [outsideGraph, setOutsideGraph] = useState<{ vertices: Graph.Vertice[]; edges: Graph.Line[]; }>({ vertices: [], edges: [] })
+  const [loading, setLoading] = useState<boolean>(true)
 
   const getData = useCallback(async () => {
     const inRes = await fetch(`${baseUrl}/api/getNextVerticesWithEdge?id=${main.id}&direction=in`)
@@ -73,6 +74,8 @@ const Home: NextPage = () => {
     const outRes = await fetch(`${baseUrl}/api/getNextVerticesWithEdge?id=${main.id}&direction=out`)
     const outData: Api.KnowledgeResponse = await outRes.json()
     setOutsideGraph(outData.data)
+
+    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -99,15 +102,14 @@ const Home: NextPage = () => {
               </Layout.Sider>
               <Layout.Content style={{ height: height - 70 }}>
                 <VisibleContext.Provider value={{ visible, setVisible }}>
-                  <Canvas
+                  {!loading && <Canvas
                     insideVertices={insideGraph.vertices}
                     mainVertice={main}
                     outsideVertices={outsideGraph.vertices}
                     nodes={graphData.nodes}
                     edges={[...insideGraph.edges, ...outsideGraph.edges]}
-                    vertices={[]}
                     config={config}
-                  />
+                  />}
                 </VisibleContext.Provider>
               </Layout.Content>
             </ConfigContext.Provider>
