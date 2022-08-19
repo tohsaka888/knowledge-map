@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 14:14:29
+ * @LastEditTime: 2022-08-19 15:28:30
  * @Description: 请填写简介
  */
 
@@ -52,9 +52,9 @@ export const paginationLayout = (
   const container = d3.select('#node-area')
   let calcedAngle = 0
   if (insideLength === 0 && outsideLength !== 0) {
-    calcedAngle = isInside ? -90 - (index + 1) * maxAngle : -90 + index * maxAngle + 180
+    calcedAngle = isInside ? -90 - (index + 1) * maxAngle : -90 + index * maxAngle + 180 + atanAngle / Math.PI * 180
   } else {
-    calcedAngle = isInside ? -90 - (index + 1) * maxAngle : -90 + index * maxAngle
+    calcedAngle = isInside ? -90 - (index + 1) * maxAngle : -90 + index * maxAngle + atanAngle / Math.PI * 180
   }
   if (originNodes.length > 5) {
     const arc = container

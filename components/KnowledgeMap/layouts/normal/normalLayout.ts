@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:46:57
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 13:35:31
+ * @LastEditTime: 2022-08-19 15:40:43
  * @Description: 请填写简介
  */
 
@@ -27,7 +27,8 @@ type Props = {
   insideLength: number;
   outsideLength: number;
   config: Graph.ConfigProps;
-  edges: Graph.Line[]
+  edges: Graph.Line[],
+  needRotate: boolean;
 }
 
 export const normalLayout = (
@@ -43,7 +44,8 @@ export const normalLayout = (
     insideLength,
     outsideLength,
     edges,
-    config
+    config,
+    needRotate
   }: Props
 ) => {
   let idx = 0
@@ -52,7 +54,7 @@ export const normalLayout = (
     if (document.getElementById(verticePrefix + node.id) === null) {
       // document.getElementById(verticePrefix + node.id)?.parentElement?.remove()
       // 记录节点信息
-      node.angle = (idx + 1) * maxAngle / (nodes.length + 1) + index * maxAngle
+      node.angle = (idx + (needRotate ? 0.5 : 1)) * maxAngle / (nodes.length + 1) + index * maxAngle
       node.distance = calcBasicDistence(nodes.length, maxAngle, basicDistence)
       node.isInside = isInside
       const position = calcNodePosition(

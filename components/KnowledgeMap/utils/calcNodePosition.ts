@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-17 08:50:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 17:24:41
+ * @LastEditTime: 2022-08-19 15:38:52
  * @Description: 请填写简介
  */
 
@@ -16,6 +16,7 @@ type Props = {
   atanAngle?: number;
   insideLength: number;
   outsideLength: number;
+  // needRotate: boolean;
 }
 
 export const calcNodePosition = (
@@ -26,7 +27,7 @@ export const calcNodePosition = (
     centerPoint,
     atanAngle = 0,
     insideLength = 0,
-    outsideLength = 0
+    outsideLength = 0,
   }: Props
 ) => {
   const x = centerPoint.x!

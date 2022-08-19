@@ -22,6 +22,7 @@ import { createSideNode } from "./createNode";
 import { calcNodePosition } from "./utils/calcNodePosition";
 import { normalLayout } from "./layouts/normal/normalLayout";
 import { paginationLayout } from "./layouts/pagination/paginationLayout";
+import { globalNodes } from "./global";
 
 type Props = {
   typeNodes: Graph.Vertice[][];
@@ -53,14 +54,23 @@ export const drawSideNodes = (
   const container = d3.select('#node-area')
   const { mode } = config
   typeNodes.forEach((originNodes, index) => {
-    const nodes = calcMode(originNodes, 1, mode)
+    // const nodes = calcMode(originNodes, 1, mode)
+    const filteredNodes = originNodes.filter(node => {
+      return !globalNodes.find(gN => {
+        return gN.id === node.id
+      })
+    })
+    const nodes = calcMode(filteredNodes, 1, mode)
+
+    // 判断会和父节点连线
+    const needRotate = filteredNodes.length !== originNodes.length
 
     const parent = [fId!, ...centerPoint.p!]
     const parentClass = parent.map(p => verticePrefix + p).join(' ')
 
     const typeContainer = container
       .append('g')
-      .classed(nodes[0].labelName, true)
+      .classed(nodes.length > 0 && nodes[0].labelName || '', true)
       .classed(parentClass || '', true)
 
     if (config.mode === 1) {
@@ -77,7 +87,8 @@ export const drawSideNodes = (
           outsideLength,
           edges,
           config,
-          centerPoint
+          centerPoint,
+          needRotate
         }
       )
     } else if (config.mode === 2) {
@@ -110,7 +121,8 @@ export const drawSideNodes = (
           outsideLength,
           edges,
           config,
-          centerPoint
+          centerPoint,
+          needRotate
         }
       )
     }
