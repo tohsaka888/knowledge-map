@@ -68,7 +68,7 @@ export const drawSideNodes = (
 
     const typeContainer = container
       .append('g')
-      .classed(nodes[0].labelName, true)
+      .classed(nodes.length > 0 && nodes[0].labelName || '', true)
       .classed(parentClass || '', true)
 
     if (config.mode === 1) {
