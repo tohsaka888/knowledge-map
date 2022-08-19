@@ -35,6 +35,7 @@ type Props = {
   atanAngle?: number;
   insideLength: number;
   outsideLength: number;
+  nextContainer?: d3.Selection<any, any, any, any>;
 }
 
 export const drawSideNodes = (
@@ -48,7 +49,8 @@ export const drawSideNodes = (
     fId,
     atanAngle = 0,
     insideLength,
-    outsideLength
+    outsideLength,
+    nextContainer
   }: Props
 ) => {
   const container = d3.select('#node-area')
@@ -68,7 +70,7 @@ export const drawSideNodes = (
     const parent = [fId!, ...centerPoint.p!]
     const parentClass = parent.map(p => verticePrefix + p).join(' ')
 
-    const typeContainer = container
+    const typeContainer = nextContainer ? nextContainer : container
       .append('g')
       .classed(nodes.length > 0 && nodes[0].labelName || '', true)
       .classed(parentClass || '', true)
@@ -105,7 +107,7 @@ export const drawSideNodes = (
         edges,
         config,
         centerPoint,
-        originNodes,
+        originNodes: filteredNodes,
         parentClass,
       })
       normalLayout(
