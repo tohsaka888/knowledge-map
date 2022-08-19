@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 08:40:54
+ * @LastEditTime: 2022-08-19 10:12:25
  * @Description: 请填写简介
  */
 
@@ -36,18 +36,19 @@ export const createNode = (
   if (!memoNode) {
     globalNodes.push(vertice)
   }
-  container.call(
-    d3.drag<any, any>()
-      .on('start', function (event) {
-        dragStart({ current: this, event, node: vertice, config, edges })
-      })
-      .on('drag', function (event) {
-        dragging({ current: this, event, node: vertice, config, edges })
-      })
-      .on('end', function (event) {
-        dragEnd({ current: this, event, node: vertice, config, edges })
-      })
-  )
+  container
+    .call(
+      d3.drag<any, any>()
+        .on('start', function (event) {
+          dragStart({ current: this, event, node: vertice, config, edges })
+        })
+        .on('drag', function (event) {
+          dragging({ current: this, event, node: vertice, config, edges })
+        })
+        .on('end', function (event) {
+          dragEnd({ current: this, event, node: vertice, config, edges })
+        })
+    )
   container
     .append('circle')
     .attr('r', nodeRadius)
@@ -87,6 +88,23 @@ type SideProps = {
   edges: Graph.Line[]
 }
 
+const fn = throttle(function ({
+  config,
+  vertice,
+  mainVertice,
+  isExplore
+}: {
+  isExplore: { explore: boolean };
+  config: Graph.ConfigProps;
+  vertice: Graph.Vertice;
+  mainVertice: Graph.Vertice;
+}) {
+  isExplore.explore = !isExplore.explore
+  explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice });
+}, 1100, { 'trailing': false })
+
+let timer = -1
+
 export const createSideNode = (
   {
     container,
@@ -97,30 +115,54 @@ export const createSideNode = (
   }: SideProps
 ) => {
   const { nodeRadius } = config
-  let isExplore = false
+  let isExplore = { explore: false }
   if (!globalNodes.find(v => v.id === vertice.id)) {
     globalNodes.push(vertice)
   }
   // 探索
-  container.call(
-    d3.drag<any, any>()
-      .on('start', function (event) {
-        dragStart({ current: this, event, node: vertice, config, edges })
+  window.setTimeout(() => {
+    container
+      .call(
+        d3.drag<any, any>()
+          .on('start', function (event) {
+            dragStart({ current: this, event, node: vertice, config, edges })
+          })
+          .on('drag', function (event) {
+            dragging({ current: this, event, node: vertice, config, edges })
+          })
+          .on('end', function (event) {
+            dragEnd({ current: this, event, node: vertice, config, edges })
+          })
+      )
+      .on('click', (e) => {
+        e.stopPropagation();
+        window.clearInterval(timer)
+        container.call(
+          d3.drag<any, any>()
+            .on('start', () => { })
+            .on('drag', () => { })
+            .on('end', () => { })
+        )
+
+        timer = window.setTimeout(() => {
+          container
+            .call(
+              d3.drag<any, any>()
+                .on('start', function (event) {
+                  dragStart({ current: this, event, node: vertice, config, edges })
+                })
+                .on('drag', function (event) {
+                  dragging({ current: this, event, node: vertice, config, edges })
+                })
+                .on('end', function (event) {
+                  dragEnd({ current: this, event, node: vertice, config, edges })
+                })
+            )
+        }, 1100)
+        e.stopPropagation();
+        fn({ isExplore, config, vertice, mainVertice })
       })
-      .on('drag', function (event) {
-        dragging({ current: this, event, node: vertice, config, edges })
-      })
-      .on('end', function (event) {
-        dragEnd({ current: this, event, node: vertice, config, edges })
-      })
-  ).on('click', (e) => {
-    debounce(() => {
-      console.log('run')
-      e.stopPropagation()
-      isExplore = !isExplore
-      explore({ current: vertice, isExplore, config, mainPoint: mainVertice });
-    }, 1000)()
-  })
+  }, 1000)
 
   container
     .append('circle')
