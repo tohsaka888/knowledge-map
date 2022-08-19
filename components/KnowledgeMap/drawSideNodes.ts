@@ -60,7 +60,6 @@ export const drawSideNodes = (
         return gN.id === node.id
       })
     })
-    console.log(originNodes, filteredNodes)
     const nodes = calcMode(filteredNodes, 1, mode)
 
     const parent = [fId!, ...centerPoint.p!]
