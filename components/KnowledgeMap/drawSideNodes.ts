@@ -49,7 +49,6 @@ export const drawSideNodes = (
   }: Props
 ) => {
   const container = d3.select('#node-area')
-  console.log(maxAngle)
   const { nodeRadius, arcAreaDistence, arcAreaLength, mode, basicDistence, setVisible } = config
   typeNodes.forEach((originNodes, index) => {
     const nodes = calcMode(originNodes, 1, mode)
@@ -120,7 +119,6 @@ export const drawSideNodes = (
       .classed(nodes[0].labelName, true)
       .classed(parentClass || '', true)
     let idx = 0
-    console.log(nodes)
     nodes.forEach((node) => {
       node.p = parent
       if (document.getElementById(verticePrefix + node.id) === null) {

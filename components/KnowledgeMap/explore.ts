@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 17:20:19
+ * @LastEditTime: 2022-08-19 08:37:50
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -19,6 +19,7 @@ import { modifyEdge } from './modifyEdge'
 import { verticePrefix } from './prefix'
 // import { calcNodePosition } from './utils/calcNodePosition'
 import { calcSize } from './utils/calcSize'
+import { throttle } from 'lodash'
 
 type FetchProps = {
   current: Graph.Vertice
@@ -133,15 +134,11 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
         // moveNodeToCenter({ node: current })
         fixedNodePosition({ node: current, x: originX, y: originY })
         d3.selectAll(`.${verticePrefix + current.id}`)
-          // .transition()
-          // .duration(1000)
           .remove()
         current.s?.forEach((id) => {
           if (id !== mainPoint.id) {
             clearMemo({ nodeId: id })
             d3.selectAll(`.${verticePrefix + id}`)
-              // .transition()
-              // .duration(1000)
               .remove()
           }
         })

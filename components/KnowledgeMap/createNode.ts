@@ -2,11 +2,12 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 15:13:25
+ * @LastEditTime: 2022-08-19 08:40:54
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
+import { debounce, throttle } from 'lodash';
 import { Graph } from '../..';
 import { explore } from './explore';
 import { globalNodes } from './global';
@@ -113,9 +114,12 @@ export const createSideNode = (
         dragEnd({ current: this, event, node: vertice, config, edges })
       })
   ).on('click', (e) => {
-    e.stopPropagation()
-    isExplore = !isExplore
-    explore({ current: vertice, isExplore, config, mainPoint: mainVertice });
+    debounce(() => {
+      console.log('run')
+      e.stopPropagation()
+      isExplore = !isExplore
+      explore({ current: vertice, isExplore, config, mainPoint: mainVertice });
+    }, 1000)()
   })
 
   container

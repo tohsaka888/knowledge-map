@@ -35,7 +35,6 @@ type DraggingProps = {
 }
 
 const draggingEvent = ({ nodes, event, config }: DraggingProps) => {
-  console.log(nodes)
   nodes.forEach((node) => {
     const item = d3.select(`#${verticePrefix + node.id}`)
     node.x += event.dx
