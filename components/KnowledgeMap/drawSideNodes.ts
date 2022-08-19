@@ -62,6 +62,9 @@ export const drawSideNodes = (
     })
     const nodes = calcMode(filteredNodes, 1, mode)
 
+    // 判断会和父节点连线
+    const needRotate = filteredNodes.length !== originNodes.length
+
     const parent = [fId!, ...centerPoint.p!]
     const parentClass = parent.map(p => verticePrefix + p).join(' ')
 
@@ -84,7 +87,8 @@ export const drawSideNodes = (
           outsideLength,
           edges,
           config,
-          centerPoint
+          centerPoint,
+          needRotate
         }
       )
     } else if (config.mode === 2) {
@@ -117,7 +121,8 @@ export const drawSideNodes = (
           outsideLength,
           edges,
           config,
-          centerPoint
+          centerPoint,
+          needRotate
         }
       )
     }
