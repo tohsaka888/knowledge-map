@@ -2,11 +2,11 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 17:17:48
+ * @LastEditTime: 2022-08-19 14:17:52
  * @Description: 请填写简介
  */
 
-import { Graph } from "../.."
+import { Graph } from "../../../.."
 
 // const nextPage = (
 //   pagination: { page: number, pageSize: number },
