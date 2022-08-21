@@ -6,7 +6,7 @@ specifiers:
   '@types/node': 18.0.4
   '@types/react': 18.0.17
   '@types/react-dom': 18.0.6
-  antd: 4.22.6
+  antd: 4.22.7
   d3: 7.6.1
   eslint: 8.22.0
   eslint-config-next: 12.2.5
@@ -19,7 +19,7 @@ specifiers:
 dependencies:
   '@types/d3': 7.4.0
   '@types/lodash': 4.14.184
-  antd: 4.22.6_biqbaboplfbrettd7655fr4n2y
+  antd: 4.22.7_biqbaboplfbrettd7655fr4n2y
   d3: 7.6.1
   lodash: 4.17.21
   next: 12.2.5_biqbaboplfbrettd7655fr4n2y
@@ -602,8 +602,8 @@ packages:
       color-convert: 2.0.1
     dev: true
 
-  /antd/4.22.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-cyGq4CFrKcHISkyvXHODqhV8X0W7r6GHP37H/KvvmYibz/1sdts3Sa0FoAPy/c165TjAcSC/ZHxJhuGbo42zvA==}
+  /antd/4.22.7_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-CMf5tYHtlhP1blYjwNTRsB7G/bocwKmIFHgYYk4pZNgo1kk/XnPPI2/MKRCXWc54wuCQQlnmL/2AKtE7HWaE8g==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
