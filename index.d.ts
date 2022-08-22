@@ -68,6 +68,7 @@ declare namespace Graph {
     angle?: number;
     distance?: number;
     isInside?: boolean;
+    needRotate?: boolean;
     propertyMap: {
       model_property_name?: string;
       dkg_sys_code?: string;
