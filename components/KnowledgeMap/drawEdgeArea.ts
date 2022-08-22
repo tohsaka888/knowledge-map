@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:26:36
+ * @LastEditTime: 2022-08-22 17:15:33
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -35,9 +35,17 @@ const drawStraightLine = (
   let downCount = 0
   let parentClass = fId
   edges.forEach((edge) => {
+
+
+
     const fromNode = nodes.find(node => node.id === edge.fromVertexId)
     const toNode = nodes.find(node => node.id === edge.toVertexId)
+
+
     if (fromNode && toNode) {
+      if (!(document.getElementById(verticePrefix + fromNode.id) && document.getElementById(verticePrefix + toNode.id))) {
+        return
+      }
       // 判断之前两个节点之间是否已经有连线
       // memo 记录值
       edge.fromX = fromNode?.x
@@ -70,7 +78,7 @@ const drawStraightLine = (
           .duration(duration)
           .style('opacity', 1)
           .attr('d', `M ${fromNode.x} ${fromNode.y},L ${toNode.x} ${toNode.y}`);
-        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass,duration })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration })
       }
     }
   })
@@ -101,6 +109,7 @@ const drawBesselLine = (
   edges.forEach((edge, index) => {
     const fromNode = nodes.find(node => node.id === edge.fromVertexId)
     const toNode = nodes.find(node => node.id === edge.toVertexId)
+
     // memo 记录值
     edge.fromX = fromNode?.x
     edge.fromY = fromNode?.y
@@ -110,6 +119,9 @@ const drawBesselLine = (
 
     let perX = 0
     if (fromNode && toNode && fromNode.x && toNode.x) {
+      if (!(document.getElementById(verticePrefix + fromNode.id) && document.getElementById(verticePrefix + toNode.id))) {
+        return
+      }
       const parent = [fId!, ...fromNode.p!, ...toNode.p!]
       parentClass = parent.map(p => verticePrefix + p).join(' ')
       // 判断之前两个节点之间是否已经有连线

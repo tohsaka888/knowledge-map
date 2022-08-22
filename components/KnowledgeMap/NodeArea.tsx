@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-08 08:29:23
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 15:12:33
+ * @LastEditTime: 2022-08-22 16:28:13
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -25,6 +25,7 @@ function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config 
 
   // 状态改变时清除画布
   useEffect(() => {
+    console.log('run')
     const container = nodesContainerRef.current
     drawNodeArea(
       {
