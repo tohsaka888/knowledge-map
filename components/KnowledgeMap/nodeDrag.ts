@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:22:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 14:17:49
+ * @LastEditTime: 2022-08-22 14:19:38
  * @Description: 请填写简介
  */
 
@@ -44,7 +44,6 @@ export const dragStart = ({ current, node }: Props) => {
   node.initX -= x
   node.initY -= y
 
-  console.log(node)
   d3.select(current).selectAll('*').style('cursor', 'grabbing');
 }
 
