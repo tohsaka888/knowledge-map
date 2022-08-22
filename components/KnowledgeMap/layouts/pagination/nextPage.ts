@@ -2,13 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:52:24
+ * @LastEditTime: 2022-08-22 14:51:24
  * @Description: 请填写简介
  */
 
 import { Graph } from "../../../.."
 import * as d3 from 'd3'
-import { edgePrefix, verticePrefix } from "../../prefix"
+import { edgePrefix, fPrefix, verticePrefix } from "../../prefix"
 import { calcMode } from "../../utils/calcMode"
 import { drawSideNodes } from "../../drawSideNodes"
 import { globalNodes } from "../../global"
@@ -52,7 +52,7 @@ export const nextPage = (
   const currentNodes = originNodes.slice((pagination.page - 1) * 5, 5 * pagination.page)
 
   const nextContainer = d3.selectAll(`.${type}`)
-    .filter(`.${verticePrefix + centerPoint.id}`)
+    .filter(`#${fPrefix + centerPoint.id}`)
   nextContainer
     .selectAll('*')
     .remove()
