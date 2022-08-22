@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 17:23:03
+ * @LastEditTime: 2022-08-22 09:03:06
  * @Description: 请填写简介
  */
 
@@ -177,7 +177,6 @@ export const nextPage = (
   // 清除节点和线
   const type = originNodes[0].labelName!
   const currentNodes = originNodes.slice((pagination.page - 1) * 5, 5 * pagination.page)
-  console.log(currentNodes)
 
   const nextContainer = d3.selectAll(`.${type}`)
     .filter(`.${verticePrefix + centerPoint.id}`)
@@ -191,7 +190,6 @@ export const nextPage = (
       }
     })
   })
-
 
   pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
   const nodes = calcMode(originNodes, pagination.page, mode)
