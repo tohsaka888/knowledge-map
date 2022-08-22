@@ -9,7 +9,7 @@
 import { Graph } from "../../../..";
 import { calcArcX, calcArcY } from "../../utils/calcArc";
 import * as d3 from 'd3'
-import { verticePrefix } from "../../prefix";
+import { fPrefix, verticePrefix } from "../../prefix";
 import { normalLayout } from "../normal/normalLayout";
 import { nextPage } from "./nextPage";
 
@@ -60,6 +60,7 @@ export const paginationLayout = (
       .append('g')
       .classed('arc', true)
       .classed(parentClass, true)
+      .attr('id', fPrefix + centerPoint.id)
       .append('g')
       .attr('transform', `rotate(${calcedAngle})`)
       .attr('transform-origin', `${centerPoint.x} ${centerPoint.y}`)
