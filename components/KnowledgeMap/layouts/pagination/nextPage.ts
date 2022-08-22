@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 09:24:48
+ * @LastEditTime: 2022-08-22 09:39:36
  * @Description: 请填写简介
  */
 
@@ -198,6 +198,11 @@ export const nextPage = (
 
   const nodeIndex = globalNodes.findIndex(gN => gN.id === currentNodes[0].id)
   globalNodes.splice(nodeIndex, 5)
+
+  d3.selectAll(`.arc`)
+    .filter(`.${verticePrefix + centerPoint.id}`)
+    .select(`#${verticePrefix + type}-text`)
+    .text(`${pagination.page}/${total}`)
 
   drawSideNodes(
     {
