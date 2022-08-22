@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 15:28:30
+ * @LastEditTime: 2022-08-19 16:45:51
  * @Description: 请填写简介
  */
 
@@ -11,6 +11,7 @@ import { calcArcX, calcArcY } from "../../utils/calcArc";
 import * as d3 from 'd3'
 import { verticePrefix } from "../../prefix";
 import { normalLayout } from "../normal/normalLayout";
+import { nextPage } from "./nextPage";
 
 type Props = {
   nodes: Graph.Vertice[];
@@ -34,8 +35,6 @@ export const paginationLayout = (
     nodes,
     maxAngle,
     index,
-    typeContainer,
-    parent,
     isInside,
     centerPoint,
     atanAngle,
@@ -95,17 +94,22 @@ export const paginationLayout = (
         d3.select(this).attr('fill', '#1890ff')
       })
       .on('click', () => {
-        // nextPage(
-        //   pagination,
-        //   originNodes,
-        //   originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
-        //   index,
-        //   maxAngle,
-        //   edges,
-        //   config,
-        //   isInside,
-        //   centerPoint
-        // )
+        nextPage(
+          {
+            pagination,
+            originNodes,
+            total: originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
+            index,
+            maxAngle,
+            edges,
+            config,
+            isInside,
+            centerPoint,
+            insideLength,
+            outsideLength,
+            atanAngle
+          }
+        )
       })
 
     arc

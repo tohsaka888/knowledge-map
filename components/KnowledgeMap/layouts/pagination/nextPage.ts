@@ -2,11 +2,17 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 14:17:52
+ * @LastEditTime: 2022-08-19 17:23:03
  * @Description: 请填写简介
  */
 
 import { Graph } from "../../../.."
+import * as d3 from 'd3'
+import { edgePrefix, verticePrefix } from "../../prefix"
+import { calcMode } from "../../utils/calcMode"
+import { drawSideNodes } from "../../drawSideNodes"
+import { globalEdges, globalNodes } from "../../global"
+import { drawEdgeArea } from "../../drawEdgeArea"
 
 // const nextPage = (
 //   pagination: { page: number, pageSize: number },
@@ -142,10 +148,13 @@ type Props = {
   total: number,
   index: number,
   maxAngle: number,
-  // edges: Graph.Edge[],
+  edges: Graph.Line[],
   config: Graph.ConfigProps,
   isInside: boolean,
-  centerPoint: Graph.Node
+  centerPoint: Graph.Vertice,
+  atanAngle: number,
+  insideLength: number,
+  outsideLength: number
 }
 
 export const nextPage = (
@@ -157,8 +166,60 @@ export const nextPage = (
     maxAngle,
     config,
     isInside,
-    centerPoint
+    centerPoint,
+    edges,
+    atanAngle,
+    insideLength,
+    outsideLength
   }: Props
 ) => {
+  const { mode } = config
+  // 清除节点和线
+  const type = originNodes[0].labelName!
+  const currentNodes = originNodes.slice((pagination.page - 1) * 5, 5 * pagination.page)
+  console.log(currentNodes)
 
+  const nextContainer = d3.selectAll(`.${type}`)
+    .filter(`.${verticePrefix + centerPoint.id}`)
+  nextContainer
+    .selectAll('*')
+    .remove()
+  edges.forEach((edge) => {
+    originNodes.forEach(node => {
+      if (edge.fromVertexId === centerPoint.id && edge.toVertexId === node.id) {
+        d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}`).remove()
+      }
+    })
+  })
+
+
+  pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
+  const nodes = calcMode(originNodes, pagination.page, mode)
+
+  const nodeIndex = globalNodes.findIndex(gN => gN.id === currentNodes[0].id)
+  globalNodes.splice(nodeIndex, 5)
+
+  drawSideNodes(
+    {
+      typeNodes: [nodes],
+      config,
+      isInside,
+      centerPoint,
+      maxAngle,
+      edges,
+      fId: centerPoint.id,
+      atanAngle,
+      insideLength,
+      outsideLength,
+      nextContainer
+    }
+  )
+
+  drawEdgeArea({
+    nodes: [...nodes, centerPoint],
+    edges,
+    config,
+    mainPoint: centerPoint,
+    // fId: centerPoint.id,
+  })
 }
