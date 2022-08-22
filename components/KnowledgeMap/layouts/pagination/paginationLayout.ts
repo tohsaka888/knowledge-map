@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 09:58:19
+ * @LastEditTime: 2022-08-22 10:50:40
  * @Description: 请填写简介
  */
 
@@ -82,7 +82,7 @@ export const paginationLayout = (
       .attr('stroke-width', arcAreaLength)
     arc
       .append('g')
-      .attr('transform', `translate(${centerPoint.x! + arcAreaDistence - arcAreaLength / 4} ${centerPoint.y})`)
+      .attr('transform', `translate(${centerPoint.x! + arcAreaDistence - arcAreaLength / 6} ${centerPoint.y})`)
       .append('path')
       .attr('d', 'm0,10.4772l5.5,-9.4772l5.5,9.4772l-2.75,0l0,9.5228l-5.5,0l0,-9.5228l-2.75,0z')
       .attr('fill', '#1890ff')
@@ -106,7 +106,46 @@ export const paginationLayout = (
             centerPoint,
             insideLength,
             outsideLength,
-            atanAngle
+            atanAngle,
+            isPrev: true
+          }
+        )
+      })
+
+    arc
+      .append('g')
+      .attr('transform', `translate(${centerPoint.x! + arcAreaDistence - arcAreaLength / 6} ${centerPoint.y})`)
+      .append('g')
+      .attr('transform-origin', `${-arcAreaDistence + arcAreaLength / 6} ${0}`)
+      .attr('transform', `rotate(${maxAngle})`)
+      .append('g')
+      .attr('transform', `translate(10, 0)`)
+      .append('path')
+      .attr('transform', `rotate(${180})`)
+      .attr('d', 'm0,10.4772l5.5,-9.4772l5.5,9.4772l-2.75,0l0,9.5228l-5.5,0l0,-9.5228l-2.75,0z')
+      .attr('fill', '#1890ff')
+      .style('cursor', 'pointer')
+      .on('mouseover', function () {
+        d3.select(this).attr('fill', 'blue')
+      })
+      .on('mouseleave', function () {
+        d3.select(this).attr('fill', '#1890ff')
+      })
+      .on('click', () => {
+        nextPage(
+          {
+            pagination,
+            originNodes,
+            total: originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
+            maxAngle,
+            edges,
+            config,
+            isInside,
+            centerPoint,
+            insideLength,
+            outsideLength,
+            atanAngle,
+            isPrev: false
           }
         )
       })
