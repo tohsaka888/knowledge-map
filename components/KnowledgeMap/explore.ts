@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 09:40:27
+ * @LastEditTime: 2022-08-22 10:23:36
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -97,7 +97,8 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
             fId: current.id,
             atanAngle,
             insideLength: inData.vertices.length,
-            outsideLength: outData.vertices.length
+            outsideLength: outData.vertices.length,
+            duration: 1000
           })
 
           // 创建出边
@@ -115,12 +116,13 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
             fId: current.id,
             atanAngle,
             insideLength: inData.vertices.length,
-            outsideLength: outData.vertices.length
+            outsideLength: outData.vertices.length,
+            duration: 1000
           })
 
           setTimeout(() => {
-            drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...inData.edges], nodes: [current, ...inData.vertices], fId: current.id })
-            drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id })
+            drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...inData.edges], nodes: [current, ...inData.vertices], fId: current.id, duration: 1000 })
+            drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id, duration: 1000 })
           })
         }, 1000)
       } else {

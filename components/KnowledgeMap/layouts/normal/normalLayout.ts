@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:46:57
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 09:05:38
+ * @LastEditTime: 2022-08-22 10:17:28
  * @Description: 请填写简介
  */
 
@@ -28,6 +28,7 @@ type Props = {
   outsideLength: number;
   config: Graph.ConfigProps;
   edges: Graph.Line[];
+  duration: number;
 }
 
 export const normalLayout = (
@@ -43,7 +44,8 @@ export const normalLayout = (
     insideLength,
     outsideLength,
     edges,
-    config
+    config,
+    duration
   }: Props
 ) => {
   let idx = 0
@@ -70,7 +72,7 @@ export const normalLayout = (
       node.y = position.y
 
       const sideContainer = typeContainer.append('g')
-      createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges })
+      createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges, duration })
       window.setTimeout(() => {
         sideContainer.on('mouseover', function (event) {
           event.stopPropagation();
@@ -87,7 +89,7 @@ export const normalLayout = (
             .attr('x', +x)
             .attr('y', +y - 10)
         })
-      }, 1000)
+      }, duration)
       idx++
     }
   })

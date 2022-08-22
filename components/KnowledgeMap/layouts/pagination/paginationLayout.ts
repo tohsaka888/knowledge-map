@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 16:45:51
+ * @LastEditTime: 2022-08-22 09:58:19
  * @Description: 请填写简介
  */
 
@@ -99,7 +99,6 @@ export const paginationLayout = (
             pagination,
             originNodes,
             total: originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
-            index,
             maxAngle,
             edges,
             config,

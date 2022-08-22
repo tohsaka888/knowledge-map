@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-17 15:56:29
+ * @LastEditTime: 2022-08-22 10:26:12
  * @Description: 请填写简介
  */
 
@@ -14,6 +14,7 @@ type Props = {
   edge: Graph.Line;
   edgeId: string;
   fId?: string;
+  duration: number;
 }
 
 /**
@@ -25,7 +26,7 @@ type Props = {
  * @param {any} edgeId}:Props
  * @returns {any}
  */
-export const createDescription = ({ edge, edgeArea, config, edgeId, fId }: Props) => {
+export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duration }: Props) => {
   if (config.showDisctription) {
     edgeArea
       .append('text')
@@ -43,7 +44,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId }: Props
       .attr('dy', 20)
       .text(edge.name)
       .transition()
-      .duration(1000)
+      .duration(duration)
       .style('opacity', 1)
   }
   edgeArea
@@ -66,6 +67,6 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId }: Props
     .style('font-size', 18)
     .style('opacity', 0)
     .transition()
-    .duration(1000)
+    .duration(duration)
     .style('opacity', 1)
 }

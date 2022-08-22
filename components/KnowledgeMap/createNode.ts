@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 10:12:25
+ * @LastEditTime: 2022-08-22 10:17:05
  * @Description: 请填写简介
  */
 
@@ -85,7 +85,8 @@ type SideProps = {
   config: Graph.ConfigProps;
   vertice: Graph.Vertice;
   mainVertice: Graph.Vertice;
-  edges: Graph.Line[]
+  edges: Graph.Line[];
+  duration: number;
 }
 
 const fn = throttle(function ({
@@ -111,7 +112,8 @@ export const createSideNode = (
     config,
     vertice,
     mainVertice,
-    edges
+    edges,
+    duration,
   }: SideProps
 ) => {
   const { nodeRadius } = config
@@ -158,11 +160,11 @@ export const createSideNode = (
                   dragEnd({ current: this, event, node: vertice, config, edges })
                 })
             )
-        }, 1100)
+        }, duration + 100)
         e.stopPropagation();
         fn({ isExplore, config, vertice, mainVertice })
       })
-  }, 1000)
+  }, duration)
 
   container
     .append('circle')
@@ -174,7 +176,7 @@ export const createSideNode = (
     .attr('id', verticePrefix + vertice.id || '')
     .style('opacity', 0)
     .transition()
-    .duration(1000)
+    .duration(duration)
     .attr('cx', vertice.x!)
     .attr('cy', vertice.y!)
     .style('opacity', 1)
@@ -191,7 +193,7 @@ export const createSideNode = (
     .text(transferLabelName(vertice.labelName) || '')
     .style('opacity', 0)
     .transition()
-    .duration(1000)
+    .duration(duration)
     .attr('x', vertice.x!)
     .attr('y', vertice.y!)
     .style('opacity', 1)
@@ -207,7 +209,7 @@ export const createSideNode = (
     .text(vertice.name || '')
     .style('opacity', 0)
     .transition()
-    .duration(1000)
+    .duration(duration)
     .attr('x', vertice.x!)
     .attr('y', vertice.y! + nodeRadius + 10)
     .style('opacity', 1)
