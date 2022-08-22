@@ -17,7 +17,7 @@ import { calcMode } from "./utils/calcMode";
 import * as d3 from 'd3'
 import { calcArcX, calcArcY } from "./utils/calcArc";
 import { calcBasicDistence } from "./utils/calcBasicDistance";
-import { verticePrefix } from "./prefix";
+import { fPrefix, verticePrefix } from "./prefix";
 import { createSideNode } from "./createNode";
 import { calcNodePosition } from "./utils/calcNodePosition";
 import { normalLayout } from "./layouts/normal/normalLayout";
@@ -82,6 +82,7 @@ export const drawSideNodes = (
       .append('g')
       .classed(nodes.length > 0 && nodes[0].labelName || '', true)
       .classed(parentClass || '', true)
+      .attr('id', fPrefix + fId)
 
     if (config.mode === 1) {
       normalLayout(
