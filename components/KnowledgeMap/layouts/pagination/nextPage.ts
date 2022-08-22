@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 09:03:06
+ * @LastEditTime: 2022-08-22 09:24:48
  * @Description: 请填写简介
  */
 
@@ -187,6 +187,8 @@ export const nextPage = (
     originNodes.forEach(node => {
       if (edge.fromVertexId === centerPoint.id && edge.toVertexId === node.id) {
         d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}`).remove()
+        d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}description`).remove()
+        d3.select(`#${edgePrefix + edge.fromVertexId}${edge.toVertexId}icon`).remove()
       }
     })
   })
