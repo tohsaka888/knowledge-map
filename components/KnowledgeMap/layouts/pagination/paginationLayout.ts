@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:50:40
+ * @LastEditTime: 2022-08-22 14:16:00
  * @Description: 请填写简介
  */
 
@@ -61,6 +61,7 @@ export const paginationLayout = (
       .classed('arc', true)
       .classed(parentClass, true)
       .attr('id', fPrefix + centerPoint.id)
+      .attr('transform', `translate(0, 0)`)
       .append('g')
       .attr('transform', `rotate(${calcedAngle})`)
       .attr('transform-origin', `${centerPoint.x} ${centerPoint.y}`)
