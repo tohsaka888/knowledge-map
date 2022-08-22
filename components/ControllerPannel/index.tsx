@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 15:12:44
+ * @LastEditTime: 2022-08-22 15:15:22
  * @Description: 请填写简介
  */
 import { Form, Select, Input, Button, message } from 'antd'
@@ -52,6 +52,7 @@ function ControllerPannel() {
             value={config.showDisctription}
             options={[{ label: '是', value: true }, { label: '否', value: false }]}
             onChange={(value) => {
+              resetCanvas()
               dispatch({ type: 'setShowDiscription', payload: value })
             }}
           />
@@ -61,6 +62,7 @@ function ControllerPannel() {
             value={config.isStraight}
             options={[{ label: '直线', value: true }, { label: '曲线', value: false }]}
             onChange={(value) => {
+              resetCanvas()
               dispatch({ type: 'setIsStraight', payload: value })
             }}
           />
@@ -71,6 +73,7 @@ function ControllerPannel() {
             value={config.lineWidth}
             type='number'
             onChange={(e) => {
+              resetCanvas()
               dispatch({ type: 'setLineWidth', payload: +e.target.value });
             }}
           />
@@ -81,6 +84,7 @@ function ControllerPannel() {
             value={config.arrowPosition}
             type='number'
             onChange={(e) => {
+              resetCanvas()
               dispatch({ type: 'setArrowPosition', payload: +e.target.value });
             }}
           />
@@ -92,6 +96,7 @@ function ControllerPannel() {
               value={config.besselRate}
               type='number'
               onChange={(e) => {
+                resetCanvas()
                 dispatch({ type: 'setBesselRate', payload: +e.target.value });
               }}
             />

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:46:57
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:17:28
+ * @LastEditTime: 2022-08-22 17:11:09
  * @Description: 请填写简介
  */
 
@@ -73,23 +73,7 @@ export const normalLayout = (
 
       const sideContainer = typeContainer.append('g')
       createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges, duration })
-      window.setTimeout(() => {
-        sideContainer.on('mouseover', function (event) {
-          event.stopPropagation();
-          const x = node.x as number
-          const y = node.y as number
-          d3.select('#border')
-            .attr('transform', `translate(${x}, ${y})`)
-            .select('circle')
-            .attr('stroke-width', 8)
-            .attr('r', nodeRadius + 4)
-          d3.select('#popover-container')
-            .attr('width', nodeRadius * 2 + 10)
-            .attr('height', nodeRadius * 2 + 10)
-            .attr('x', +x)
-            .attr('y', +y - 10)
-        })
-      }, duration)
+     
       idx++
     }
   })

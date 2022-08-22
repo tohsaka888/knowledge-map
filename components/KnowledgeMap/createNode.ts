@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:17:05
+ * @LastEditTime: 2022-08-22 17:13:33
  * @Description: 请填写简介
  */
 
@@ -10,7 +10,7 @@ import * as d3 from 'd3'
 import { debounce, throttle } from 'lodash';
 import { Graph } from '../..';
 import { explore } from './explore';
-import { globalNodes } from './global';
+import { changeIsReset, explorePath, globalNodes, isReset } from './global';
 import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
 import { canExplore } from './utils/test/canExplore';
@@ -121,6 +121,32 @@ export const createSideNode = (
   if (!globalNodes.find(v => v.id === vertice.id)) {
     globalNodes.push(vertice)
   }
+
+
+  if (isReset) {
+    const paths = explorePath.filter(path => path.mainId === vertice.id)
+
+    if (paths.length > 0) {
+      isExplore.explore = true
+      paths.forEach((path, idx) => {
+        explore({
+          mainPoint: mainVertice,
+          isExplore: isExplore.explore,
+          config,
+          current: vertice,
+          needExplore: true,
+          inGraphData: path.inData,
+          outGraphData: path.outData
+        })
+
+        if (idx === explorePath.length - 1) {
+          changeIsReset(false)
+        }
+      })
+    }
+  }
+
+
   // 探索
   window.setTimeout(() => {
     container

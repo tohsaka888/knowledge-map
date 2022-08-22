@@ -2,11 +2,12 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:23:36
+ * @LastEditTime: 2022-08-22 17:13:43
  * @Description: 请填写简介
  */
 import { message } from 'antd'
 import * as d3 from 'd3'
+import { cloneDeep } from 'lodash'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
 import { clearMemo } from './clearMemo'
@@ -14,6 +15,7 @@ import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
+import { explorePath, filteredPath } from './global'
 import { modifyEdge } from './modifyEdge'
 // import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
@@ -56,9 +58,22 @@ type Props = {
   isExplore: boolean;
   config: Graph.ConfigProps;
   current: Graph.Vertice;
+  needExplore?: boolean;
+  inGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
+  outGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
 }
 
-export const explore = async ({ mainPoint, isExplore, config, current }: Props) => {
+export const explore = async (
+  {
+    mainPoint,
+    isExplore,
+    config,
+    current,
+    needExplore,
+    inGraphData = { vertices: [], edges: [] },
+    outGraphData = { vertices: [], edges: [] }
+  }: Props
+) => {
   if (success) {
     const { isInside, angle } = current
     let position = { x: mainPoint.x!, y: mainPoint.y! }
@@ -67,7 +82,16 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
     const atanAngle = isInside ? Math.atan2(current.y! - mainPoint.y!, current.x! - mainPoint.x!) + Math.PI : Math.atan2(current.y! - mainPoint.y!, current.x! - mainPoint.x!)
     if (current.distance && isInside !== undefined && angle) {
       if (isExplore) {
-        const { inData, outData } = await fetchInsideOutside({ current })
+        const { inData, outData } = needExplore ? { inData: inGraphData, outData: outGraphData } : await fetchInsideOutside({ current })
+        
+        if (!explorePath.find(path => path.mainId === current.id)) {
+          explorePath.push({
+            mainId: current.id,
+            inData: cloneDeep(inData),
+            outData: cloneDeep(outData)
+          })
+        }
+        
         const size = calcSize({ inData: inData.vertices, outData: outData.vertices })
         const insideIds = inData.vertices.map((v) => v.id)
         const outsideIds = outData.vertices.map((v) => v.id)
@@ -80,6 +104,7 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
         current.y = position.y
         // moveNodeToCenter({ node: current })
         fixedNodePosition({ node: current, x: originX, y: originY })
+
         window.setTimeout(() => {
           // 创建入边出边types数组
           const insideTypes = Array.from(new Set(inData.vertices.map(v => v.labelName)))
@@ -130,6 +155,9 @@ export const explore = async ({ mainPoint, isExplore, config, current }: Props) 
         position = extendDistance({ node: current, mainPoint, isInside, size: current.size!, isExplore, config })
         current.x = position.x
         current.y = position.y
+
+        filteredPath(current.id)
+
         // moveNodeToCenter({ node: current })
         fixedNodePosition({ node: current, x: originX, y: originY })
         d3.selectAll(`.${verticePrefix + current.id}`)
