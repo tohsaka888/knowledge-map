@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:23:56
+ * @LastEditTime: 2022-08-22 10:52:24
  * @Description: 请填写简介
  */
 
@@ -13,6 +13,7 @@ import { calcMode } from "../../utils/calcMode"
 import { drawSideNodes } from "../../drawSideNodes"
 import { globalNodes } from "../../global"
 import { drawEdgeArea } from "../../drawEdgeArea"
+import { message } from "antd"
 
 type Props = {
   pagination: { page: number, pageSize: number },
@@ -25,7 +26,8 @@ type Props = {
   centerPoint: Graph.Vertice,
   atanAngle: number,
   insideLength: number,
-  outsideLength: number
+  outsideLength: number,
+  isPrev: boolean
 }
 
 export const nextPage = (
@@ -40,7 +42,8 @@ export const nextPage = (
     edges,
     atanAngle,
     insideLength,
-    outsideLength
+    outsideLength,
+    isPrev
   }: Props
 ) => {
   const { mode } = config
@@ -63,7 +66,19 @@ export const nextPage = (
     })
   })
 
-  pagination.page = (pagination.page + 1) % total === 0 ? total : (pagination.page + 1) % total
+  if (isPrev) {
+    if (pagination.page === 1) {
+      message.warning('已经到首页了')
+    } else {
+      pagination.page--
+    }
+  } else {
+    if (pagination.page === total) {
+      message.warning('已经到末页了')
+    } else {
+      pagination.page++
+    }
+  }
   const nodes = calcMode(originNodes, pagination.page, mode)
 
   const nodeIndex = globalNodes.findIndex(gN => gN.id === currentNodes[0].id)

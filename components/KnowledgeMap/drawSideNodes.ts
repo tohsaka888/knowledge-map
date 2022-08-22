@@ -55,7 +55,6 @@ export const drawSideNodes = (
     duration
   }: Props
 ) => {
-  console.log(duration)
   const container = d3.select('#node-area')
   const { mode } = config
   typeNodes.forEach((originNodes, index) => {

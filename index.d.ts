@@ -64,6 +64,8 @@ declare namespace Graph {
     x?: number; // 仅前端使用
     y?: number; // 仅前端使用
     p?: string[]; // 当前节点所有的父节点
+    initX?: number;
+    initY?: number;
     size?: number;
     angle?: number;
     distance?: number;
