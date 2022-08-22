@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 13:49:01
+ * @LastEditTime: 2022-08-22 10:26:36
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -20,12 +20,16 @@ import { edgePrefix, verticePrefix } from './prefix'
  * @returns {any}
  */
 const drawStraightLine = (
-  nodes: Graph.Vertice[],
-  edges: Graph.Line[],
-  mainPoint: Graph.Vertice,
-  config: Graph.ConfigProps,
-  edgeArea: d3.Selection<any, unknown, any, any>,
-  fId?: string
+  { nodes, edgeArea, edges, config, fId, mainPoint, duration }:
+    {
+      nodes: Graph.Vertice[],
+      edges: Graph.Line[],
+      mainPoint: Graph.Vertice,
+      config: Graph.ConfigProps,
+      edgeArea: d3.Selection<any, unknown, any, any>,
+      fId?: string;
+      duration: number;
+    }
 ) => {
   let topCount = 0
   let downCount = 0
@@ -63,10 +67,10 @@ const drawStraightLine = (
           .classed(parentClass, true)
           .style('opacity', 0);
         current.transition()
-          .duration(1000)
+          .duration(duration)
           .style('opacity', 1)
           .attr('d', `M ${fromNode.x} ${fromNode.y},L ${toNode.x} ${toNode.y}`);
-        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass,duration })
       }
     }
   })
@@ -80,12 +84,16 @@ const drawStraightLine = (
  * @returns {any}
  */
 const drawBesselLine = (
-  nodes: Graph.Vertice[],
-  edges: Graph.Line[],
-  mainPoint: Graph.Vertice,
-  config: Graph.ConfigProps,
-  edgeArea: d3.Selection<any, unknown, any, any>,
-  fId?: string
+  { nodes, edges, mainPoint, config, edgeArea, fId, duration }:
+    {
+      nodes: Graph.Vertice[],
+      edges: Graph.Line[],
+      mainPoint: Graph.Vertice,
+      config: Graph.ConfigProps,
+      edgeArea: d3.Selection<any, unknown, any, any>,
+      fId?: string,
+      duration: number
+    }
 ) => {
   let topCount = 0;
   let downCount = 0;
@@ -126,7 +134,7 @@ const drawBesselLine = (
           .attr('id', edgePrefix + edge.fromVertexId + edge.toVertexId)
           .style('opacity', 0)
           .transition()
-          .duration(1000)
+          .duration(duration)
           .style('opacity', 1)
           .attr('d', `
       M ${fromNode.x} ${fromNode.y},
@@ -134,7 +142,7 @@ const drawBesselLine = (
       ${+toNode.x - perX} ${toNode.y}
       ${toNode.x} ${toNode.y}
       `)
-        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration })
       }
     }
   })
@@ -154,10 +162,11 @@ type Props = {
   config: Graph.ConfigProps;
   mainPoint?: Graph.Vertice;
   init?: boolean;
-  fId?: string
+  fId?: string;
+  duration: number;
 }
 
-export const drawEdgeArea = ({ nodes, edges, config, mainPoint, init, fId }: Props) => {
+export const drawEdgeArea = ({ nodes, edges, config, mainPoint, init, fId, duration }: Props) => {
   const needDrawNodes = nodes.filter(node => node.x && node.y)
   let edgeArea = null
 
@@ -177,9 +186,9 @@ export const drawEdgeArea = ({ nodes, edges, config, mainPoint, init, fId }: Pro
   // 画线
   if (mainPoint) {
     if (config.isStraight) {
-      drawStraightLine(needDrawNodes, edges, mainPoint, config, edgeArea, fId)
+      drawStraightLine({ nodes: needDrawNodes, edges, mainPoint, config, edgeArea, fId, duration })
     } else {
-      drawBesselLine(needDrawNodes, edges, mainPoint, config, edgeArea, fId)
+      drawBesselLine({ nodes: needDrawNodes, edges, mainPoint, config, edgeArea, fId, duration })
     }
   }
 }

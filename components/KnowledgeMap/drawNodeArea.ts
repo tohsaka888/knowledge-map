@@ -110,7 +110,8 @@ export const drawNodeArea = (
       maxAngle: insideMaxAngle,
       edges,
       insideLength: insideVertices.length,
-      outsideLength: outsideVertices.length
+      outsideLength: outsideVertices.length,
+      duration: 1000
     }
   )
 
@@ -124,7 +125,8 @@ export const drawNodeArea = (
       maxAngle: outsideMaxAngle,
       edges,
       insideLength: insideVertices.length,
-      outsideLength: outsideVertices.length
+      outsideLength: outsideVertices.length,
+      duration: 1000
     }
   )
 

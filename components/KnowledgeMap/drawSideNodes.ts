@@ -36,6 +36,7 @@ type Props = {
   insideLength: number;
   outsideLength: number;
   nextContainer?: d3.Selection<any, any, any, any>;
+  duration: number;
 }
 
 export const drawSideNodes = (
@@ -50,9 +51,11 @@ export const drawSideNodes = (
     atanAngle = 0,
     insideLength,
     outsideLength,
-    nextContainer
+    nextContainer,
+    duration
   }: Props
 ) => {
+  console.log(duration)
   const container = d3.select('#node-area')
   const { mode } = config
   typeNodes.forEach((originNodes, index) => {
@@ -95,7 +98,8 @@ export const drawSideNodes = (
           outsideLength,
           edges,
           config,
-          centerPoint
+          centerPoint,
+          duration
         }
       )
     } else if (config.mode === 2) {
@@ -128,7 +132,8 @@ export const drawSideNodes = (
           outsideLength,
           edges,
           config,
-          centerPoint
+          centerPoint,
+          duration
         }
       )
     }
