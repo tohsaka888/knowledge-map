@@ -2,14 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-08 08:29:23
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 16:28:13
+ * @LastEditTime: 2022-08-23 16:20:28
  * @Description: 请填写简介
  */
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { drawNodeArea } from './drawNodeArea';
 import * as d3 from 'd3'
 import { Graph } from '../..';
-import { VisibleContext } from '../context';
+// import { VisibleContext } from '../context';
 
 type Props = {
   mainVertice: Graph.Vertice;
@@ -25,7 +25,6 @@ function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config 
 
   // 状态改变时清除画布
   useEffect(() => {
-    console.log('run')
     const container = nodesContainerRef.current
     drawNodeArea(
       {
