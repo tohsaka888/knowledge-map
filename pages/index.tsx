@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 09:57:44
+ * @LastEditTime: 2022-08-23 10:50:23
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
@@ -29,7 +29,8 @@ const initState: Graph.ConfigProps = {
   isStraight: true,
   besselRate: 5,
   lineWidth: 1,
-  arrowPosition: 50
+  arrowPosition: 50,
+  nameVisible: true
 }
 
 const reducer = (state: typeof initState, action: Graph.ActionType) => {
@@ -56,6 +57,8 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
       return { ...state, arrowPosition: action.payload }
     case 'reset':
       return { ...state }
+    case 'setNameVisible':
+      return { ...state, nameVisible: action.payload }
   }
 }
 
