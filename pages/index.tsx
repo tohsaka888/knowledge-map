@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 15:12:28
+ * @LastEditTime: 2022-08-23 09:57:44
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
@@ -54,6 +54,8 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
       return { ...state, lineWidth: action.payload }
     case 'setArrowPosition':
       return { ...state, arrowPosition: action.payload }
+    case 'reset':
+      return { ...state }
   }
 }
 
@@ -92,15 +94,13 @@ const Home: NextPage = () => {
 
       <main>
         <Layout>
-          <Layout.Header>
+          <Layout.Header style={{ background: '#14335e' }}>
             <h1 style={{ color: '#fff' }}>知识图谱Demo</h1>
           </Layout.Header>
           <Layout style={{ minHeight: height - 70 }}>
             <ConfigContext.Provider value={{ config, dispatch }}>
-              <Layout.Sider theme={'light'} style={{ minHeight: '90vh' }}>
-                <ControllerPannel />
-              </Layout.Sider>
-              <Layout.Content style={{ height: height - 70 }}>
+              <ControllerPannel />
+              <Layout.Content style={{ height: height - 70, background: 'rgb(18, 51, 75)' }}>
                 <VisibleContext.Provider value={{ visible, setVisible }}>
                   {!loading && <Canvas
                     insideVertices={insideGraph.vertices}

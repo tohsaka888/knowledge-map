@@ -2,14 +2,16 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 13:34:39
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 15:15:22
+ * @LastEditTime: 2022-08-23 09:50:24
  * @Description: 请填写简介
  */
-import { Form, Select, Input, Button, message } from 'antd'
+import { Form, Select, Input, Button, message, Layout } from 'antd'
 import React, { useContext } from 'react'
 import { ConfigContext } from '../../context'
+import useScreenSize from '../../hooks/useScreenSize'
 import { resetCanvas } from '../KnowledgeMap/resetCanvas'
 import { downloadSvg } from '../KnowledgeMap/utils/download'
+import BottomController from './BottomController'
 import style from './index.module.css'
 
 // type Props = {
@@ -18,9 +20,10 @@ import style from './index.module.css'
 
 function ControllerPannel() {
   const { config, dispatch } = useContext(ConfigContext)!
+  const { height } = useScreenSize()
   return (
-    <>
-      <Form
+    <Layout.Sider className={style['sider-container']} theme={'light'} width={350} style={{ height: height - 65 }}>
+      {/* <Form
         style={{ marginTop: '16px', padding: '0px 8px' }}
         labelCol={{ span: 10 }}
         wrapperCol={{ span: 14 }}>
@@ -136,29 +139,9 @@ function ControllerPannel() {
             />
           </Form.Item>
         </>}
-      </Form>
-      <div className={style['flex-center']}>
-        <Button type='primary'
-          onClick={() => {
-            resetCanvas()
-            window.setTimeout(() => {
-              message.success('已复位画布')
-            }, 1000)
-          }}
-        >
-          画布复位
-        </Button>
-      </div>
-      <div className={style['flex-center']}>
-        <Button type='primary'
-          onClick={() => {
-            downloadSvg()
-          }}
-        >
-          下载图片
-        </Button>
-      </div>
-    </>
+      </Form> */}
+      <BottomController />
+    </Layout.Sider>
   )
 }
 
