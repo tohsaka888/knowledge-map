@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:47:28
+ * @LastEditTime: 2022-08-23 15:30:34
  * @Description: 请填写简介
  */
 
@@ -102,10 +102,16 @@ const fn = throttle(function ({
   mainVertice: Graph.Vertice;
 }) {
   isExplore.explore = !isExplore.explore
-  explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice });
+  explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice, needExplore: false });
 }, 1100, { 'trailing': false })
 
 const debouncedExplore = debounce(explore, 1000)
+const debouncedReset = debounce((path, idx) => {
+  path.isExplore = true
+  if (!explorePath.find(p => p.isExplore !== true)) {
+    changeIsReset(false)
+  }
+}, 1000)
 
 let timer = -1
 
@@ -142,9 +148,7 @@ export const createSideNode = (
           outGraphData: path.outData
         })
 
-        if (idx === explorePath.length - 1) {
-          changeIsReset(false)
-        }
+        debouncedReset(path, idx)
       })
     }
   }
