@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 08:53:55
+ * @LastEditTime: 2022-08-23 11:32:27
  * @Description: 请填写简介
  */
 
@@ -78,7 +78,7 @@ export const createNode = (
     .attr('dominant-baseline', 'middle')
     .style('font-size', 10)
     .attr('fill', '#fff')
-    .text(vertice.name || '')
+    .text(config.nameVisible ? vertice.name : '')
 }
 
 type SideProps = {
@@ -105,6 +105,8 @@ const fn = throttle(function ({
   explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice });
 }, 1100, { 'trailing': false })
 
+const debouncedExplore = debounce(explore, 1000)
+
 let timer = -1
 
 export const createSideNode = (
@@ -130,7 +132,7 @@ export const createSideNode = (
     if (paths.length > 0) {
       isExplore.explore = true
       paths.forEach((path, idx) => {
-        explore({
+        debouncedExplore({
           mainPoint: mainVertice,
           isExplore: isExplore.explore,
           config,
@@ -164,7 +166,6 @@ export const createSideNode = (
           })
       )
       .on('click', (e) => {
-        e.stopPropagation();
         window.clearInterval(timer)
         container.call(
           d3.drag<any, any>()
@@ -188,7 +189,6 @@ export const createSideNode = (
                 })
             )
         }, duration + 100)
-        e.stopPropagation();
         fn({ isExplore, config, vertice, mainVertice })
       })
   }, duration)
@@ -233,7 +233,7 @@ export const createSideNode = (
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .style('font-size', 10)
-    .text(vertice.name || '')
+    .text(config.nameVisible ? vertice.name : '')
     .attr('fill', '#fff')
     .style('opacity', 0)
     .transition()

@@ -55,3 +55,15 @@
 .button-background:hover {
   background-color: #1890ff;
 }
+
+.flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.label {
+  font-size: 13px;
+  color: #333333;
+}

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-04 10:36:41
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 09:20:42
+ * @LastEditTime: 2022-08-23 11:39:56
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -65,6 +65,6 @@ export const downloadSvg = () => {
     let blob = base64ToBlob(ImgBase64); //new Blob([content]);
     aLink.download = '图谱';
     aLink.href = URL.createObjectURL(blob);
-    aLink.click();
+    window.open(aLink.href, 'Download');
   }
 }

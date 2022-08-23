@@ -2,12 +2,12 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 17:13:43
+ * @LastEditTime: 2022-08-23 11:28:21
  * @Description: 请填写简介
  */
 import { message } from 'antd'
 import * as d3 from 'd3'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, debounce } from 'lodash'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
 import { clearMemo } from './clearMemo'
@@ -83,7 +83,7 @@ export const explore = async (
     if (current.distance && isInside !== undefined && angle) {
       if (isExplore) {
         const { inData, outData } = needExplore ? { inData: inGraphData, outData: outGraphData } : await fetchInsideOutside({ current })
-        
+
         if (!explorePath.find(path => path.mainId === current.id)) {
           explorePath.push({
             mainId: current.id,
@@ -91,7 +91,7 @@ export const explore = async (
             outData: cloneDeep(outData)
           })
         }
-        
+
         const size = calcSize({ inData: inData.vertices, outData: outData.vertices })
         const insideIds = inData.vertices.map((v) => v.id)
         const outsideIds = outData.vertices.map((v) => v.id)
@@ -196,3 +196,4 @@ export const explore = async (
     message.error('服务端错误,请刷新后重试')
   }
 }
+// , 1000, { leading: true })

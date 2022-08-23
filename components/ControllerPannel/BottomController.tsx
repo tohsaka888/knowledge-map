@@ -2,17 +2,18 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 08:35:52
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 10:06:35
+ * @LastEditTime: 2022-08-23 11:04:34
  * @Description: 请填写简介
  */
 
-import { Divider, Input, message, Tooltip } from 'antd'
+import { Divider, Input, message, Popover, Tooltip } from 'antd'
 import React, { useContext } from 'react'
 import style from './index.module.css'
 import { BsSearch, BsSnow, BsFillGeoAltFill, BsFullscreen, BsGearWideConnected, BsGrid1X2, BsFonts, BsShare, BsUpload, BsFillInfoCircleFill } from 'react-icons/bs'
 import { ConfigContext } from '../../context'
 import { downloadSvg } from '../KnowledgeMap/utils/download'
 import { resetCanvas } from '../KnowledgeMap/resetCanvas'
+import PopoverContent from './PopoverContent'
 
 function BottomController() {
 
@@ -66,18 +67,22 @@ function BottomController() {
       <Divider type={'vertical'} style={{ background: '#cecece', fontSize: '24px' }} />
 
       <div className={style['button-container']}>
-        <Tooltip placement="top" trigger={'hover'} title="显示开关">
-          <div className={style['button-background']}>
-            <BsGearWideConnected color='#fff' size={16} />
-          </div>
-        </Tooltip>
+        <Popover trigger={'click'} title="显示开关" content={<PopoverContent type='show-switch' />}>
+          <Tooltip placement="top" trigger={'hover'} title="显示开关">
+            <div className={style['button-background']}>
+              <BsGearWideConnected color='#fff' size={16} />
+            </div>
+          </Tooltip>
+        </Popover>
       </div>
       <div className={style['button-container']}>
-        <Tooltip placement="top" trigger={'hover'} title="概念设置">
-          <div className={style['button-background']}>
-            <BsFonts color='#fff' size={16} />
-          </div>
-        </Tooltip>
+        <Popover trigger={'click'} title="概念设置" content={<PopoverContent type='concept-setting' />}>
+          <Tooltip placement="top" trigger={'hover'} title="概念设置">
+            <div className={style['button-background']}>
+              <BsFonts color='#fff' size={16} />
+            </div>
+          </Tooltip>
+        </Popover>
       </div>
       <div className={style['button-container']}>
         <Tooltip placement="top" trigger={'hover'} title="关系配置">

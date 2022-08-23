@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 15:05:08
+ * @LastEditTime: 2022-08-23 10:36:46
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -57,7 +57,7 @@ function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVert
     <div style={{ width: '100%', height: '100%' }}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        className={style['canvas-container']}
+        style={{ width: '100%', height: '100%' }}
         id='svg'
         ref={canvasRef}
       >
