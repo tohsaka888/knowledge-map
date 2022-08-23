@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 17:15:33
+ * @LastEditTime: 2022-08-23 13:53:05
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -69,7 +69,7 @@ const drawStraightLine = (
        l ${mainPoint.x} ${mainPoint.y} 
        l ${mainPoint.x} ${mainPoint.y}`
           )
-          .attr('stroke-width', config.lineWidth)
+          .attr('stroke-width', config.lineWidth / 10)
           .attr('stroke', '#cecece')
           .attr('id', edgePrefix + edge.fromVertexId + edge.toVertexId)
           .classed(parentClass, true)
