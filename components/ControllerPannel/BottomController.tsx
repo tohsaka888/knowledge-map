@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 08:35:52
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:04:34
+ * @LastEditTime: 2022-08-23 11:50:55
  * @Description: 请填写简介
  */
 
@@ -24,7 +24,7 @@ function BottomController() {
       <Input
         placeholder='请输入节点名称搜索'
         addonAfter={null}
-        style={{ maxWidth: '300px' }}
+        style={{ maxWidth: '300px', color: '#fff' }}
         className={style['search-container']}
         suffix={<BsSearch color={'#fff'} />}
       />

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 10:17:26
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:13:03
+ * @LastEditTime: 2022-08-23 13:26:05
  * @Description: 请填写简介
  */
 
@@ -44,13 +44,14 @@ function PopoverContent({ type }: Props) {
       </>}
 
       {type === 'concept-setting' &&
-        <div style={{ width: '200px' }}>
+        <div style={{ width: '250px' }}>
           <div className={style['label']}>概念文字大小</div>
-          <Slider min={12} max={24} />
+          <Slider min={12} max={24} marks={{ 12: 12, 24: 24 }} />
           <Divider style={{ margin: '8px 0px' }} />
 
           <div className={style['label']}>概念图标大小</div>
           <Slider min={5} max={50}
+            marks={{ 5: 5, 20: 20, 50: 50 }}
             value={config.nodeRadius}
             onChange={(value) => {
               resetCanvas()
@@ -61,6 +62,7 @@ function PopoverContent({ type }: Props) {
 
           <div className={style['label']}>概念之间距离</div>
           <Slider min={100} max={600}
+            marks={{ 100: 100, 200: 200, 600: 600 }}
             value={config.basicDistence}
             onChange={(value) => {
               resetCanvas()
