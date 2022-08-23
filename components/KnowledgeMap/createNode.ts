@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:47:28
+ * @LastEditTime: 2022-08-23 17:16:42
  * @Description: 请填写简介
  */
 
@@ -102,10 +102,16 @@ const fn = throttle(function ({
   mainVertice: Graph.Vertice;
 }) {
   isExplore.explore = !isExplore.explore
-  explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice });
+  explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice, needExplore: false });
 }, 1100, { 'trailing': false })
 
 const debouncedExplore = debounce(explore, 1000)
+const debouncedReset = debounce((path, idx) => {
+  path.isExplore = true
+  if (!explorePath.find(p => p.isExplore !== true)) {
+    changeIsReset(false)
+  }
+}, 1000)
 
 let timer = -1
 
@@ -131,20 +137,34 @@ export const createSideNode = (
 
     if (paths.length > 0) {
       isExplore.explore = true
-      paths.forEach((path, idx) => {
-        debouncedExplore({
-          mainPoint: mainVertice,
-          isExplore: isExplore.explore,
-          config,
-          current: vertice,
-          needExplore: true,
-          inGraphData: path.inData,
-          outGraphData: path.outData
-        })
 
-        if (idx === explorePath.length - 1) {
-          changeIsReset(false)
+      paths.forEach((path, idx) => {
+        if (vertice.isInside) {
+          debouncedExplore({
+            mainPoint: mainVertice,
+            isExplore: isExplore.explore,
+            config,
+            current: vertice,
+            needExplore: true,
+            inGraphData: path.inData,
+            outGraphData: path.outData
+          })
+          debouncedReset(path, idx)
+        } else {
+          setTimeout(() => {
+            debouncedExplore({
+              mainPoint: mainVertice,
+              isExplore: isExplore.explore,
+              config,
+              current: vertice,
+              needExplore: true,
+              inGraphData: path.inData,
+              outGraphData: path.outData
+            })
+            debouncedReset(path, idx)
+          }, 1000)
         }
+
       })
     }
   }

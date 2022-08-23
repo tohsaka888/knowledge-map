@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:11:54
+ * @LastEditTime: 2022-08-23 14:52:51
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
@@ -10,7 +10,11 @@ import { resetSize, translate } from './canvasDrag'
 import { changeIsReset, explorePath, globalEdges, globalNodes } from './global'
 
 export const resetCanvas = (needClear?: boolean) => {
+  explorePath.forEach((path) => {
+    path.isExplore = false
+  })
 
+  changeIsReset(true)
   d3.select('#drag')
     .transition()
     .duration(1000)

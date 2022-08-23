@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:28:21
+ * @LastEditTime: 2022-08-23 16:28:59
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -10,12 +10,11 @@ import * as d3 from 'd3'
 import { cloneDeep, debounce } from 'lodash'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
-import { clearMemo } from './clearMemo'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
-import { explorePath, filteredPath } from './global'
+import { explorePath, filteredNodes, filteredPath } from './global'
 import { modifyEdge } from './modifyEdge'
 // import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
@@ -82,13 +81,13 @@ export const explore = async (
     const atanAngle = isInside ? Math.atan2(current.y! - mainPoint.y!, current.x! - mainPoint.x!) + Math.PI : Math.atan2(current.y! - mainPoint.y!, current.x! - mainPoint.x!)
     if (current.distance && isInside !== undefined && angle) {
       if (isExplore) {
-        const { inData, outData } = needExplore ? { inData: inGraphData, outData: outGraphData } : await fetchInsideOutside({ current })
-
+        const { inData, outData } = (needExplore === true) ? { inData: inGraphData, outData: outGraphData } : await fetchInsideOutside({ current })
         if (!explorePath.find(path => path.mainId === current.id)) {
           explorePath.push({
             mainId: current.id,
             inData: cloneDeep(inData),
-            outData: cloneDeep(outData)
+            outData: cloneDeep(outData),
+            isExplore: false
           })
         }
 
@@ -160,15 +159,15 @@ export const explore = async (
 
         // moveNodeToCenter({ node: current })
         fixedNodePosition({ node: current, x: originX, y: originY })
-        d3.selectAll(`.${verticePrefix + current.id}`)
-          .remove()
-        current.s?.forEach((id) => {
-          if (id !== mainPoint.id) {
-            clearMemo({ nodeId: id })
-            d3.selectAll(`.${verticePrefix + id}`)
-              .remove()
+        const needRemove = d3.selectAll(`.${verticePrefix + current.id}`)
+        needRemove.selectAll<HTMLElement, any>('circle').nodes().forEach((ele) => {
+          const id = ele.getAttribute('id')?.substring(2)
+          if (id) {
+            filteredNodes(id)
+            filteredPath(current.id)
           }
         })
+        needRemove.remove()
       }
       // 更改节点坐标
       d3.select(`#${verticePrefix + current.id}`)
