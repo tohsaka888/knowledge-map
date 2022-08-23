@@ -72,15 +72,6 @@ export const canvasDrag = (
   setVisible: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
   d3.select(canvas)
-    .on('mouseover', () => {
-      if (setVisible) {
-        setVisible(false)
-      }
-      d3.select('#border')
-        .select('circle')
-        .attr('stroke-width', 0)
-        .attr('r', 0)
-    })
     .on('wheel', function (event: any) {
       if (event.deltaY < 0) {
         d3.select('#scale')
@@ -92,10 +83,6 @@ export const canvasDrag = (
     })
     .on('click', () => {
       d3.select('#selector-result').remove()
-    })
-  d3.select('#popover')
-    .on('mouseover', function (event: any) {
-      event.stopPropagation();
     })
 }
 
