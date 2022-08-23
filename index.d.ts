@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-19 15:03:07
+ * @LastEditTime: 2022-08-23 09:57:03
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -48,6 +48,7 @@ declare namespace Graph {
     | { type: 'setBesselRate', payload: number }
     | { type: 'setLineWidth', payload: number }
     | { type: 'setArrowPosition', payload: number }
+    | { type: 'reset', payload: undefined }
 
   type ConfigContextProps = {
     config: ConfigProps;
