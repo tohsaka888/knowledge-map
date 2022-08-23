@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:46:57
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 17:11:09
+ * @LastEditTime: 2022-08-23 11:15:29
  * @Description: 请填写简介
  */
 
@@ -10,7 +10,6 @@ import * as d3 from "d3"
 import config from "next/config"
 import { Graph } from "../../../.."
 import { createSideNode } from "../../createNode"
-import { basicDistence, nodeRadius } from "../../defaultConfig"
 import { verticePrefix } from "../../prefix"
 import { calcBasicDistence } from "../../utils/calcBasicDistance"
 import { calcNodePosition } from "../../utils/calcNodePosition"
@@ -55,7 +54,7 @@ export const normalLayout = (
       // document.getElementById(verticePrefix + node.id)?.parentElement?.remove()
       // 记录节点信息
       node.angle = (idx + (node.needRotate ? 0.5 : 1)) * maxAngle / (nodes.length + 1) + index * maxAngle
-      node.distance = calcBasicDistence(nodes.length, maxAngle, basicDistence)
+      node.distance = calcBasicDistence(nodes.length, maxAngle, config.basicDistence)
       node.isInside = isInside
       const position = calcNodePosition(
         {
@@ -73,7 +72,7 @@ export const normalLayout = (
 
       const sideContainer = typeContainer.append('g')
       createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges, duration })
-     
+
       idx++
     }
   })
