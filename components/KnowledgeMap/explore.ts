@@ -2,12 +2,12 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 17:13:43
+ * @LastEditTime: 2022-08-23 11:17:37
  * @Description: 请填写简介
  */
 import { message } from 'antd'
 import * as d3 from 'd3'
-import { cloneDeep } from 'lodash'
+import { cloneDeep, debounce } from 'lodash'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
 import { clearMemo } from './clearMemo'
@@ -63,7 +63,7 @@ type Props = {
   outGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
 }
 
-export const explore = async (
+export const explore = debounce(async (
   {
     mainPoint,
     isExplore,
@@ -195,4 +195,4 @@ export const explore = async (
   } else {
     message.error('服务端错误,请刷新后重试')
   }
-}
+}, 1000)
