@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 17:13:33
+ * @LastEditTime: 2022-08-23 08:53:55
  * @Description: 请填写简介
  */
 
@@ -77,6 +77,7 @@ export const createNode = (
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
     .style('font-size', 10)
+    .attr('fill', '#fff')
     .text(vertice.name || '')
 }
 
@@ -233,6 +234,7 @@ export const createSideNode = (
     .attr('dominant-baseline', 'middle')
     .style('font-size', 10)
     .text(vertice.name || '')
+    .attr('fill', '#fff')
     .style('opacity', 0)
     .transition()
     .duration(duration)
