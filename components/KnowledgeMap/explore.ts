@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 16:18:01
+ * @LastEditTime: 2022-08-23 16:28:59
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -14,7 +14,7 @@ import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
-import { explorePath, filteredPath } from './global'
+import { explorePath, filteredNodes, filteredPath } from './global'
 import { modifyEdge } from './modifyEdge'
 // import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
@@ -155,7 +155,7 @@ export const explore = async (
         current.x = position.x
         current.y = position.y
 
-        // filteredPath(current.id)
+        filteredPath(current.id)
 
         // moveNodeToCenter({ node: current })
         fixedNodePosition({ node: current, x: originX, y: originY })
@@ -163,7 +163,8 @@ export const explore = async (
         needRemove.selectAll<HTMLElement, any>('circle').nodes().forEach((ele) => {
           const id = ele.getAttribute('id')?.substring(2)
           if (id) {
-            filteredPath(id)
+            filteredNodes(id)
+            filteredPath(current.id)
           }
         })
         needRemove.remove()

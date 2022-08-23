@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 15:30:34
+ * @LastEditTime: 2022-08-23 17:16:42
  * @Description: 请填写简介
  */
 
@@ -137,18 +137,34 @@ export const createSideNode = (
 
     if (paths.length > 0) {
       isExplore.explore = true
-      paths.forEach((path, idx) => {
-        debouncedExplore({
-          mainPoint: mainVertice,
-          isExplore: isExplore.explore,
-          config,
-          current: vertice,
-          needExplore: true,
-          inGraphData: path.inData,
-          outGraphData: path.outData
-        })
 
-        debouncedReset(path, idx)
+      paths.forEach((path, idx) => {
+        if (vertice.isInside) {
+          debouncedExplore({
+            mainPoint: mainVertice,
+            isExplore: isExplore.explore,
+            config,
+            current: vertice,
+            needExplore: true,
+            inGraphData: path.inData,
+            outGraphData: path.outData
+          })
+          debouncedReset(path, idx)
+        } else {
+          setTimeout(() => {
+            debouncedExplore({
+              mainPoint: mainVertice,
+              isExplore: isExplore.explore,
+              config,
+              current: vertice,
+              needExplore: true,
+              inGraphData: path.inData,
+              outGraphData: path.outData
+            })
+            debouncedReset(path, idx)
+          }, 1000)
+        }
+
       })
     }
   }
