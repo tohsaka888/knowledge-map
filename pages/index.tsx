@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:53:18
+ * @LastEditTime: 2022-08-23 14:24:55
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
@@ -24,7 +24,7 @@ const initState: Graph.ConfigProps = {
   basicDistence,
   arcAreaDistence,
   arcAreaLength,
-  mode: 2,
+  mode: 1,
   showDisctription: true,
   isStraight: true,
   besselRate: 5,
