@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:17:37
+ * @LastEditTime: 2022-08-23 11:28:21
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -63,7 +63,7 @@ type Props = {
   outGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
 }
 
-export const explore = debounce(async (
+export const explore = async (
   {
     mainPoint,
     isExplore,
@@ -83,7 +83,7 @@ export const explore = debounce(async (
     if (current.distance && isInside !== undefined && angle) {
       if (isExplore) {
         const { inData, outData } = needExplore ? { inData: inGraphData, outData: outGraphData } : await fetchInsideOutside({ current })
-        
+
         if (!explorePath.find(path => path.mainId === current.id)) {
           explorePath.push({
             mainId: current.id,
@@ -91,7 +91,7 @@ export const explore = debounce(async (
             outData: cloneDeep(outData)
           })
         }
-        
+
         const size = calcSize({ inData: inData.vertices, outData: outData.vertices })
         const insideIds = inData.vertices.map((v) => v.id)
         const outsideIds = outData.vertices.map((v) => v.id)
@@ -195,4 +195,5 @@ export const explore = debounce(async (
   } else {
     message.error('服务端错误,请刷新后重试')
   }
-}, 1000)
+}
+// , 1000, { leading: true })
