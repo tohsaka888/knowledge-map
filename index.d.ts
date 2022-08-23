@@ -34,6 +34,7 @@ declare namespace Graph {
     besselRate: number;
     lineWidth: number;
     arrowPosition: number;
+    nameVisible: boolean;
     setVisible?: React.Dispatch<React.SetStateAction<boolean>>
   }
 
@@ -49,6 +50,7 @@ declare namespace Graph {
     | { type: 'setLineWidth', payload: number }
     | { type: 'setArrowPosition', payload: number }
     | { type: 'reset', payload: undefined }
+    | { type: 'setNameVisible', payload: boolean }
 
   type ConfigContextProps = {
     config: ConfigProps;
