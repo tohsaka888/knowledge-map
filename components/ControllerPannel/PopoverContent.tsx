@@ -2,11 +2,11 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 10:17:26
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:46:10
+ * @LastEditTime: 2022-08-23 14:24:35
  * @Description: 请填写简介
  */
 
-import { Divider, Slider, Switch } from 'antd';
+import { Divider, Radio, Slider, Switch } from 'antd';
 import React, { useContext } from 'react'
 import { ConfigContext } from '../../context';
 import { resetCanvas } from '../KnowledgeMap/resetCanvas';
@@ -100,6 +100,29 @@ function PopoverContent({ type }: Props) {
               dispatch({ type: 'setLineWidth', payload: value });
             }}
           />
+        </div>
+      </>}
+
+      {type === 'layout-setting' && <>
+        <div style={{ width: '200px' }}>
+          <Radio.Group style={{ width: '100%' }} value={config.mode}
+            onChange={(e) => {
+              resetCanvas()
+              dispatch({ type: 'setMode', payload: e.target.value });
+            }}
+          >
+            <div>
+              <Radio value={1}>默认布局</Radio>
+            </div>
+            <Divider style={{ margin: '8px 0px' }} />
+            <div>
+              <Radio value={2}>分页布局</Radio>
+            </div>
+            <Divider style={{ margin: '8px 0px' }} />
+            <div>
+              <Radio value={3} disabled>力导向</Radio>
+            </div>
+          </Radio.Group>
         </div>
       </>}
     </>

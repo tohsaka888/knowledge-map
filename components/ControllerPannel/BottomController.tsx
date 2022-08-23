@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 08:35:52
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:38:10
+ * @LastEditTime: 2022-08-23 14:19:02
  * @Description: 请填写简介
  */
 
@@ -108,11 +108,17 @@ function BottomController() {
         </Popover>
       </div>
       <div className={style['button-container']}>
-        <Tooltip placement="top" trigger={'hover'} title="布局配置">
-          <div className={style['button-background']}>
-            <BsGrid1X2 color='#fff' size={16} />
-          </div>
-        </Tooltip>
+        <Popover trigger={'click'} title="布局设置" content={<PopoverContent type='layout-setting' />}
+          onVisibleChange={(visible) => {
+            setMaskVisible(visible)
+          }}
+        >
+          <Tooltip placement="top" trigger={'hover'} title="布局配置">
+            <div className={style['button-background']}>
+              <BsGrid1X2 color='#fff' size={16} />
+            </div>
+          </Tooltip>
+        </Popover>
       </div>
 
       <Divider type={'vertical'} style={{ background: '#cecece', fontSize: '24px' }} />
