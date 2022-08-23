@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 14:16:00
+ * @LastEditTime: 2022-08-23 08:55:21
  * @Description: 请填写简介
  */
 
@@ -161,6 +161,7 @@ export const paginationLayout = (
       .attr('transform', `rotate(${maxAngle / 2})`)
       .append('text')
       .attr('transform', `rotate(${90})`)
+      .attr('fill', '#fff')
       .text(`1/${originNodes.length % 5 === 0 ? (originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1} `)
       .attr('id', `${verticePrefix + nodes[0].labelName}-text`)
       .attr('text-anchor', 'middle')
