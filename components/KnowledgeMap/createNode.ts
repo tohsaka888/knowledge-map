@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:32:27
+ * @LastEditTime: 2022-08-23 13:47:28
  * @Description: 请填写简介
  */
 
@@ -71,12 +71,12 @@ export const createNode = (
   container
     .append('text')
     .attr('x', vertice.x!)
-    .attr('y', vertice.y! + nodeRadius + 10)
+    .attr('y', vertice.y! + nodeRadius + config.nameSize)
     .attr('id', verticePrefix + vertice.id + 'name')
     .style('cursor', 'pointer')
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
-    .style('font-size', 10)
+    .style('font-size', config.nameSize)
     .attr('fill', '#fff')
     .text(config.nameVisible ? vertice.name : '')
 }
@@ -227,18 +227,18 @@ export const createSideNode = (
   container
     .append('text')
     .attr('x', mainVertice.x!)
-    .attr('y', mainVertice.y! + nodeRadius + 10)
+    .attr('y', mainVertice.y! + nodeRadius + config.nameSize)
     .attr('id', verticePrefix + vertice.id + 'name')
     .style('cursor', 'pointer')
     .attr('text-anchor', 'middle')
     .attr('dominant-baseline', 'middle')
-    .style('font-size', 10)
+    .style('font-size', config.nameSize)
     .text(config.nameVisible ? vertice.name : '')
     .attr('fill', '#fff')
     .style('opacity', 0)
     .transition()
     .duration(duration)
     .attr('x', vertice.x!)
-    .attr('y', vertice.y! + nodeRadius + 10)
+    .attr('y', vertice.y! + nodeRadius + config.nameSize)
     .style('opacity', 1)
 }

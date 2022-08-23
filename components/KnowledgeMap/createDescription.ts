@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 10:26:12
+ * @LastEditTime: 2022-08-23 13:52:07
  * @Description: 请填写简介
  */
 
@@ -38,7 +38,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
       .attr('href', `#${edgeId}`)
       .classed('discription', true)
       .attr('fill', '#999999')
-      .attr('font-size', 12)
+      .attr('font-size', config.relationSize)
       .attr('dominant-baseline', 'text-after-edge')
       .attr('startOffset', '50%')
       .attr('dy', 20)
