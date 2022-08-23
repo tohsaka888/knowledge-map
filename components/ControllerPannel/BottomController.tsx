@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 08:35:52
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:34:29
+ * @LastEditTime: 2022-08-23 13:38:10
  * @Description: 请填写简介
  */
 
@@ -82,7 +82,11 @@ function BottomController() {
         </Popover>
       </div>
       <div className={style['button-container']}>
-        <Popover trigger={'click'} title="概念设置" content={<PopoverContent type='concept-setting' />}>
+        <Popover trigger={'click'} title="概念设置" content={<PopoverContent type='concept-setting' />}
+          onVisibleChange={(visible) => {
+            setMaskVisible(visible)
+          }}
+        >
           <Tooltip placement="top" trigger={'hover'} title="概念设置">
             <div className={style['button-background']}>
               <BsFonts color='#fff' size={16} />
@@ -91,11 +95,17 @@ function BottomController() {
         </Popover>
       </div>
       <div className={style['button-container']}>
-        <Tooltip placement="top" trigger={'hover'} title="关系配置">
-          <div className={style['button-background']}>
-            <BsShare color='#fff' size={16} />
-          </div>
-        </Tooltip>
+        <Popover trigger={'click'} title="关系设置" content={<PopoverContent type='relation-setting' />}
+          onVisibleChange={(visible) => {
+            setMaskVisible(visible)
+          }}
+        >
+          <Tooltip placement="top" trigger={'hover'} title="关系配置">
+            <div className={style['button-background']}>
+              <BsShare color='#fff' size={16} />
+            </div>
+          </Tooltip>
+        </Popover>
       </div>
       <div className={style['button-container']}>
         <Tooltip placement="top" trigger={'hover'} title="布局配置">

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 10:17:26
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:26:05
+ * @LastEditTime: 2022-08-23 13:46:10
  * @Description: 请填写简介
  */
 
@@ -46,7 +46,13 @@ function PopoverContent({ type }: Props) {
       {type === 'concept-setting' &&
         <div style={{ width: '250px' }}>
           <div className={style['label']}>概念文字大小</div>
-          <Slider min={12} max={24} marks={{ 12: 12, 24: 24 }} />
+          <Slider min={12} max={24} marks={{ 12: 12, 24: 24 }}
+            value={config.nameSize}
+            onChange={(value) => {
+              resetCanvas()
+              dispatch({ type: 'setNameSize', payload: value })
+            }}
+          />
           <Divider style={{ margin: '8px 0px' }} />
 
           <div className={style['label']}>概念图标大小</div>
@@ -70,6 +76,32 @@ function PopoverContent({ type }: Props) {
             }}
           />
         </div>}
+
+      {type === 'relation-setting' && <>
+        <div style={{ width: '250px' }}>
+          <div className={style['label']}>关系名称文字大小</div>
+          <Slider min={12} max={24}
+            marks={{ 12: 12, 24: 24 }}
+            value={config.relationSize}
+            onChange={(value) => {
+              resetCanvas()
+              dispatch({ type: 'setRelationSize', payload: value });
+            }}
+          />
+
+          <Divider style={{ margin: '8px 0px' }} />
+
+          <div className={style['label']}>关系线条粗细</div>
+          <Slider min={1} max={30}
+            marks={{ 1: 1, 10: 10, 20: 20, 30: 30 }}
+            value={config.lineWidth}
+            onChange={(value) => {
+              resetCanvas()
+              dispatch({ type: 'setLineWidth', payload: value });
+            }}
+          />
+        </div>
+      </>}
     </>
   )
 }
