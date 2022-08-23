@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:46:57
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 11:15:29
+ * @LastEditTime: 2022-08-23 15:31:34
  * @Description: 请填写简介
  */
 
@@ -50,7 +50,7 @@ export const normalLayout = (
   let idx = 0
   nodes.forEach((node) => {
     node.p = parent
-    if (document.getElementById(verticePrefix + node.id) === null) {
+    // if (document.getElementById(verticePrefix + node.id) === null) {
       // document.getElementById(verticePrefix + node.id)?.parentElement?.remove()
       // 记录节点信息
       node.angle = (idx + (node.needRotate ? 0.5 : 1)) * maxAngle / (nodes.length + 1) + index * maxAngle
@@ -74,6 +74,6 @@ export const normalLayout = (
       createSideNode({ container: sideContainer, vertice: node, mainVertice: centerPoint, config, edges, duration })
 
       idx++
-    }
+    // }
   })
 }
