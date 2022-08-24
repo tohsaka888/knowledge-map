@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 14:26:53
+ * @LastEditTime: 2022-08-24 14:32:12
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -62,6 +62,12 @@ type Props = {
   outGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
   path?: any
 }
+
+export const debounceReset = debounce(() => {
+  if (!explorePath.find(p => p.isExplore !== true)) {
+    changeIsReset(false)
+  }
+}, exploreTimer)
 
 export const explore = async (
   {
@@ -202,11 +208,7 @@ export const explore = async (
   }
   if (needExplore) {
     path.isExplore = true
-    if (!explorePath.find(p => p.isExplore !== true)) {
-      setTimeout(() => {
-        changeIsReset(false)
-      }, exploreTimer)
-    }
+    debounceReset()
   }
 }
 // , 1000, { leading: true })
