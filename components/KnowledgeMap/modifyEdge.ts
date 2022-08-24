@@ -2,14 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-17 10:22:11
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-18 15:02:48
+ * @LastEditTime: 2022-08-24 08:31:01
  * @Description: 请填写简介
  */
 
 import { Graph } from "../.."
 import * as d3 from 'd3'
 import { edgePrefix, verticePrefix } from "./prefix";
-import { globalEdges } from "./global";
+import { exploreTimer, globalEdges, isReset } from "./global";
 
 type Props = {
   x: number;
@@ -36,7 +36,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
       if (config.isStraight) {
         curEdge
           .transition()
-          .duration(timer)
+          .duration(isReset ? exploreTimer : timer)
           .attr('d', `M ${x} ${y} L ${edge.toX} ${edge.toY}`)
       } else {
         let perX = 0
@@ -45,7 +45,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
         }
         curEdge
           .transition()
-          .duration(timer)
+          .duration(isReset ? exploreTimer : timer)
           .attr('d', `
             M ${x} ${y},
             C ${+x + perX} ${y},
@@ -68,7 +68,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
       if (config.isStraight) {
         curEdge
           .transition()
-          .duration(timer)
+          .duration(isReset ? exploreTimer : timer)
           .attr('d', `M ${edge.fromX} ${edge.fromY} L ${x} ${y}`)
       } else {
         let perX = 0
@@ -77,7 +77,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
         }
         curEdge
           .transition()
-          .duration(timer)
+          .duration(isReset ? exploreTimer : timer)
           .attr('d', `
             M ${edge.fromX} ${edge.fromY},
             C ${edge.fromX! - perX} ${edge.fromY},

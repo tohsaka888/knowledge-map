@@ -1,7 +1,9 @@
 import * as d3 from 'd3'
+import { debounce } from 'lodash'
 import { Graph } from '../..'
 import { createNode } from './createNode'
 import { drawSideNodes } from './drawSideNodes'
+import { explorePath, exploreTimer } from './global'
 
 /**
  * 描述 绘制节点
@@ -25,7 +27,7 @@ type Props = {
   edges: Graph.Line[]
 }
 
-export const drawNodeArea = (
+export const drawNodeArea = debounce((
   {
     container,
     mainVertice,
@@ -39,7 +41,7 @@ export const drawNodeArea = (
   }: Props
 ): any => {
   d3.selectAll('.force-graph').remove()
-  const { nodeRadius, setVisible } = config
+  d3.select('#node-area').selectAll('*').remove()
 
   // 设置主节点坐标
   if (init) {
@@ -145,4 +147,4 @@ export const drawNodeArea = (
   //       .attr('stroke-width', 0)
   //       .attr('r', 0)
   //   })
-}
+}, explorePath.length * exploreTimer, { leading: true })

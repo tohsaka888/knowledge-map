@@ -2,14 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:53:05
+ * @LastEditTime: 2022-08-24 08:23:27
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { createDescription } from './createDescription'
 import { createMultiLine } from './createMultiLine'
-import { globalEdges } from './global'
+import { exploreTimer, globalEdges, isReset } from './global'
 import { edgePrefix, verticePrefix } from './prefix'
 
 /**
@@ -75,7 +75,7 @@ const drawStraightLine = (
           .classed(parentClass, true)
           .style('opacity', 0);
         current.transition()
-          .duration(duration)
+          .duration(isReset ? exploreTimer : duration)
           .style('opacity', 1)
           .attr('d', `M ${fromNode.x} ${fromNode.y},L ${toNode.x} ${toNode.y}`);
         createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration })
@@ -146,7 +146,7 @@ const drawBesselLine = (
           .attr('id', edgePrefix + edge.fromVertexId + edge.toVertexId)
           .style('opacity', 0)
           .transition()
-          .duration(duration)
+          .duration(isReset ? exploreTimer : duration)
           .style('opacity', 1)
           .attr('d', `
       M ${fromNode.x} ${fromNode.y},

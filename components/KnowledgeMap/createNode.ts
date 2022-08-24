@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 17:16:42
+ * @LastEditTime: 2022-08-24 09:03:51
  * @Description: 请填写简介
  */
 
@@ -10,7 +10,7 @@ import * as d3 from 'd3'
 import { debounce, throttle } from 'lodash';
 import { Graph } from '../..';
 import { explore } from './explore';
-import { changeIsReset, explorePath, globalNodes, isReset } from './global';
+import { changeIsReset, explorePath, exploreTimer, globalNodes, isReset } from './global';
 import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
 import { canExplore } from './utils/test/canExplore';
@@ -105,13 +105,15 @@ const fn = throttle(function ({
   explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice, needExplore: false });
 }, 1100, { 'trailing': false })
 
-const debouncedExplore = debounce(explore, 1000)
+const debouncedExplore = debounce(explore, exploreTimer)
 const debouncedReset = debounce((path, idx) => {
   path.isExplore = true
   if (!explorePath.find(p => p.isExplore !== true)) {
     changeIsReset(false)
   }
-}, 1000)
+}, exploreTimer)
+
+const outSideExplore = debounce(debouncedExplore, exploreTimer)
 
 let timer = -1
 
@@ -149,20 +151,22 @@ export const createSideNode = (
             inGraphData: path.inData,
             outGraphData: path.outData
           })
-          debouncedReset(path, idx)
-        } else {
-          setTimeout(() => {
-            debouncedExplore({
-              mainPoint: mainVertice,
-              isExplore: isExplore.explore,
-              config,
-              current: vertice,
-              needExplore: true,
-              inGraphData: path.inData,
-              outGraphData: path.outData
-            })
+          window.setTimeout(() => {
             debouncedReset(path, idx)
-          }, 1000)
+          }, exploreTimer)
+        } else {
+          outSideExplore({
+            mainPoint: mainVertice,
+            isExplore: isExplore.explore,
+            config,
+            current: vertice,
+            needExplore: true,
+            inGraphData: path.inData,
+            outGraphData: path.outData
+          })
+          window.setTimeout(() => {
+            debouncedReset(path, idx)
+          }, exploreTimer)
         }
 
       })
@@ -208,7 +212,7 @@ export const createSideNode = (
                   dragEnd({ current: this, event, node: vertice, config, edges })
                 })
             )
-        }, duration + 100)
+        }, isReset ? exploreTimer : duration + 100)
         fn({ isExplore, config, vertice, mainVertice })
       })
   }, duration)
@@ -223,7 +227,7 @@ export const createSideNode = (
     .attr('id', verticePrefix + vertice.id || '')
     .style('opacity', 0)
     .transition()
-    .duration(duration)
+    .duration(isReset ? exploreTimer : duration)
     .attr('cx', vertice.x!)
     .attr('cy', vertice.y!)
     .style('opacity', 1)
@@ -240,7 +244,7 @@ export const createSideNode = (
     .text(transferLabelName(vertice.labelName) || '')
     .style('opacity', 0)
     .transition()
-    .duration(duration)
+    .duration(isReset ? exploreTimer : duration)
     .attr('x', vertice.x!)
     .attr('y', vertice.y!)
     .style('opacity', 1)
@@ -257,7 +261,7 @@ export const createSideNode = (
     .attr('fill', '#fff')
     .style('opacity', 0)
     .transition()
-    .duration(duration)
+    .duration(isReset ? exploreTimer : duration)
     .attr('x', vertice.x!)
     .attr('y', vertice.y! + nodeRadius + config.nameSize)
     .style('opacity', 1)

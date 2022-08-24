@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-18 13:32:40
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 16:26:46
+ * @LastEditTime: 2022-08-24 08:22:52
  * @Description: 请填写简介
  */
 
@@ -18,6 +18,8 @@ export let explorePath: {
 }[] = []
 
 export let isReset = false
+
+export let exploreTimer: number = 300
 
 export const filteredPath = (id: string) => {
   explorePath = explorePath.filter(path => path.mainId !== id)

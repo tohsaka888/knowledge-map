@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 16:28:59
+ * @LastEditTime: 2022-08-24 08:28:45
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -14,7 +14,7 @@ import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
-import { explorePath, filteredNodes, filteredPath } from './global'
+import { explorePath, exploreTimer, filteredNodes, filteredPath, isReset } from './global'
 import { modifyEdge } from './modifyEdge'
 // import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
@@ -148,7 +148,7 @@ export const explore = async (
             drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...inData.edges], nodes: [current, ...inData.vertices], fId: current.id, duration: 1000 })
             drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id, duration: 1000 })
           })
-        }, 1000)
+        }, isReset ? exploreTimer : 1000)
       } else {
         current.distance -= config.basicDistence * current.size!;
         position = extendDistance({ node: current, mainPoint, isInside, size: current.size!, isExplore, config })
@@ -172,19 +172,19 @@ export const explore = async (
       // 更改节点坐标
       d3.select(`#${verticePrefix + current.id}`)
         .transition()
-        .duration(1000)
+        .duration(isReset ? exploreTimer : 1000)
         .attr('cx', position.x)
         .attr('cy', position.y)
 
       d3.select(`#${verticePrefix + current.id}text`)
         .transition()
-        .duration(1000)
+        .duration(isReset ? exploreTimer : 1000)
         .attr('x', position.x)
         .attr('y', position.y)
 
       d3.select(`#${verticePrefix + current.id}name`)
         .transition()
-        .duration(1000)
+        .duration(isReset ? exploreTimer : 1000)
         .attr('x', position.x)
         .attr('y', position.y + config.nodeRadius + 10)
 

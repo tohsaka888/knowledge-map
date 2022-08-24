@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 08:35:52
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 14:19:02
+ * @LastEditTime: 2022-08-24 09:01:38
  * @Description: 请填写简介
  */
 
@@ -14,6 +14,12 @@ import { ConfigContext } from '../../context'
 import { downloadSvg } from '../KnowledgeMap/utils/download'
 import { resetCanvas } from '../KnowledgeMap/resetCanvas'
 import PopoverContent from './PopoverContent'
+import { debounce } from 'lodash'
+
+const alert = debounce(() => {
+  resetCanvas(false)
+  message.success('已复位画布')
+}, 1000)
 
 function BottomController() {
 
@@ -48,10 +54,7 @@ function BottomController() {
         <Tooltip placement="top" trigger={'hover'} title="原比例居中">
           <div className={style['button-background']}
             onClick={() => {
-              resetCanvas(false)
-              window.setTimeout(() => {
-                message.success('已复位画布')
-              }, 1000)
+              alert()
             }}
           >
             <BsFillGeoAltFill color='#fff' size={15} />

@@ -2,11 +2,12 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:52:07
+ * @LastEditTime: 2022-08-24 08:23:01
  * @Description: 请填写简介
  */
 
 import { Graph } from "../..";
+import { exploreTimer, isReset } from "./global";
 
 type Props = {
   edgeArea: d3.Selection<any, any, any, any>;
@@ -44,7 +45,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
       .attr('dy', 20)
       .text(edge.name)
       .transition()
-      .duration(duration)
+      .duration(isReset ? exploreTimer : duration)
       .style('opacity', 1)
   }
   edgeArea
@@ -67,6 +68,6 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
     .style('font-size', 18)
     .style('opacity', 0)
     .transition()
-    .duration(duration)
+    .duration(isReset ? exploreTimer : duration)
     .style('opacity', 1)
 }

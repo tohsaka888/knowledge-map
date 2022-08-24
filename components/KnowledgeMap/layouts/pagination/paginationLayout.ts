@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 08:55:21
+ * @LastEditTime: 2022-08-24 08:24:15
  * @Description: 请填写简介
  */
 
@@ -12,6 +12,7 @@ import * as d3 from 'd3'
 import { fPrefix, verticePrefix } from "../../prefix";
 import { normalLayout } from "../normal/normalLayout";
 import { nextPage } from "./nextPage";
+import { exploreTimer, isReset } from "../../global";
 
 type Props = {
   nodes: Graph.Vertice[];
@@ -69,7 +70,7 @@ export const paginationLayout = (
     arc
       .style('opacity', 0)
       .transition()
-      .duration(1500)
+      .duration(isReset ? exploreTimer : 1100)
       .style('opacity', 1)
 
     arc
