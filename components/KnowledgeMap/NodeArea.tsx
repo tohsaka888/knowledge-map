@@ -2,14 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-08 08:29:23
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 13:38:27
+ * @LastEditTime: 2022-08-24 16:26:14
  * @Description: 请填写简介
  */
 import React, { useEffect, useRef } from 'react'
 import { drawNodeArea } from './drawNodeArea';
 import * as d3 from 'd3'
 import { Graph } from '../..';
-import { debouncedExplore } from './createNode';
 // import { VisibleContext } from '../context';
 
 type Props = {
@@ -41,7 +40,6 @@ function NodeArea({ mainVertice, insideVertices, outsideVertices, edges, config 
       }
     )
     return () => {
-      debouncedExplore.cancel()
       d3.select(container).selectAll('*').remove()
       // 清除记住的节点坐标
       insideVertices.forEach((node) => {

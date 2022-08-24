@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 14:32:12
+ * @LastEditTime: 2022-08-24 17:13:25
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -10,6 +10,7 @@ import * as d3 from 'd3'
 import { cloneDeep, debounce } from 'lodash'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
+// import { insideAutoExplore, outsideAutoExplore } from './autoExplore'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
@@ -81,7 +82,6 @@ export const explore = async (
     path
   }: Props
 ) => {
-  console.log(isReset)
   if (success) {
     const { isInside, angle } = current
     let position = { x: mainPoint.x!, y: mainPoint.y! }
@@ -142,7 +142,8 @@ export const explore = async (
         const outsideMaxAngle = outsideTypes.length ? 180 / outsideTypes.length : 0
         drawSideNodes({
           typeNodes: outsideTypeVertices,
-          config, isInside: false,
+          config,
+          isInside: false,
           centerPoint: current,
           maxAngle: outsideMaxAngle,
           edges: [...inData.edges, ...outData.edges],

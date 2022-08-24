@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 14:06:45
+ * @LastEditTime: 2022-08-24 16:25:58
  * @Description: 请填写简介
  */
 
@@ -105,9 +105,6 @@ const fn = throttle(function ({
   explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice, needExplore: false });
 }, 1100, { 'trailing': false })
 
-export const debouncedExplore = debounce(explore, exploreTimer)
-export const outsideExplore = debounce(explore, exploreTimer * 2)
-
 let timer = -1
 
 export const createSideNode = (
@@ -134,32 +131,6 @@ export const createSideNode = (
 
     if (paths.length > 0 && globalNodes.length > 0) {
       isExplore.explore = true
-
-      paths.forEach((path, idx) => {
-        if (vertice.isInside) {
-          debouncedExplore({
-            mainPoint: mainVertice,
-            isExplore: isExplore.explore,
-            config,
-            current: vertice,
-            needExplore: true,
-            inGraphData: path.inData,
-            outGraphData: path.outData,
-            path
-          })
-        } else {
-          outsideExplore({
-            mainPoint: mainVertice,
-            isExplore: isExplore.explore,
-            config,
-            current: vertice,
-            needExplore: true,
-            inGraphData: path.inData,
-            outGraphData: path.outData,
-            path
-          })
-        }
-      })
     }
   }
 

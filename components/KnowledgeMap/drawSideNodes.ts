@@ -15,14 +15,11 @@
 import { Graph } from "../.."
 import { calcMode } from "./utils/calcMode";
 import * as d3 from 'd3'
-import { calcArcX, calcArcY } from "./utils/calcArc";
-import { calcBasicDistence } from "./utils/calcBasicDistance";
 import { fPrefix, verticePrefix } from "./prefix";
-import { createSideNode } from "./createNode";
-import { calcNodePosition } from "./utils/calcNodePosition";
 import { normalLayout } from "./layouts/normal/normalLayout";
 import { paginationLayout } from "./layouts/pagination/paginationLayout";
-import { globalNodes } from "./global";
+import { globalNodes, isReset } from "./global";
+import { insideAutoExplore, outsideAutoExplore } from "./autoExplore";
 
 type Props = {
   typeNodes: Graph.Vertice[][];
@@ -58,6 +55,18 @@ export const drawSideNodes = (
 ) => {
   const container = d3.select('#node-area')
   const { mode } = config
+
+  if (isReset) {
+    if (isInside) {
+      setTimeout(() => {
+        insideAutoExplore({ typeNodes, config, centerPoint })
+      })
+    } else {
+      setTimeout(() => {
+        outsideAutoExplore({ typeNodes, config, centerPoint })
+      })
+    }
+  }
   typeNodes.forEach((originNodes, index) => {
     // const nodes = calcMode(originNodes, 1, mode)
     const filteredNodes = originNodes.filter(node => {
