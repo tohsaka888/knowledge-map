@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 08:23:01
+ * @LastEditTime: 2022-08-24 14:10:15
  * @Description: 请填写简介
  */
 
@@ -16,6 +16,7 @@ type Props = {
   edgeId: string;
   fId?: string;
   duration: number;
+  delay: number;
 }
 
 /**
@@ -27,7 +28,7 @@ type Props = {
  * @param {any} edgeId}:Props
  * @returns {any}
  */
-export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duration }: Props) => {
+export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duration, delay }: Props) => {
   if (config.showDisctription) {
     edgeArea
       .append('text')
@@ -45,6 +46,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
       .attr('dy', 20)
       .text(edge.name)
       .transition()
+      .delay(delay)
       .duration(isReset ? exploreTimer : duration)
       .style('opacity', 1)
   }
@@ -68,6 +70,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
     .style('font-size', 18)
     .style('opacity', 0)
     .transition()
+    .delay(delay)
     .duration(isReset ? exploreTimer : duration)
     .style('opacity', 1)
 }

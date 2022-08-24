@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 10:54:37
+ * @LastEditTime: 2022-08-24 14:06:45
  * @Description: 请填写简介
  */
 
@@ -10,7 +10,7 @@ import * as d3 from 'd3'
 import { debounce, throttle } from 'lodash';
 import { Graph } from '../..';
 import { explore } from './explore';
-import { changeIsReset, explorePath, exploreTimer, globalNodes, isReset } from './global';
+import { changeInitDraw, changeIsReset, explorePath, exploreTimer, globalNodes, initDraw, isReset } from './global';
 import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
 import { canExplore } from './utils/test/canExplore';
@@ -105,9 +105,8 @@ const fn = throttle(function ({
   explore({ current: vertice, isExplore: isExplore.explore, config, mainPoint: mainVertice, needExplore: false });
 }, 1100, { 'trailing': false })
 
-const debouncedExplore = debounce(explore, exploreTimer)
-
-const outSideExplore = debounce(debouncedExplore, exploreTimer)
+export const debouncedExplore = debounce(explore, exploreTimer)
+export const outsideExplore = debounce(explore, exploreTimer * 2)
 
 let timer = -1
 
@@ -118,10 +117,12 @@ export const createSideNode = (
     vertice,
     mainVertice,
     edges,
-    duration,
+    duration
   }: SideProps
 ) => {
   const { nodeRadius } = config
+  let delay = initDraw ? 0 : duration
+  changeInitDraw(false)
   let isExplore = { explore: false }
   if (!globalNodes.find(v => v.id === vertice.id)) {
     globalNodes.push(vertice)
@@ -147,7 +148,7 @@ export const createSideNode = (
             path
           })
         } else {
-          outSideExplore({
+          outsideExplore({
             mainPoint: mainVertice,
             isExplore: isExplore.explore,
             config,
@@ -158,7 +159,6 @@ export const createSideNode = (
             path
           })
         }
-
       })
     }
   }
@@ -217,6 +217,7 @@ export const createSideNode = (
     .attr('id', verticePrefix + vertice.id || '')
     .style('opacity', 0)
     .transition()
+    .delay(isReset ? exploreTimer : delay)
     .duration(isReset ? exploreTimer : duration)
     .attr('cx', vertice.x!)
     .attr('cy', vertice.y!)
@@ -234,6 +235,7 @@ export const createSideNode = (
     .text(transferLabelName(vertice.labelName) || '')
     .style('opacity', 0)
     .transition()
+    .delay(isReset ? exploreTimer : delay)
     .duration(isReset ? exploreTimer : duration)
     .attr('x', vertice.x!)
     .attr('y', vertice.y!)
@@ -251,6 +253,7 @@ export const createSideNode = (
     .attr('fill', '#fff')
     .style('opacity', 0)
     .transition()
+    .delay(isReset ? exploreTimer : delay)
     .duration(isReset ? exploreTimer : duration)
     .attr('x', vertice.x!)
     .attr('y', vertice.y! + nodeRadius + config.nameSize)

@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-18 13:32:40
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 08:22:52
+ * @LastEditTime: 2022-08-24 13:51:39
  * @Description: 请填写简介
  */
 
@@ -19,6 +19,8 @@ export let explorePath: {
 
 export let isReset = false
 
+export let initDraw = true
+
 export let exploreTimer: number = 300
 
 export const filteredPath = (id: string) => {
@@ -31,4 +33,8 @@ export const filteredNodes = (id: string) => {
 
 export const changeIsReset = (state: boolean) => {
   isReset = state
+}
+
+export const changeInitDraw = (state: boolean) => {
+  initDraw = state
 }

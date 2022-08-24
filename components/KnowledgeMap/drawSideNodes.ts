@@ -37,6 +37,7 @@ type Props = {
   outsideLength: number;
   nextContainer?: d3.Selection<any, any, any, any>;
   duration: number;
+  init?: boolean
 }
 
 export const drawSideNodes = (
@@ -52,7 +53,7 @@ export const drawSideNodes = (
     insideLength,
     outsideLength,
     nextContainer,
-    duration
+    duration,
   }: Props
 ) => {
   const container = d3.select('#node-area')

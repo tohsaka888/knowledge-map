@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 10:55:04
+ * @LastEditTime: 2022-08-24 13:45:29
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -112,7 +112,7 @@ export const explore = async (
         // moveNodeToCenter({ node: current })
         fixedNodePosition({ node: current, x: originX, y: originY })
 
-        window.setTimeout(() => {
+        // window.setTimeout(() => {
           // 创建入边出边types数组
           const insideTypes = Array.from(new Set(inData.vertices.map(v => v.labelName)))
           const insideTypeVertices = insideTypes.map((type) => {
@@ -156,7 +156,7 @@ export const explore = async (
             drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...inData.edges], nodes: [current, ...inData.vertices], fId: current.id, duration: 1000 })
             drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id, duration: 1000 })
           })
-        }, isReset ? exploreTimer : 1000)
+        // }, isReset ? exploreTimer : 1000)
       } else {
         current.distance -= config.basicDistence * current.size!;
         position = extendDistance({ node: current, mainPoint, isInside, size: current.size!, isExplore, config })
@@ -181,18 +181,21 @@ export const explore = async (
       d3.select(`#${verticePrefix + current.id}`)
         .transition()
         .duration(isReset ? exploreTimer : 1000)
+        .style('opacity', 1)
         .attr('cx', position.x)
         .attr('cy', position.y)
 
       d3.select(`#${verticePrefix + current.id}text`)
         .transition()
         .duration(isReset ? exploreTimer : 1000)
+        .style('opacity', 1)
         .attr('x', position.x)
         .attr('y', position.y)
 
       d3.select(`#${verticePrefix + current.id}name`)
         .transition()
         .duration(isReset ? exploreTimer : 1000)
+        .style('opacity', 1)
         .attr('x', position.x)
         .attr('y', position.y + config.nodeRadius + config.nameSize)
 

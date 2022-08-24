@@ -2,14 +2,19 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 08:42:26
+ * @LastEditTime: 2022-08-24 14:08:03
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { resetSize, translate } from './canvasDrag'
+import { debouncedExplore, outsideExplore } from './createNode'
 import { changeIsReset, explorePath, exploreTimer, globalEdges, globalNodes, isReset } from './global'
 
 export const resetCanvas = (needClear?: boolean) => {
+
+  debouncedExplore.cancel()
+  outsideExplore.cancel()
+
   explorePath.forEach((path) => {
     path.isExplore = false
   })

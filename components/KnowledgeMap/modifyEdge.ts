@@ -37,6 +37,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
         curEdge
           .transition()
           .duration(isReset ? exploreTimer : timer)
+          .style('opacity', 1)
           .attr('d', `M ${x} ${y} L ${edge.toX} ${edge.toY}`)
       } else {
         let perX = 0
@@ -46,6 +47,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
         curEdge
           .transition()
           .duration(isReset ? exploreTimer : timer)
+          .style('opacity', 1)
           .attr('d', `
             M ${x} ${y},
             C ${+x + perX} ${y},
@@ -69,6 +71,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
         curEdge
           .transition()
           .duration(isReset ? exploreTimer : timer)
+          .style('opacity', 1)
           .attr('d', `M ${edge.fromX} ${edge.fromY} L ${x} ${y}`)
       } else {
         let perX = 0
@@ -78,6 +81,7 @@ export const modifyEdge = ({ x, y, node, config, timer = 1000 }: Props) => {
         curEdge
           .transition()
           .duration(isReset ? exploreTimer : timer)
+          .style('opacity', 1)
           .attr('d', `
             M ${edge.fromX} ${edge.fromY},
             C ${edge.fromX! - perX} ${edge.fromY},

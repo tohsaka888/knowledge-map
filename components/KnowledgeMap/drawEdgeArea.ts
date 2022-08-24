@@ -2,14 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 08:23:27
+ * @LastEditTime: 2022-08-24 14:11:01
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
 import { Graph } from '../..'
 import { createDescription } from './createDescription'
 import { createMultiLine } from './createMultiLine'
-import { exploreTimer, globalEdges, isReset } from './global'
+import { exploreTimer, globalEdges, initDraw, isReset } from './global'
 import { edgePrefix, verticePrefix } from './prefix'
 
 /**
@@ -20,7 +20,7 @@ import { edgePrefix, verticePrefix } from './prefix'
  * @returns {any}
  */
 const drawStraightLine = (
-  { nodes, edgeArea, edges, config, fId, mainPoint, duration }:
+  { nodes, edgeArea, edges, config, fId, mainPoint, duration, init }:
     {
       nodes: Graph.Vertice[],
       edges: Graph.Line[],
@@ -29,14 +29,14 @@ const drawStraightLine = (
       edgeArea: d3.Selection<any, unknown, any, any>,
       fId?: string;
       duration: number;
+      init?: boolean
     }
 ) => {
   let topCount = 0
   let downCount = 0
   let parentClass = fId
+  let delay = init ? 0 : duration
   edges.forEach((edge) => {
-
-
 
     const fromNode = nodes.find(node => node.id === edge.fromVertexId)
     const toNode = nodes.find(node => node.id === edge.toVertexId)
@@ -75,10 +75,11 @@ const drawStraightLine = (
           .classed(parentClass, true)
           .style('opacity', 0);
         current.transition()
+          .delay(isReset ? exploreTimer : delay)
           .duration(isReset ? exploreTimer : duration)
           .style('opacity', 1)
           .attr('d', `M ${fromNode.x} ${fromNode.y},L ${toNode.x} ${toNode.y}`);
-        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration, delay })
       }
     }
   })
@@ -92,7 +93,7 @@ const drawStraightLine = (
  * @returns {any}
  */
 const drawBesselLine = (
-  { nodes, edges, mainPoint, config, edgeArea, fId, duration }:
+  { nodes, edges, mainPoint, config, edgeArea, fId, duration, init }:
     {
       nodes: Graph.Vertice[],
       edges: Graph.Line[],
@@ -100,12 +101,14 @@ const drawBesselLine = (
       config: Graph.ConfigProps,
       edgeArea: d3.Selection<any, unknown, any, any>,
       fId?: string,
-      duration: number
+      duration: number;
+      init?: boolean
     }
 ) => {
   let topCount = 0;
   let downCount = 0;
   let parentClass = fId
+  let delay = init ? 0 : duration
   edges.forEach((edge, index) => {
     const fromNode = nodes.find(node => node.id === edge.fromVertexId)
     const toNode = nodes.find(node => node.id === edge.toVertexId)
@@ -154,7 +157,7 @@ const drawBesselLine = (
       ${+toNode.x - perX} ${toNode.y}
       ${toNode.x} ${toNode.y}
       `)
-        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration })
+        createDescription({ edgeArea, config, edge, edgeId: edgePrefix + edge.fromVertexId + edge.toVertexId, fId: parentClass, duration, delay })
       }
     }
   })
@@ -198,9 +201,9 @@ export const drawEdgeArea = ({ nodes, edges, config, mainPoint, init, fId, durat
   // 画线
   if (mainPoint) {
     if (config.isStraight) {
-      drawStraightLine({ nodes: needDrawNodes, edges, mainPoint, config, edgeArea, fId, duration })
+      drawStraightLine({ nodes: needDrawNodes, edges, mainPoint, config, edgeArea, fId, duration, init })
     } else {
-      drawBesselLine({ nodes: needDrawNodes, edges, mainPoint, config, edgeArea, fId, duration })
+      drawBesselLine({ nodes: needDrawNodes, edges, mainPoint, config, edgeArea, fId, duration, init })
     }
   }
 }

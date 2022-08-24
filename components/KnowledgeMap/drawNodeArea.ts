@@ -97,6 +97,7 @@ export const drawNodeArea = (
       insideLength: insideVertices.length,
       outsideLength: outsideVertices.length,
       duration: 1000,
+      init: true
     }
   )
 
