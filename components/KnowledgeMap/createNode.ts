@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 09:03:51
+ * @LastEditTime: 2022-08-24 10:54:37
  * @Description: 请填写简介
  */
 
@@ -106,12 +106,6 @@ const fn = throttle(function ({
 }, 1100, { 'trailing': false })
 
 const debouncedExplore = debounce(explore, exploreTimer)
-const debouncedReset = debounce((path, idx) => {
-  path.isExplore = true
-  if (!explorePath.find(p => p.isExplore !== true)) {
-    changeIsReset(false)
-  }
-}, exploreTimer)
 
 const outSideExplore = debounce(debouncedExplore, exploreTimer)
 
@@ -137,7 +131,7 @@ export const createSideNode = (
   if (isReset) {
     const paths = explorePath.filter(path => path.mainId === vertice.id)
 
-    if (paths.length > 0) {
+    if (paths.length > 0 && globalNodes.length > 0) {
       isExplore.explore = true
 
       paths.forEach((path, idx) => {
@@ -149,11 +143,9 @@ export const createSideNode = (
             current: vertice,
             needExplore: true,
             inGraphData: path.inData,
-            outGraphData: path.outData
+            outGraphData: path.outData,
+            path
           })
-          window.setTimeout(() => {
-            debouncedReset(path, idx)
-          }, exploreTimer)
         } else {
           outSideExplore({
             mainPoint: mainVertice,
@@ -162,11 +154,9 @@ export const createSideNode = (
             current: vertice,
             needExplore: true,
             inGraphData: path.inData,
-            outGraphData: path.outData
+            outGraphData: path.outData,
+            path
           })
-          window.setTimeout(() => {
-            debouncedReset(path, idx)
-          }, exploreTimer)
         }
 
       })

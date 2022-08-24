@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-15 08:50:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-15 15:33:52
+ * @LastEditTime: 2022-08-24 09:22:45
  * @Description: 请填写简介
  */
 
@@ -102,7 +102,7 @@ function ticked({ nodeContainer, link, config }: { nodeContainer: any; link: any
     nodeContainer
       .select('.name')
       .attr("x", (d: { x: any; }) => d.x)
-      .attr("y", (d: { y: any; }) => d.y + config.nodeRadius + 10);
+      .attr("y", (d: { y: any; }) => d.y + config.nodeRadius + config.nameSize);
   })
 }
 

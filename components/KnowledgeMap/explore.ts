@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 08:28:45
+ * @LastEditTime: 2022-08-24 10:55:04
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -14,7 +14,7 @@ import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
 import { extendDistance } from './extendDistance'
 import { fixedNodePosition } from './fixedNodePosition'
-import { explorePath, exploreTimer, filteredNodes, filteredPath, isReset } from './global'
+import { changeIsReset, explorePath, exploreTimer, filteredNodes, filteredPath, globalNodes, isReset } from './global'
 import { modifyEdge } from './modifyEdge'
 // import { moveNodeToCenter } from './moveNodeToCenter'
 import { verticePrefix } from './prefix'
@@ -60,7 +60,14 @@ type Props = {
   needExplore?: boolean;
   inGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
   outGraphData?: { vertices: Graph.Vertice[]; edges: Graph.Line[] };
+  path?: any
 }
+
+const debouncedReset = debounce((path) => {
+  if (!explorePath.find(p => p.isExplore !== true)) {
+    changeIsReset(false)
+  }
+}, exploreTimer * 2)
 
 export const explore = async (
   {
@@ -70,7 +77,8 @@ export const explore = async (
     current,
     needExplore,
     inGraphData = { vertices: [], edges: [] },
-    outGraphData = { vertices: [], edges: [] }
+    outGraphData = { vertices: [], edges: [] },
+    path
   }: Props
 ) => {
   if (success) {
@@ -186,13 +194,17 @@ export const explore = async (
         .transition()
         .duration(isReset ? exploreTimer : 1000)
         .attr('x', position.x)
-        .attr('y', position.y + config.nodeRadius + 10)
+        .attr('y', position.y + config.nodeRadius + config.nameSize)
 
       // 更改线
       modifyEdge({ x: position.x, y: position.y, node: current, config })
     }
   } else {
     message.error('服务端错误,请刷新后重试')
+  }
+  if (needExplore) {
+    path.isExplore = true
+    debouncedReset(path)
   }
 }
 // , 1000, { leading: true })

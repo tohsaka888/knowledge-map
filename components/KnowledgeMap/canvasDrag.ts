@@ -52,7 +52,7 @@ const draggingEvent = ({ nodes, event, config }: DraggingProps) => {
     const itemName = d3.select(`#${verticePrefix + node.id}name`)
     itemName
       .attr('x', node.x as number)
-      .attr('y', node.y as number + config.nodeRadius + 10)
+      .attr('y', node.y as number + config.nodeRadius + config.nameSize)
     modifyEdge({ x: node.x!, y: node.y!, node, config, timer: 0 })
   })
 }

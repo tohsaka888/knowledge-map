@@ -27,7 +27,7 @@ type Props = {
   edges: Graph.Line[]
 }
 
-export const drawNodeArea = debounce((
+export const drawNodeArea = (
   {
     container,
     mainVertice,
@@ -68,38 +68,6 @@ export const drawNodeArea = debounce((
     .attr('x', mainVertice.x!)
     .attr('y', mainVertice.y!)
 
-  // .on('mouseover', function (event) {
-  //   event.stopPropagation()
-  //   const node = d3.select(`${verticePrefix + verticePrefix + mainVertice.id || 'main'}`)
-  //   const x = node.attr('cx')
-  //   const y = node.attr('cy')
-  //   d3.select('#border')
-  //     .attr('transform', `translate(${x}, ${y})`)
-  //     .select('circle')
-  //     .attr('stroke-width', 8)
-  //     .attr('r', nodeRadius + 4)
-  //   d3.select('#popover-container')
-  //     .attr('width', nodeRadius * 2 + 10)
-  //     .attr('height', nodeRadius * 2 + 10)
-  //     .attr('x', +x)
-  //     .attr('y', +y - 10)
-  //   setVisible && setVisible(true)
-  // })
-  // .call(
-  //   d3.drag<any, any, Graph.Node>()
-  //     .on('start', function (event: any, node: Graph.Node) {
-  //       dragStart(this, event, node, config)
-  //     })
-  //     .on('end', function (event: any, node: Graph.Node) {
-  //       dragEnd(this, event, node, config)
-  //     })
-  //     .on('drag', function (event: any, node: Graph.Node) {
-  //       dragging(this, event, mainVertice as Graph.Node, edges, config)
-  //       d3.selectAll('.arc')
-  //         .attr('transform', `translate(${event.x - x}, ${event.y - y})`)
-  //         .attr('transform-origin', '0 0')
-  //     })
-  // )
   createNode({ container: mainNodeContainer, config, vertice: mainVertice, edges })
 
   // 创建入边节点
@@ -113,7 +81,7 @@ export const drawNodeArea = debounce((
       edges,
       insideLength: insideVertices.length,
       outsideLength: outsideVertices.length,
-      duration: 1000
+      duration: 1000,
     }
   )
 
@@ -128,7 +96,7 @@ export const drawNodeArea = debounce((
       edges,
       insideLength: insideVertices.length,
       outsideLength: outsideVertices.length,
-      duration: 1000
+      duration: 1000,
     }
   )
 
@@ -147,4 +115,4 @@ export const drawNodeArea = debounce((
   //       .attr('stroke-width', 0)
   //       .attr('r', 0)
   //   })
-}, explorePath.length * exploreTimer, { leading: true })
+}
