@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 11:36:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 14:10:15
+ * @LastEditTime: 2022-08-24 14:39:49
  * @Description: 请填写简介
  */
 
@@ -46,7 +46,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
       .attr('dy', 20)
       .text(edge.name)
       .transition()
-      .delay(delay)
+      // .delay(delay)
       .duration(isReset ? exploreTimer : duration)
       .style('opacity', 1)
   }
@@ -70,7 +70,7 @@ export const createDescription = ({ edge, edgeArea, config, edgeId, fId, duratio
     .style('font-size', 18)
     .style('opacity', 0)
     .transition()
-    .delay(delay)
+    // .delay(delay)
     .duration(isReset ? exploreTimer : duration)
     .style('opacity', 1)
 }
