@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 13:43:04
+ * @LastEditTime: 2022-08-24 14:48:23
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -102,4 +102,17 @@ declare namespace Graph {
     toX?: number;
     toY?: number;
   };
+
+  type Path = {
+    mainId: string;
+    inData: {
+      vertices: Graph.Vertice[];
+      edges: Graph.Line[];
+    };
+    outData: {
+      vertices: Graph.Vertice[];
+      edges: Graph.Line[];
+    };
+    isExplore: boolean;
+  }
 }

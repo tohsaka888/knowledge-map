@@ -1,0 +1,76 @@
+{
+  "vertices": [
+    {
+      "id": "57456",
+      "code": "TP106",
+      "name": "行政监管",
+      "labelName": "theme",
+      "hasNextVertices": true,
+      "propertyMap": {
+        "dkg_sys_code": "TP106",
+        "dkg_sys_updated_time": "2022-04-15 18:32:01",
+        "theme_code": "TP106",
+        "dkg_sys_label_name": "theme",
+        "theme_name": "行政监管",
+        "dkg_sys_created_time": "2022-04-15 18:32:01",
+        "id": 57456,
+        "label": "theme",
+        "dkg_sys_name": "行政监管",
+        "dkg_sys_tags": [
+          "错误提示 theme_description:非空校验失败",
+          "错误提示 theme_field:非空校验失败"
+        ]
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "1w8we-18c0-p72t-20ow",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "94208"
+    },
+    {
+      "id": "1w8we-18c0-p72t-20ow",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "94208"
+    },
+    {
+      "id": "1w7bi-18c0-p72t-2414",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "98536"
+    },
+    {
+      "id": "1w8i6-18c0-p72t-2a94",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "106600"
+    },
+    {
+      "id": "1w6xa-18c0-p72t-2gj4",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "114736"
+    },
+    {
+      "id": "1w7pq-18c0-p72t-629k",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "282872"
+    },
+    {
+      "id": "1w83y-18c0-p72t-65fc",
+      "name": "包含模型",
+      "fromVertexId": "57456",
+      "toVertexId": "286968"
+    },
+    {
+      "id": "3qvbz-9o8-pwd1-18c0",
+      "name": "包含主题",
+      "fromVertexId": "12536",
+      "toVertexId": "57456"
+    }
+  ]
+}

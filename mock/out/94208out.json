@@ -1,0 +1,508 @@
+{
+  "vertices": [
+    {
+      "id": "2507000",
+      "code": "MP1000424",
+      "name": "检查结果",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "检查结果",
+        "dkg_sys_code": "MP1000424",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000424",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 2507000,
+        "label": "model_property",
+        "dkg_sys_name": "检查结果"
+      }
+    },
+    {
+      "id": "42160144",
+      "code": "MP1000410",
+      "name": "年检结论",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "年检结论",
+        "dkg_sys_code": "MP1000410",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:38",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000410",
+        "dkg_sys_created_time": "2022-04-15 18:32:38",
+        "id": 42160144,
+        "label": "model_property",
+        "dkg_sys_name": "年检结论"
+      }
+    },
+    {
+      "id": "1220608",
+      "code": "MP1000415",
+      "name": "年检执行部门编码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "年检执行部门编码",
+        "dkg_sys_code": "MP1000415",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000415",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1220608,
+        "label": "model_property",
+        "dkg_sys_name": "年检执行部门编码"
+      }
+    },
+    {
+      "id": "1269808",
+      "code": "MP1000422",
+      "name": "被年检单位法定代表人身份证号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检单位法定代表人身份证号码",
+        "dkg_sys_code": "MP1000422",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000422",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1269808,
+        "label": "model_property",
+        "dkg_sys_name": "被年检单位法定代表人身份证号码"
+      }
+    },
+    {
+      "id": "1188016",
+      "code": "MP1000411",
+      "name": "所属地区行政区划代码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "所属地区行政区划代码",
+        "dkg_sys_code": "MP1000411",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:38",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000411",
+        "dkg_sys_created_time": "2022-04-15 18:32:38",
+        "id": 1188016,
+        "label": "model_property",
+        "dkg_sys_name": "所属地区行政区划代码",
+        "dkg_sys_tags": [
+          "错误提示 model_property_name:唯一校验失败"
+        ]
+      }
+    },
+    {
+      "id": "1261616",
+      "code": "MP1000418",
+      "name": "被年检对象证件类型(组织机构代码证等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检对象证件类型(组织机构代码证等)",
+        "dkg_sys_code": "MP1000418",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000418",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1261616,
+        "label": "model_property",
+        "dkg_sys_name": "被年检对象证件类型(组织机构代码证等)"
+      }
+    },
+    {
+      "id": "1167592",
+      "code": "MP1000419",
+      "name": "被年检对象证件号码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检对象证件号码",
+        "dkg_sys_code": "MP1000419",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000419",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1167592,
+        "label": "model_property",
+        "dkg_sys_name": "被年检对象证件号码"
+      }
+    },
+    {
+      "id": "2498808",
+      "code": "MP1000421",
+      "name": "被年检单位法定代表人姓名",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检单位法定代表人姓名",
+        "dkg_sys_code": "MP1000421",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000421",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 2498808,
+        "label": "model_property",
+        "dkg_sys_name": "被年检单位法定代表人姓名"
+      }
+    },
+    {
+      "id": "1171688",
+      "code": "MP1000420",
+      "name": "被年检单位统一社会信用代码",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检单位统一社会信用代码",
+        "dkg_sys_code": "MP1000420",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000420",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1171688,
+        "label": "model_property",
+        "dkg_sys_name": "被年检单位统一社会信用代码"
+      }
+    },
+    {
+      "id": "2486520",
+      "code": "MP1000413",
+      "name": "年检行业(公安、交通等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "年检行业(公安、交通等)",
+        "dkg_sys_code": "MP1000413",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:38",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000413",
+        "dkg_sys_created_time": "2022-04-15 18:32:38",
+        "id": 2486520,
+        "label": "model_property",
+        "dkg_sys_name": "年检行业(公安、交通等)"
+      }
+    },
+    {
+      "id": "1171656",
+      "code": "MP1000412",
+      "name": "所属地区行政区划名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "所属地区行政区划名称",
+        "dkg_sys_code": "MP1000412",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:38",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000412",
+        "dkg_sys_created_time": "2022-04-15 18:32:38",
+        "id": 1171656,
+        "label": "model_property",
+        "dkg_sys_name": "所属地区行政区划名称",
+        "dkg_sys_tags": [
+          "错误提示 model_property_name:唯一校验失败"
+        ]
+      }
+    },
+    {
+      "id": "2494712",
+      "code": "MP1000417",
+      "name": "被年检对象名称(如某某企业)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检对象名称(如某某企业)",
+        "dkg_sys_code": "MP1000417",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000417",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 2494712,
+        "label": "model_property",
+        "dkg_sys_name": "被年检对象名称(如某某企业)"
+      }
+    },
+    {
+      "id": "42156048",
+      "code": "MP1000409",
+      "name": "年检年份",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "年检年份",
+        "dkg_sys_code": "MP1000409",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:38",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000409",
+        "dkg_sys_created_time": "2022-04-15 18:32:38",
+        "id": 42156048,
+        "label": "model_property",
+        "dkg_sys_name": "年检年份"
+      }
+    },
+    {
+      "id": "1196208",
+      "code": "MP1000423",
+      "name": "检查事项",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "检查事项",
+        "dkg_sys_code": "MP1000423",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000423",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1196208,
+        "label": "model_property",
+        "dkg_sys_name": "检查事项"
+      }
+    },
+    {
+      "id": "1310832",
+      "code": "MP1000416",
+      "name": "被年检对象类别(企业、社会组织等)",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "被年检对象类别(企业、社会组织等)",
+        "dkg_sys_code": "MP1000416",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000416",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1310832,
+        "label": "model_property",
+        "dkg_sys_name": "被年检对象类别(企业、社会组织等)"
+      }
+    },
+    {
+      "id": "1175752",
+      "code": "MP1000414",
+      "name": "年检执行部门名称",
+      "labelName": "model_property",
+      "hasNextVertices": false,
+      "propertyMap": {
+        "model_property_name": "年检执行部门名称",
+        "dkg_sys_code": "MP1000414",
+        "model_name": "年检",
+        "dkg_sys_updated_time": "2022-04-15 18:32:39",
+        "dkg_sys_label_name": "model_property",
+        "model_property_id": "MP1000414",
+        "dkg_sys_created_time": "2022-04-15 18:32:39",
+        "id": 1175752,
+        "label": "model_property",
+        "dkg_sys_name": "年检执行部门名称"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "id": "3frncw-20ow-pq1h-p0x4",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1167592"
+    },
+    {
+      "id": "3frklc-20ow-pq1h-p420",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1171656"
+    },
+    {
+      "id": "3frnr4-20ow-pq1h-p42w",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1171688"
+    },
+    {
+      "id": "3frlds-20ow-pq1h-p77s",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1175752"
+    },
+    {
+      "id": "3frk74-20ow-pq1h-pgog",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1188016"
+    },
+    {
+      "id": "3froxs-20ow-pq1h-pn00",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1196208"
+    },
+    {
+      "id": "3frls0-20ow-pq1h-q5ts",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1220608"
+    },
+    {
+      "id": "3frmyo-20ow-pq1h-r1gw",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1261616"
+    },
+    {
+      "id": "3frojk-20ow-pq1h-r7sg",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1269808"
+    },
+    {
+      "id": "3frm68-20ow-pq1h-s3g0",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1310832"
+    },
+    {
+      "id": "3frkzk-20ow-pq1h-1ham0",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2486520"
+    },
+    {
+      "id": "3frmkg-20ow-pq1h-1hgxk",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2494712"
+    },
+    {
+      "id": "3fro5c-20ow-pq1h-1hk3c",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2498808"
+    },
+    {
+      "id": "3frpc0-20ow-pq1h-1hqew",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2507000"
+    },
+    {
+      "id": "3frjeo-20ow-pq1h-p3jtc",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "42156048"
+    },
+    {
+      "id": "3frjsw-20ow-pq1h-p3mz4",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "42160144"
+    },
+    {
+      "id": "3frpc0-20ow-pq1h-1hqew",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2507000"
+    },
+    {
+      "id": "3frjsw-20ow-pq1h-p3mz4",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "42160144"
+    },
+    {
+      "id": "3frls0-20ow-pq1h-q5ts",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1220608"
+    },
+    {
+      "id": "3frojk-20ow-pq1h-r7sg",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1269808"
+    },
+    {
+      "id": "3frk74-20ow-pq1h-pgog",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1188016"
+    },
+    {
+      "id": "3frmyo-20ow-pq1h-r1gw",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1261616"
+    },
+    {
+      "id": "3frncw-20ow-pq1h-p0x4",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1167592"
+    },
+    {
+      "id": "3fro5c-20ow-pq1h-1hk3c",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2498808"
+    },
+    {
+      "id": "3frnr4-20ow-pq1h-p42w",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1171688"
+    },
+    {
+      "id": "3frkzk-20ow-pq1h-1ham0",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2486520"
+    },
+    {
+      "id": "3frklc-20ow-pq1h-p420",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1171656"
+    },
+    {
+      "id": "3frmkg-20ow-pq1h-1hgxk",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "2494712"
+    },
+    {
+      "id": "3frjeo-20ow-pq1h-p3jtc",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "42156048"
+    },
+    {
+      "id": "3froxs-20ow-pq1h-pn00",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1196208"
+    },
+    {
+      "id": "3frm68-20ow-pq1h-s3g0",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1310832"
+    },
+    {
+      "id": "3frlds-20ow-pq1h-p77s",
+      "name": "包含属性",
+      "fromVertexId": "94208",
+      "toVertexId": "1175752"
+    }
+  ]
+}
