@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 13:45:29
+ * @LastEditTime: 2022-08-24 14:26:53
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -63,12 +63,6 @@ type Props = {
   path?: any
 }
 
-const debouncedReset = debounce((path) => {
-  if (!explorePath.find(p => p.isExplore !== true)) {
-    changeIsReset(false)
-  }
-}, exploreTimer * 2)
-
 export const explore = async (
   {
     mainPoint,
@@ -81,6 +75,7 @@ export const explore = async (
     path
   }: Props
 ) => {
+  console.log(isReset)
   if (success) {
     const { isInside, angle } = current
     let position = { x: mainPoint.x!, y: mainPoint.y! }
@@ -113,49 +108,49 @@ export const explore = async (
         fixedNodePosition({ node: current, x: originX, y: originY })
 
         // window.setTimeout(() => {
-          // 创建入边出边types数组
-          const insideTypes = Array.from(new Set(inData.vertices.map(v => v.labelName)))
-          const insideTypeVertices = insideTypes.map((type) => {
-            return inData.vertices.filter(v => v.labelName === type)
-          })
-          const insideMaxAngle = insideTypes.length ? 180 / insideTypes.length : 0
-          drawSideNodes({
-            typeNodes: insideTypeVertices,
-            config,
-            isInside: true,
-            centerPoint: current,
-            maxAngle: insideMaxAngle,
-            edges: [...inData.edges, ...outData.edges],
-            fId: current.id,
-            atanAngle,
-            insideLength: inData.vertices.length,
-            outsideLength: outData.vertices.length,
-            duration: 1000
-          })
+        // 创建入边出边types数组
+        const insideTypes = Array.from(new Set(inData.vertices.map(v => v.labelName)))
+        const insideTypeVertices = insideTypes.map((type) => {
+          return inData.vertices.filter(v => v.labelName === type)
+        })
+        const insideMaxAngle = insideTypes.length ? 180 / insideTypes.length : 0
+        drawSideNodes({
+          typeNodes: insideTypeVertices,
+          config,
+          isInside: true,
+          centerPoint: current,
+          maxAngle: insideMaxAngle,
+          edges: [...inData.edges, ...outData.edges],
+          fId: current.id,
+          atanAngle,
+          insideLength: inData.vertices.length,
+          outsideLength: outData.vertices.length,
+          duration: 1000
+        })
 
-          // 创建出边
-          const outsideTypes = Array.from(new Set(outData.vertices.map(v => v.labelName)))
-          const outsideTypeVertices = outsideTypes.map((type) => {
-            return outData.vertices.filter(v => v.labelName === type)
-          })
-          const outsideMaxAngle = outsideTypes.length ? 180 / outsideTypes.length : 0
-          drawSideNodes({
-            typeNodes: outsideTypeVertices,
-            config, isInside: false,
-            centerPoint: current,
-            maxAngle: outsideMaxAngle,
-            edges: [...inData.edges, ...outData.edges],
-            fId: current.id,
-            atanAngle,
-            insideLength: inData.vertices.length,
-            outsideLength: outData.vertices.length,
-            duration: 1000
-          })
+        // 创建出边
+        const outsideTypes = Array.from(new Set(outData.vertices.map(v => v.labelName)))
+        const outsideTypeVertices = outsideTypes.map((type) => {
+          return outData.vertices.filter(v => v.labelName === type)
+        })
+        const outsideMaxAngle = outsideTypes.length ? 180 / outsideTypes.length : 0
+        drawSideNodes({
+          typeNodes: outsideTypeVertices,
+          config, isInside: false,
+          centerPoint: current,
+          maxAngle: outsideMaxAngle,
+          edges: [...inData.edges, ...outData.edges],
+          fId: current.id,
+          atanAngle,
+          insideLength: inData.vertices.length,
+          outsideLength: outData.vertices.length,
+          duration: 1000
+        })
 
-          setTimeout(() => {
-            drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...inData.edges], nodes: [current, ...inData.vertices], fId: current.id, duration: 1000 })
-            drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id, duration: 1000 })
-          })
+        setTimeout(() => {
+          drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...inData.edges], nodes: [current, ...inData.vertices], fId: current.id, duration: 1000 })
+          drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id, duration: 1000 })
+        })
         // }, isReset ? exploreTimer : 1000)
       } else {
         current.distance -= config.basicDistence * current.size!;
@@ -172,7 +167,7 @@ export const explore = async (
           const id = ele.getAttribute('id')?.substring(2)
           if (id) {
             filteredNodes(id)
-            filteredPath(current.id)
+            filteredPath(id)
           }
         })
         needRemove.remove()
@@ -207,7 +202,11 @@ export const explore = async (
   }
   if (needExplore) {
     path.isExplore = true
-    debouncedReset(path)
+    if (!explorePath.find(p => p.isExplore !== true)) {
+      setTimeout(() => {
+        changeIsReset(false)
+      }, exploreTimer)
+    }
   }
 }
 // , 1000, { leading: true })
