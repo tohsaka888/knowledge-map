@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 14:48:23
+ * @LastEditTime: 2022-08-30 16:01:29
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -37,6 +37,7 @@ declare namespace Graph {
     nameVisible: boolean;
     nameSize: number;
     relationSize: number;
+    pageSize: number;
     setVisible?: React.Dispatch<React.SetStateAction<boolean>>
   }
 
@@ -55,6 +56,7 @@ declare namespace Graph {
     | { type: 'setNameVisible', payload: boolean }
     | { type: 'setNameSize', payload: number }
     | { type: 'setRelationSize', payload: number }
+    | { type: 'setPageSize', payload: number }
 
   type ConfigContextProps = {
     config: ConfigProps;
