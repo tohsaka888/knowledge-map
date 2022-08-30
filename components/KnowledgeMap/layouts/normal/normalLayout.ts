@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:46:57
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 15:31:34
+ * @LastEditTime: 2022-08-30 16:21:43
  * @Description: 请填写简介
  */
 
@@ -53,7 +53,7 @@ export const normalLayout = (
     // if (document.getElementById(verticePrefix + node.id) === null) {
       // document.getElementById(verticePrefix + node.id)?.parentElement?.remove()
       // 记录节点信息
-      node.angle = (idx + (node.needRotate ? 0.5 : 1)) * maxAngle / (nodes.length + 1) + index * maxAngle
+      node.angle = (idx + (node.needRotate ? 0.75 : 1)) * maxAngle / (nodes.length + 1) + index * maxAngle
       node.distance = calcBasicDistence(nodes.length, maxAngle, config.basicDistence)
       node.isInside = isInside
       const position = calcNodePosition(

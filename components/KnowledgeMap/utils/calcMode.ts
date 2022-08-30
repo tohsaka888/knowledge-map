@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:13:48
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-16 15:13:48
+ * @LastEditTime: 2022-08-30 16:05:27
  * @Description: 请填写简介
  */
 
@@ -16,10 +16,11 @@ import { Graph } from "../../.."
  * @param {any} mode?:number
  * @returns {any}
  */
-export const calcMode = (vertices: Graph.Vertice[], page: number, mode?: number,) => {
+export const calcMode = (vertices: Graph.Vertice[], page: number, config: Graph.ConfigProps,) => {
+  const { mode, pageSize } = config
   if (mode === 1 || !mode) {
     return vertices
   } else {
-    return vertices.length < 5 ? vertices : vertices.slice((page - 1) * 5, 5 * page)
+    return vertices.length < 5 ? vertices : vertices.slice((page - 1) * pageSize, pageSize * page)
   }
 }

@@ -74,7 +74,7 @@ export const drawSideNodes = (
         return gN.id === node.id
       })
     })
-    const nodes = calcMode(filteredNodes, 1, mode)
+    const nodes = calcMode(filteredNodes, 1, config)
 
     // 判断会和父节点连线
     const needRotate = filteredNodes.length !== originNodes.length

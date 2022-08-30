@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-19 10:47:29
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 08:24:15
+ * @LastEditTime: 2022-08-30 16:12:10
  * @Description: 请填写简介
  */
 
@@ -47,7 +47,7 @@ export const paginationLayout = (
     parentClass
   }: Props
 ) => {
-  const pagination = { page: 1, pageSize: 5 }
+  const pagination = { page: 1, pageSize: config.pageSize }
   const { arcAreaDistence, arcAreaLength } = config
   const container = d3.select('#node-area')
   let calcedAngle = 0
@@ -56,7 +56,7 @@ export const paginationLayout = (
   } else {
     calcedAngle = isInside ? -90 - (index + 1) * maxAngle : -90 + index * maxAngle + atanAngle / Math.PI * 180
   }
-  if (originNodes.length > 5) {
+  if (originNodes.length > config.pageSize) {
     const arc = container
       .append('g')
       .classed('arc', true)
@@ -101,7 +101,7 @@ export const paginationLayout = (
           {
             pagination,
             originNodes,
-            total: originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
+            total: originNodes.length % config.pageSize === 0 ? +(originNodes.length / config.pageSize).toFixed(0) : Math.floor(originNodes.length / config.pageSize) + 1,
             maxAngle,
             edges,
             config,
@@ -139,7 +139,7 @@ export const paginationLayout = (
           {
             pagination,
             originNodes,
-            total: originNodes.length % 5 === 0 ? +(originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1,
+            total: originNodes.length % config.pageSize === 0 ? +(originNodes.length / config.pageSize).toFixed(0) : Math.floor(originNodes.length / config.pageSize) + 1,
             maxAngle,
             edges,
             config,
@@ -163,7 +163,7 @@ export const paginationLayout = (
       .append('text')
       .attr('transform', `rotate(${90})`)
       .attr('fill', '#fff')
-      .text(`1/${originNodes.length % 5 === 0 ? (originNodes.length / 5).toFixed(0) : Math.floor(originNodes.length / 5) + 1} `)
+      .text(`1/${originNodes.length % config.pageSize === 0 ? (originNodes.length / config.pageSize).toFixed(0) : Math.floor(originNodes.length / config.pageSize) + 1} `)
       .attr('id', `${verticePrefix + nodes[0].labelName}-text`)
       .attr('text-anchor', 'middle')
   }

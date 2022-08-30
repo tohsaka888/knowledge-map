@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:13:59
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 14:51:24
+ * @LastEditTime: 2022-08-30 16:08:39
  * @Description: 请填写简介
  */
 
@@ -49,7 +49,7 @@ export const nextPage = (
   const { mode } = config
   // 清除节点和线
   const type = originNodes[0].labelName!
-  const currentNodes = originNodes.slice((pagination.page - 1) * 5, 5 * pagination.page)
+  const currentNodes = originNodes.slice((pagination.page - 1) * config.pageSize, config.pageSize * pagination.page)
 
   const nextContainer = d3.selectAll(`.${type}`)
     .filter(`#${fPrefix + centerPoint.id}`)
@@ -79,7 +79,7 @@ export const nextPage = (
       pagination.page++
     }
   }
-  const nodes = calcMode(originNodes, pagination.page, mode)
+  const nodes = calcMode(originNodes, pagination.page, config)
 
   const nodeIndex = globalNodes.findIndex(gN => gN.id === currentNodes[0].id)
   globalNodes.splice(nodeIndex, 5)

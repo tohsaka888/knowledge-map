@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-30 15:55:50
+ * @LastEditTime: 2022-08-30 16:01:43
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
@@ -32,7 +32,8 @@ const initState: Graph.ConfigProps = {
   arrowPosition: 50,
   nameVisible: true,
   nameSize: 12,
-  relationSize: 12
+  relationSize: 12,
+  pageSize: 5
 }
 
 const reducer = (state: typeof initState, action: Graph.ActionType) => {
@@ -65,6 +66,8 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
       return { ...state, nameSize: action.payload }
     case 'setRelationSize':
       return { ...state, relationSize: action.payload }
+    case 'setPageSize':
+      return { ...state, pageSize: action.payload }
   }
 }
 
