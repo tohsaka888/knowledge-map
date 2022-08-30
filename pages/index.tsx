@@ -2,13 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 14:24:55
+ * @LastEditTime: 2022-08-30 15:55:50
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
 import type { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { Suspense, useCallback, useEffect, useReducer, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useReducer, useState } from 'react'
 import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
@@ -68,8 +68,14 @@ const reducer = (state: typeof initState, action: Graph.ActionType) => {
   }
 }
 
-const Home: NextPage = () => {
+const ContentContainer = ({ children }: { children: React.ReactNode }) => {
   const { height } = useScreenSize()
+  return <Layout.Content style={{ height: height - 70, background: 'rgb(18, 51, 75)' }}>
+    {children}
+  </Layout.Content>
+}
+
+const Home: NextPage = () => {
   const [config, dispatch] = useReducer(reducer, initState)
   const [visible, setVisible] = useState<boolean>(false)
   const [graphData, setGraphData] = useState<{ nodes: Graph.Node[]; edges: Graph.Edge[]; }>({ nodes: [], edges: [] })
@@ -106,10 +112,10 @@ const Home: NextPage = () => {
           <Layout.Header style={{ background: '#14335e' }}>
             <h1 style={{ color: '#fff' }}>知识图谱Demo</h1>
           </Layout.Header>
-          <Layout style={{ minHeight: height - 70 }}>
+          <Layout>
             <ConfigContext.Provider value={{ config, dispatch }}>
               <ControllerPannel />
-              <Layout.Content style={{ height: height - 70, background: 'rgb(18, 51, 75)' }}>
+              <ContentContainer>
                 <VisibleContext.Provider value={{ visible, setVisible }}>
                   {!loading && <Canvas
                     insideVertices={insideGraph.vertices}
@@ -120,7 +126,7 @@ const Home: NextPage = () => {
                     config={config}
                   />}
                 </VisibleContext.Provider>
-              </Layout.Content>
+              </ContentContainer>
             </ConfigContext.Provider>
           </Layout>
         </Layout>

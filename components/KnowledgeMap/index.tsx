@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-23 10:36:46
+ * @LastEditTime: 2022-08-30 15:47:47
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
@@ -24,7 +24,7 @@ type Props = {
   outsideVertices: Graph.Vertice[];
 }
 
-function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVertices }: Props) {
+const UnMemoCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsideVertices }: Props) => {
   const canvasRef = useRef<SVGSVGElement>(null!)
   const { setVisible } = useContext(VisibleContext)!
 
@@ -41,7 +41,7 @@ function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVert
     })
 
     window.addEventListener('keyup', (event) => {
-      normalDrag(canvasRef.current)
+      // normalDrag(canvasRef.current)
     })
 
     return () => {
@@ -77,5 +77,7 @@ function Canvas({ nodes, edges, config, mainVertice, insideVertices, outsideVert
     </div>
   )
 }
+
+const Canvas = React.memo(UnMemoCanvas)
 
 export default Canvas
