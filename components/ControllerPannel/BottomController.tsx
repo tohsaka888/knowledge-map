@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-23 08:35:52
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 09:01:38
+ * @LastEditTime: 2022-08-30 15:56:50
  * @Description: 请填写简介
  */
 
@@ -23,6 +23,7 @@ const alert = debounce(() => {
 
 function BottomController() {
 
+  const [isFullScreen, setIsFullScreen] = useState<boolean>(false)
   const { config, dispatch } = useContext(ConfigContext)!
   const [maskVisible, setMaskVisible] = useState<boolean>(false)
 
@@ -63,7 +64,16 @@ function BottomController() {
       </div>
       <div className={style['button-container']}>
         <Tooltip placement="top" trigger={'hover'} title="全屏">
-          <div className={style['button-background']}>
+          <div className={style['button-background']}
+            onClick={() => {
+              if (!isFullScreen) {
+                document.documentElement.requestFullscreen()
+              } else {
+                document.exitFullscreen()
+              }
+              setIsFullScreen(!isFullScreen)
+            }}
+          >
             <BsFullscreen color='#fff' size={15} />
           </div>
         </Tooltip>
