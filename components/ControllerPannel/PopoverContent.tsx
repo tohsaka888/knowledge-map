@@ -117,6 +117,15 @@ function PopoverContent({ type }: Props) {
             <Divider style={{ margin: '8px 0px' }} />
             <div>
               <Radio value={2}>分页布局</Radio>
+              <div className={style['label']} style={{ marginTop: '8px' }}>每页数量:</div>
+              <Slider min={2} max={10}
+                marks={{ 2: 2, 10: 10, 5: 5 }}
+                value={config.pageSize}
+                onChange={(value) => {
+                  resetCanvas()
+                  dispatch({ type: 'setPageSize', payload: value });
+                }}
+              />
             </div>
             <Divider style={{ margin: '8px 0px' }} />
             <div>
