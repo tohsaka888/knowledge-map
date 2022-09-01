@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-24 16:06:02
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 17:09:40
+ * @LastEditTime: 2022-09-01 16:53:05
  * @Description: 请填写简介
  */
 
@@ -29,7 +29,7 @@ type Props = {
 
 export const insideAutoExplore = debounce(
   ({ typeNodes, centerPoint, config }: Props) => {
-    console.log(typeNodes)
+    // console.log(typeNodes)
     typeNodes.forEach(nodes => {
       nodes.forEach(node => {
         let currentPath = explorePath.find(path => path.mainId === node.id)
