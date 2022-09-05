@@ -1,0 +1,18 @@
+.right-menu-container {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: none;
+  background-color: transparent;
+  top: 0px;
+  z-index: 999;
+}
+
+.right-menu-content {
+  position: fixed;
+  width: 200px;
+  background: #3b4c6e;
+  min-height: 100px;
+  /* 开启GPU加速 */
+  will-change: transform;
+}
