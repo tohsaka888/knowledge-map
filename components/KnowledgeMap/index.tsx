@@ -2,18 +2,18 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-30 15:47:47
+ * @LastEditTime: 2022-09-06 13:54:23
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef } from 'react'
 import { canvasDrag, multiDrag, normalDrag } from './canvasDrag';
 import EdgeArea from './EdgeArea';
-import style from './index.module.css'
 import NodeArea from './NodeArea';
 import { Graph } from '../..';
-import CustomPopover from '../CustomPopover';
 import { VisibleContext } from '../context';
 import { createForceGraph } from './createForceGraph';
+import NodeMenu from '../NodeMenu';
+import { unShowNodeMenu } from '../NodeMenu/nodeMenu';
 
 type Props = {
   nodes: Graph.Node[];
@@ -44,6 +44,10 @@ const UnMemoCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsi
       // normalDrag(canvasRef.current)
     })
 
+    // window.addEventListener('mouseover', () => {
+    // unShowNodeMenu()
+    // })
+
     return () => {
       window.removeEventListener('keydown', () => {
         console.log('remove')
@@ -65,6 +69,7 @@ const UnMemoCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsi
         <g id="scale" transform={`scale(1)`}>
           {/* 画布移动 */}
           <g transform={`translate(0, 0)`} id="drag">
+            <NodeMenu />
             {/* <CustomPopover /> */}
             {config.mode !== 3 && <>
               <EdgeArea mainVertice={mainVertice} vertices={[mainVertice, ...insideVertices, ...outsideVertices]} edges={edges} config={config}>
