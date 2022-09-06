@@ -1,0 +1,24 @@
+.node-menu-container {
+  position: fixed;
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+  top: 0px;
+}
+
+.node-menu {
+  border-radius: 50%;
+  /* background-color: #dec0a2; */
+  position: fixed;
+  display: none;
+  z-index: 999;
+}
+
+.icon-container {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: #85ADFF;
+  position: fixed;
+}
