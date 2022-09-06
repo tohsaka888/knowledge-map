@@ -2,12 +2,13 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:22:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-22 14:19:38
+ * @LastEditTime: 2022-09-06 09:31:22
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { Graph } from '../..';
+import { unShowNodeMenu } from '../NodeMenu/nodeMenu';
 import { globalNodes } from './global';
 import { modifyEdge } from './modifyEdge';
 import { fPrefix, verticePrefix } from './prefix';
@@ -27,6 +28,7 @@ export const dragStart = ({ current, node }: Props) => {
 
   node.initX = node.x!
   node.initY = node.y!
+  unShowNodeMenu()
 
   const arc = d3.selectAll('.arc')
     .filter(`#${fPrefix + node.id}`)
@@ -56,6 +58,7 @@ export const dragging = ({ current, event, node, config, edges }: Props) => {
   memoNode.y = event.y
   const { nodeRadius } = config
   requestAnimationFrame(() => {
+    unShowNodeMenu()
     const arc = d3.selectAll('.arc')
       .filter(`#${fPrefix + node.id}`)
 
@@ -76,5 +79,6 @@ export const dragging = ({ current, event, node, config, edges }: Props) => {
 }
 
 export const dragEnd = ({ current, event, node, config }: Props) => {
+  unShowNodeMenu()
   d3.select(current).selectAll('*').style('cursor', 'pointer');
 }
