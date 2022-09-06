@@ -2,13 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-05 09:08:53
+ * @LastEditTime: 2022-09-06 14:04:05
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
-import { debounce, throttle } from 'lodash';
+import { throttle } from 'lodash';
 import { Graph } from '../..';
+import { debounceIsShowNodeMenu, isShowNodeMenu, unShowNodeMenu } from '../NodeMenu/nodeMenu';
 import { rightMenuClick } from '../RightMenu/rightMenu';
 import { explore } from './explore';
 import { changeInitDraw, changeIsReset, explorePath, exploreTimer, globalNodes, initDraw, isReset } from './global';
@@ -61,6 +62,9 @@ export const createNode = (
     .attr('fill', '#1890ff')
     .style('cursor', 'pointer')
     .attr('id', verticePrefix + vertice.id || '')
+    .on('mouseover', (e: any) => {
+      debounceIsShowNodeMenu({ e, node: vertice, config })
+    })
   container
     .append('text')
     .attr('x', vertice.x!)
@@ -141,6 +145,12 @@ export const createSideNode = (
 
   // 探索
   window.setTimeout(() => {
+    setTimeout(() => {
+      container.on('mouseover', (e: any) => {
+        e.stopPropagation();
+        debounceIsShowNodeMenu({ e, node: vertice, config })
+      })
+    }, delay)
     container
       .on('mousedown', (e: any) => {
         rightMenuClick({ e, node: vertice })
