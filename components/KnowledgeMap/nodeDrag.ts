@@ -2,14 +2,14 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 17:22:12
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-06 09:31:22
+ * @LastEditTime: 2022-09-07 09:16:46
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { Graph } from '../..';
 import { unShowNodeMenu } from '../NodeMenu/nodeMenu';
-import { globalNodes } from './global';
+import { fontMargin, globalNodes } from './global';
 import { modifyEdge } from './modifyEdge';
 import { fPrefix, verticePrefix } from './prefix';
 
@@ -24,11 +24,11 @@ type Props = {
 let originX = 0;
 let originY = 0;
 
-export const dragStart = ({ current, node }: Props) => {
+export const dragStart = ({ current, node, config }: Props) => {
 
   node.initX = node.x!
   node.initY = node.y!
-  unShowNodeMenu()
+  unShowNodeMenu({ node, config })
 
   const arc = d3.selectAll('.arc')
     .filter(`#${fPrefix + node.id}`)
@@ -58,7 +58,7 @@ export const dragging = ({ current, event, node, config, edges }: Props) => {
   memoNode.y = event.y
   const { nodeRadius } = config
   requestAnimationFrame(() => {
-    unShowNodeMenu()
+    unShowNodeMenu({ node, config })
     const arc = d3.selectAll('.arc')
       .filter(`#${fPrefix + node.id}`)
 
@@ -73,12 +73,12 @@ export const dragging = ({ current, event, node, config, edges }: Props) => {
       .attr('y', event.y)
     container.select(`#${verticePrefix + node.id}name`)
       .attr('x', event.x)
-      .attr('y', event.y + nodeRadius + 10)
+      .attr('y', event.y + nodeRadius + config.nameSize + fontMargin)
     modifyEdge({ config, x: event.x, y: event.y, node, timer: 0 })
   })
 }
 
 export const dragEnd = ({ current, event, node, config }: Props) => {
-  unShowNodeMenu()
+  unShowNodeMenu({ node, config })
   d3.select(current).selectAll('*').style('cursor', 'pointer');
 }
