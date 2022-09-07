@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-07 16:32:27
+ * @LastEditTime: 2022-09-07 16:41:13
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -43,7 +43,7 @@ const SVGCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsideV
     })
 
     window.addEventListener('keyup', (event) => {
-      // normalDrag(canvasRef.current)
+      normalDrag(canvasRef.current)
     })
 
     // window.addEventListener('mouseover', () => {
