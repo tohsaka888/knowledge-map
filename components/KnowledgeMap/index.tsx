@@ -2,10 +2,10 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-06 13:54:23
+ * @LastEditTime: 2022-09-07 10:01:11
  * @Description: 请填写简介
  */
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { canvasDrag, multiDrag, normalDrag } from './canvasDrag';
 import EdgeArea from './EdgeArea';
 import NodeArea from './NodeArea';
@@ -13,7 +13,8 @@ import { Graph } from '../..';
 import { VisibleContext } from '../context';
 import { createForceGraph } from './createForceGraph';
 import NodeMenu from '../NodeMenu';
-import { unShowNodeMenu } from '../NodeMenu/nodeMenu';
+import { Drawer } from 'antd';
+import { DrawContext } from '../../context';
 
 type Props = {
   nodes: Graph.Node[];
@@ -22,12 +23,12 @@ type Props = {
   mainVertice: Graph.Vertice;
   insideVertices: Graph.Vertice[];
   outsideVertices: Graph.Vertice[];
+  children: React.ReactNode;
 }
 
-const UnMemoCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsideVertices }: Props) => {
+const SVGCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsideVertices, children }: Props) => {
   const canvasRef = useRef<SVGSVGElement>(null!)
   const { setVisible } = useContext(VisibleContext)!
-
   useEffect(() => {
     canvasDrag(canvasRef.current, setVisible)
     normalDrag(canvasRef.current)
@@ -58,28 +59,50 @@ const UnMemoCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsi
     }
   }, [config, setVisible, nodes, edges])
   return (
-    <div style={{ width: '100%', height: '100%' }}>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        style={{ width: '100%', height: '100%' }}
-        id='svg'
-        ref={canvasRef}
-      >
-        {/* 画布缩放 */}
-        <g id="scale" transform={`scale(1)`}>
-          {/* 画布移动 */}
-          <g transform={`translate(0, 0)`} id="drag">
-            <NodeMenu />
-            {/* <CustomPopover /> */}
-            {config.mode !== 3 && <>
-              <EdgeArea mainVertice={mainVertice} vertices={[mainVertice, ...insideVertices, ...outsideVertices]} edges={edges} config={config}>
-                <NodeArea mainVertice={mainVertice} insideVertices={insideVertices} outsideVertices={outsideVertices} edges={edges} config={config} />
-              </EdgeArea>
-            </>}
-          </g>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      style={{ width: '100%', height: '100%' }}
+      id='svg'
+      ref={canvasRef}
+    >
+      {/* 画布缩放 */}
+      <g id="scale" transform={`scale(1)`}>
+        {/* 画布移动 */}
+        <g transform={`translate(0, 0)`} id="drag">
+          {children}
+          {/* <CustomPopover /> */}
+          {config.mode !== 3 && <>
+            <EdgeArea mainVertice={mainVertice} vertices={[mainVertice, ...insideVertices, ...outsideVertices]} edges={edges} config={config}>
+              <NodeArea mainVertice={mainVertice} insideVertices={insideVertices} outsideVertices={outsideVertices} edges={edges} config={config} />
+            </EdgeArea>
+          </>}
         </g>
-      </svg>
-    </div>
+      </g>
+    </svg>
+  )
+}
+
+const UnMemoSVGCanvas = ({ children }: { children: React.ReactNode }) => {
+  const [drawerShow, setDrawerShow] = useState<boolean>(false)
+  return (
+    <DrawContext.Provider value={{ drawerShow, setDrawerShow }}>
+      <div style={{ width: '100%', height: '100%' }}>
+        {children}
+        <Drawer visible={drawerShow} onClose={() => {
+          setDrawerShow(false)
+        }} />
+      </div>
+    </DrawContext.Provider>
+  )
+}
+
+const UnMemoCanvas = (props: Omit<Props, 'children'>) => {
+  return (
+    <UnMemoSVGCanvas>
+      <SVGCanvas {...props}>
+        <NodeMenu />
+      </SVGCanvas>
+    </UnMemoSVGCanvas>
   )
 }
 
