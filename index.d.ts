@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-30 16:01:29
+ * @LastEditTime: 2022-09-07 09:51:51
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -61,6 +61,11 @@ declare namespace Graph {
   type ConfigContextProps = {
     config: ConfigProps;
     dispatch: Dispatch<ActionType>
+  }
+
+  type DrawContextProps = {
+    drawerShow: boolean
+    setDrawerShow: React.Dispatch<React.SetStateAction<boolean>>
   }
 
   type Vertice = {
