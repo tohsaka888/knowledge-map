@@ -21,4 +21,9 @@
   border-radius: 50%;
   background-color: #85ADFF;
   position: fixed;
+  cursor: pointer;
+}
+
+.icon-container:hover {
+  color: blue;
 }
