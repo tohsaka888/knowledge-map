@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-07 10:01:11
+ * @LastEditTime: 2022-09-07 16:32:27
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -15,6 +15,7 @@ import { createForceGraph } from './createForceGraph';
 import NodeMenu from '../NodeMenu';
 import { Drawer } from 'antd';
 import { DrawContext } from '../../context';
+import { unShowNodeMenu } from '../NodeMenu/nodeMenu';
 
 type Props = {
   nodes: Graph.Node[];
@@ -50,6 +51,7 @@ const SVGCanvas = ({ nodes, edges, config, mainVertice, insideVertices, outsideV
     // })
 
     return () => {
+      unShowNodeMenu({ config })
       window.removeEventListener('keydown', () => {
         console.log('remove')
       })

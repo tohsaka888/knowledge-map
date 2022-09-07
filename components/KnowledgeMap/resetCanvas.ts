@@ -2,11 +2,10 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-06 09:30:40
+ * @LastEditTime: 2022-09-07 16:31:35
  * @Description: 请填写简介
  */
 import * as d3 from 'd3'
-import { unShowNodeMenu } from '../NodeMenu/nodeMenu'
 import { insideAutoExplore, outsideAutoExplore } from './autoExplore'
 import { resetSize, translate } from './canvasDrag'
 import { changeInitDraw, changeIsReset, explorePath, exploreTimer, globalEdges, globalNodes, isReset } from './global'
@@ -15,7 +14,6 @@ export const resetCanvas = (needClear?: boolean) => {
 
   insideAutoExplore.cancel()
   outsideAutoExplore.cancel()
-  unShowNodeMenu()
 
   changeInitDraw(true)
 
