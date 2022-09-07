@@ -2,18 +2,18 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-05 08:47:23
+ * @LastEditTime: 2022-09-07 08:17:17
  * @Description: 请填写简介
  */
 import { Layout } from 'antd'
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import Head from 'next/head'
-import React, { Suspense, useCallback, useEffect, useReducer, useState } from 'react'
+import React, { useCallback, useEffect, useReducer, useState } from 'react'
 import { Graph } from '..'
 import Canvas from '../components/KnowledgeMap/index'
 import { baseUrl } from '../config/baseUrl'
 import useScreenSize from '../hooks/useScreenSize'
-import { nodeRadius, basicDistence, arcAreaLength, arcAreaDistence, mode } from '../components/KnowledgeMap/defaultConfig'
+import { nodeRadius, basicDistence, arcAreaLength, arcAreaDistence } from '../components/KnowledgeMap/defaultConfig'
 import { ConfigContext } from '../context'
 import { VisibleContext } from '../components/context'
 import ControllerPannel from '../components/ControllerPannel'
