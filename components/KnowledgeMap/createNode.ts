@@ -2,17 +2,17 @@
  * @Author: tohsaka888
  * @Date: 2022-08-16 15:53:09
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-06 14:04:05
+ * @LastEditTime: 2022-09-07 09:20:55
  * @Description: 请填写简介
  */
 
 import * as d3 from 'd3'
 import { throttle } from 'lodash';
 import { Graph } from '../..';
-import { debounceIsShowNodeMenu, isShowNodeMenu, unShowNodeMenu } from '../NodeMenu/nodeMenu';
+import { debounceIsShowNodeMenu, isShowNodeMenu, setDelay, unShowNodeMenu } from '../NodeMenu/nodeMenu';
 import { rightMenuClick } from '../RightMenu/rightMenu';
 import { explore } from './explore';
-import { changeInitDraw, changeIsReset, explorePath, exploreTimer, globalNodes, initDraw, isReset } from './global';
+import { changeInitDraw, changeIsReset, explorePath, exploreTimer, fontMargin, globalNodes, initDraw, isReset } from './global';
 import { dragEnd, dragging, dragStart } from './nodeDrag';
 import { verticePrefix } from './prefix';
 import { canExplore } from './utils/test/canExplore';
@@ -63,7 +63,7 @@ export const createNode = (
     .style('cursor', 'pointer')
     .attr('id', verticePrefix + vertice.id || '')
     .on('mouseover', (e: any) => {
-      debounceIsShowNodeMenu({ e, node: vertice, config })
+      debounceIsShowNodeMenu({ e, node: vertice, config, delay: 0 })
     })
   container
     .append('text')
@@ -78,8 +78,9 @@ export const createNode = (
     .text(transferLabelName(vertice.labelName) || '')
   container
     .append('text')
+    .classed('node-name', true)
     .attr('x', vertice.x!)
-    .attr('y', vertice.y! + nodeRadius + config.nameSize)
+    .attr('y', vertice.y! + nodeRadius + config.nameSize + fontMargin)
     .attr('id', verticePrefix + vertice.id + 'name')
     .style('cursor', 'pointer')
     .attr('text-anchor', 'middle')
@@ -127,6 +128,7 @@ export const createSideNode = (
 ) => {
   const { nodeRadius } = config
   let delay = initDraw ? 0 : duration
+  setDelay(delay)
   changeInitDraw(false)
   let isExplore = { explore: false }
   if (!globalNodes.find(v => v.id === vertice.id)) {
@@ -148,7 +150,7 @@ export const createSideNode = (
     setTimeout(() => {
       container.on('mouseover', (e: any) => {
         e.stopPropagation();
-        debounceIsShowNodeMenu({ e, node: vertice, config })
+        debounceIsShowNodeMenu({ e, node: vertice, config, delay })
       })
     }, delay)
     container
@@ -168,6 +170,7 @@ export const createSideNode = (
           })
       )
       .on('click', (e) => {
+        unShowNodeMenu({ node: vertice, config })
         window.clearInterval(timer)
         container.call(
           d3.drag<any, any>()
@@ -177,6 +180,7 @@ export const createSideNode = (
         )
 
         timer = window.setTimeout(() => {
+          unShowNodeMenu({ node: vertice, config })
           container
             .call(
               d3.drag<any, any>()
@@ -230,8 +234,9 @@ export const createSideNode = (
     .style('opacity', 1)
   container
     .append('text')
+    .classed('node-name', true)
     .attr('x', mainVertice.x!)
-    .attr('y', mainVertice.y! + nodeRadius + config.nameSize)
+    .attr('y', mainVertice.y! + nodeRadius + config.nameSize + fontMargin)
     .attr('id', verticePrefix + vertice.id + 'name')
     .style('cursor', 'pointer')
     .attr('text-anchor', 'middle')
@@ -244,6 +249,6 @@ export const createSideNode = (
     .delay(isReset ? exploreTimer : delay)
     .duration(isReset ? exploreTimer : duration)
     .attr('x', vertice.x!)
-    .attr('y', vertice.y! + nodeRadius + config.nameSize)
+    .attr('y', vertice.y! + nodeRadius + config.nameSize + fontMargin)
     .style('opacity', 1)
 }

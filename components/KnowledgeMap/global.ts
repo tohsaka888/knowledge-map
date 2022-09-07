@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-18 13:32:40
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-06 13:49:40
+ * @LastEditTime: 2022-09-07 09:09:01
  * @Description: 请填写简介
  */
 
@@ -37,6 +37,12 @@ export const changeIsReset = (state: boolean) => {
 
 export const changeInitDraw = (state: boolean) => {
   initDraw = state
+}
+
+export let fontMargin = 0
+
+export const setFontMargin = (size: number) => {
+  fontMargin = size
 }
 
 export const nodeMenuWidth = 10;

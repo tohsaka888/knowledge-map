@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-08-24 17:13:25
+ * @LastEditTime: 2022-09-07 08:54:08
  * @Description: 请填写简介
  */
 import { message } from 'antd'
@@ -10,6 +10,7 @@ import * as d3 from 'd3'
 import { cloneDeep, debounce } from 'lodash'
 import { Graph } from '../..'
 import { baseUrl } from '../../config/baseUrl'
+import { isShowNodeMenu, setDelay } from '../NodeMenu/nodeMenu'
 // import { insideAutoExplore, outsideAutoExplore } from './autoExplore'
 import { drawEdgeArea } from './drawEdgeArea'
 import { drawSideNodes } from './drawSideNodes'
@@ -159,6 +160,7 @@ export const explore = async (
           drawEdgeArea({ mainPoint: current, config: config, init: false, edges: [...outData.edges], nodes: [current, ...outData.vertices], fId: current.id, duration: 1000 })
         })
         // }, isReset ? exploreTimer : 1000)
+        isExplore = false
       } else {
         current.distance -= config.basicDistence * current.size!;
         position = extendDistance({ node: current, mainPoint, isInside, size: current.size!, isExplore, config })
@@ -211,5 +213,8 @@ export const explore = async (
     path.isExplore = true
     debounceReset()
   }
+  setTimeout(() => {
+    setDelay(0)
+  }, 1000)
 }
 // , 1000, { leading: true })
