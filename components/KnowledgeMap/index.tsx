@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-07 16:41:13
+ * @LastEditTime: 2022-09-08 08:53:54
  * @Description: 请填写简介
  */
 import React, { useContext, useEffect, useRef, useState } from 'react'
@@ -15,7 +15,8 @@ import { createForceGraph } from './createForceGraph';
 import NodeMenu from '../NodeMenu';
 import { Drawer } from 'antd';
 import { DrawContext } from '../../context';
-import { unShowNodeMenu } from '../NodeMenu/nodeMenu';
+import { currentNode, unShowNodeMenu } from '../NodeMenu/nodeMenu';
+import KnowledgeCard from '../KnowledgeCard';
 
 type Props = {
   nodes: Graph.Node[];
@@ -90,9 +91,21 @@ const UnMemoSVGCanvas = ({ children }: { children: React.ReactNode }) => {
     <DrawContext.Provider value={{ drawerShow, setDrawerShow }}>
       <div style={{ width: '100%', height: '100%' }}>
         {children}
-        <Drawer visible={drawerShow} onClose={() => {
-          setDrawerShow(false)
-        }} />
+        <Drawer width={400} visible={drawerShow}
+          title={currentNode.node?.name || ''}
+          headerStyle={{ display: 'none' }}
+          footer={null}
+          bodyStyle={{
+            background: '#17243a',
+            color: '#fff',
+            padding: '16px'
+          }}
+          onClose={() => {
+            setDrawerShow(false)
+          }}
+        >
+          <KnowledgeCard />
+        </Drawer>
       </div>
     </DrawContext.Provider>
   )
