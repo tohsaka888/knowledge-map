@@ -2,7 +2,7 @@
  * @Author: tohsaka888
  * @Date: 2022-08-01 11:31:01
  * @LastEditors: tohsaka888
- * @LastEditTime: 2022-09-07 09:51:51
+ * @LastEditTime: 2022-09-08 09:03:30
  * @Description: 请填写简介
  */
 import React, { Dispatch } from "react";
@@ -86,6 +86,7 @@ declare namespace Graph {
     isInside?: boolean;
     needRotate?: boolean;
     propertyMap: {
+      dkg_sys_tags?: string[];
       model_property_name?: string;
       dkg_sys_code?: string;
       model_name?: string;
