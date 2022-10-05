@@ -6,7 +6,7 @@ specifiers:
   '@types/node': 18.0.4
   '@types/react': 18.0.21
   '@types/react-dom': 18.0.6
-  antd: 4.23.2
+  antd: 4.23.4
   d3: 7.6.1
   eslint: 8.24.0
   eslint-config-next: 12.3.0
@@ -20,7 +20,7 @@ specifiers:
 dependencies:
   '@types/d3': 7.4.0
   '@types/lodash': 4.14.186
-  antd: 4.23.2_biqbaboplfbrettd7655fr4n2y
+  antd: 4.23.4_biqbaboplfbrettd7655fr4n2y
   d3: 7.6.1
   lodash: 4.17.21
   next: 12.3.0_biqbaboplfbrettd7655fr4n2y
@@ -609,8 +609,8 @@ packages:
       color-convert: 2.0.1
     dev: true
 
-  /antd/4.23.2_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-GGOaIUxPg8wl8lGcCJ2U/1Eg5mt0hNb554a0y4mTJa1ijPRCNM8XjUcio4lTMM7M9/fLm9ttKtyxHg4n+JX26A==}
+  /antd/4.23.4_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-2VdDSPXEjCc2m2qBgv6DKpKnsKIGyQtJBdcGn223EqHxDWHqCaRxeJIA9bcW50ntHFkwdeBa+IeWLBor377dkA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
@@ -634,7 +634,7 @@ packages:
       rc-field-form: 1.27.1_biqbaboplfbrettd7655fr4n2y
       rc-image: 5.7.0_biqbaboplfbrettd7655fr4n2y
       rc-input: 0.1.2_biqbaboplfbrettd7655fr4n2y
-      rc-input-number: 7.3.6_biqbaboplfbrettd7655fr4n2y
+      rc-input-number: 7.3.9_biqbaboplfbrettd7655fr4n2y
       rc-mentions: 1.9.1_biqbaboplfbrettd7655fr4n2y
       rc-menu: 9.6.3_biqbaboplfbrettd7655fr4n2y
       rc-motion: 2.6.2_biqbaboplfbrettd7655fr4n2y
@@ -2349,8 +2349,8 @@ packages:
       react-dom: 18.2.0_react@18.2.0
     dev: false
 
-  /rc-input-number/7.3.6_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-Se62oMOBn9HwF/gSag+YtAYyKZsjJzEsqmyAJHAnAvPfjZJOu7dLMlQRwBbTtELbKXM/Y5Fztcq8CW2Y9f49qA==}
+  /rc-input-number/7.3.9_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-u0+miS+SATdb6DtssYei2JJ1WuZME+nXaG6XGtR8maNyW5uGDytfDu60OTWLQEb0Anv/AcCzehldV8CKmKyQfA==}
     peerDependencies:
       react: '>=16.9.0'
       react-dom: '>=16.9.0'
