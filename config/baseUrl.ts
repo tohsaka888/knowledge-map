@@ -7,5 +7,5 @@
  */
 export const baseUrl =
   process.env.NODE_ENV === 'production'
-    ? 'https://knowledge-map.netlify.app'
+    ? 'https://knowledge-map.tohsaka888.asia'
     : 'http://localhost:3000'
